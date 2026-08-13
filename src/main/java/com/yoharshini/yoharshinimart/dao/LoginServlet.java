@@ -34,10 +34,8 @@ public class LoginServlet extends HttpServlet {
                 session.setAttribute("user_name", rs.getString("name"));
                 session.setAttribute("user_role", rs.getString("role"));
 
-                out.println("<h3>Login Successful! Welcome, " + rs.getString("name") + "</h3>");
-            } else {
-                out.println("<h3>Invalid Email or Password. <a href='login.jsp'>Try again</a></h3>");
-            }
+                response.sendRedirect("home.html");
+            } 
         } catch (SQLException e) {
             e.printStackTrace();
             out.println("<h3>Error: " + e.getMessage() + "</h3>");
