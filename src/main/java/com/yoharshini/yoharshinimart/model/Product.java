@@ -3,6 +3,7 @@ package com.yoharshini.yoharshinimart.model;
 import java.sql.Timestamp;
 
 public class Product {
+
     private int id;
     private int sellerId;
     private String name;
@@ -10,30 +11,96 @@ public class Product {
     private double price;
     private int stockQty;
     private String category;
+    private String imageUrl;
     private Timestamp createdAt;
 
-    // Getters and Setters
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    public Product() {
+    }
 
-    public int getSellerId() { return sellerId; }
-    public void setSellerId(int sellerId) { this.sellerId = sellerId; }
+    public Product(int id, int sellerId, String name, String description,
+                   double price, int stockQty, String category,
+                   String imageUrl, Timestamp createdAt) {
 
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
+        this.id = id;
+        this.sellerId = sellerId;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.stockQty = stockQty;
+        this.category = category;
+        this.imageUrl = imageUrl;
+        this.createdAt = createdAt;
+    }
 
-    public String getDescription() { return description; }
-    public void setDescription(String description) { this.description = description; }
+    public int getId() {
+        return id;
+    }
 
-    public double getPrice() { return price; }
-    public void setPrice(double price) { this.price = price; }
+    public void setId(int id) {
+        this.id = id;
+    }
 
-    public int getStockQty() { return stockQty; }
-    public void setStockQty(int stockQty) { this.stockQty = stockQty; }
+    public int getSellerId() {
+        return sellerId;
+    }
 
-    public String getCategory() { return category; }
-    public void setCategory(String category) { this.category = category; }
+    public void setSellerId(int sellerId) {
+        this.sellerId = sellerId;
+    }
 
-    public Timestamp getCreatedAt() { return createdAt; }
-    public void setCreatedAt(Timestamp createdAt) { this.createdAt = createdAt; }
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public int getStockQty() {
+        return stockQty;
+    }
+
+    public void setStockQty(int stockQty) {
+        this.stockQty = stockQty;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public Timestamp getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Timestamp createdAt) {
+        this.createdAt = createdAt;
+    }
 }
