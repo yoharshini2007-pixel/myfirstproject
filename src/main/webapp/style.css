@@ -1,0 +1,15 @@
+function login() {
+
+    let email = document.getElementById("email").value;
+    let password = document.getElementById("password").value;
+
+    if (email == "admin@gmail.com" && password == "12345") {
+
+        window.location.href = "home.html";
+
+    } else {
+
+        document.getElementById("message").innerHTML =
+            "❌ Invalid Email or Password";
+    }
+}
