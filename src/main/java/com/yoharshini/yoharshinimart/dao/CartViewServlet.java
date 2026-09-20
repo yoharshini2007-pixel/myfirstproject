@@ -33,7 +33,7 @@ public class CartViewServlet extends HttpServlet {
         }
 
         int userId = (Integer) userIdObject;
-
+        System.out.println("CART USER ID= " + userId);
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
 
@@ -82,17 +82,19 @@ public class CartViewServlet extends HttpServlet {
                 out.println("</div>");
             }
 
-            if (!hasItems) {
-                out.println("<p>Your cart is empty!</p>");
-            }
+             if(!hasItems) {
+    out.println("<p>Your cart is empty!</p>");
+}
 
-            out.println("<h3>Total Amount: ₹" + total + "</h3>");
+out.println("<h3>Total Amount: ₹" + total + "</h3>");
 
-            if (hasItems) {
-                out.println("<button>Confirm Order (Checkout)</button>");
-            }
+if (hasItems) {
+    out.println("<form action='OrderServlet' method='post'>");
+    out.println("<button type='submit'>Confirm Order (Checkout)</button>");
+    out.println("</form>");
+}
 
-            out.println("</body></html>");
+out.println("</body></html>");
 
         } catch (Exception e) {
             e.printStackTrace();
