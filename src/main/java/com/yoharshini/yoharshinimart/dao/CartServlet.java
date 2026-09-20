@@ -49,7 +49,7 @@ public class CartServlet extends HttpServlet {
 
             out.println("<script>");
             out.println("alert('Product added to cart! 🛒');");
-            out.println("window.location.href='cart.html';");
+            out.println("window.location.href='CartViewServlet';");
             out.println("</script>");
 
         } catch (Exception e) {
