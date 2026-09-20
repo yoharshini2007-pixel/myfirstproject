@@ -1,43 +1,81 @@
+package com.yoharshini.yoharshinimart.dao;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/register")
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.yoharshini.yoharshinimart.util.DatabaseConnection;
+
+@WebServlet("/RegisterServlet")
 public class RegisterServlet extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+    private static final long serialVersionUID = 1L;
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
+
+        out.println("<html><head><title>Register</title></head><body>");
+        out.println("<h2>Create Account</h2>");
+
+        out.println("<form action='RegisterServlet' method='post'>");
+
+        out.println("Name:<br>");
+        out.println("<input type='text' name='name' required><br><br>");
+
+        out.println("Email:<br>");
+        out.println("<input type='email' name='email' required><br><br>");
+
+        out.println("Password:<br>");
+        out.println("<input type='password' name='password' required><br><br>");
+
+        out.println("<button type='submit'>Register</button>");
+
+        out.println("</form>");
+        out.println("</body></html>");
+    }
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
         String name = request.getParameter("name");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        String role = request.getParameter("role");
 
-        try (Connection conn = DatabaseConnection.getConnection()) {
-            String sql = "INSERT INTO users (name, email, password_hash, role) VALUES (?, ?, ?, ?)";
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1, name);
-            stmt.setString(2, email);
-            stmt.setString(3, password); // Note: In production, hash the password!
-            stmt.setString(4, role);
+        String sql = "INSERT INTO users (name, email, password_hash, role) VALUES (?, ?, ?, ?)";
 
-            int rows = stmt.executeUpdate();
-            if (rows > 0) {
-                out.println("<h3>Registration Successful! <a href='login.jsp'>Login here</a></h3>");
-            } else {
-                out.println("<h3>Registration Failed. Try again.</h3>");
-            }
-        } catch (SQLException e) {
+        try {
+            Connection con = DatabaseConnection.getConnection();
+
+            PreparedStatement ps = con.prepareStatement(sql);
+
+            ps.setString(1, name);
+            ps.setString(2, email);
+            ps.setString(3, password);
+            ps.setString(4, "BUYER");
+
+            ps.executeUpdate();
+
+            ps.close();
+            con.close();
+
+            response.sendRedirect("index.html");
+
+        } catch (Exception e) {
             e.printStackTrace();
-            out.println("<h3>Error: " + e.getMessage() + "</h3>");
+
+            response.setContentType("text/html");
+            response.getWriter().println(
+                "<h3>Registration failed!</h3><p>" + e.getMessage() + "</p>"
+            );
         }
     }
 }
