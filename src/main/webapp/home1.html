@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Yoharshini Mart - Admin Dashboard</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="logo">
+            🛍️
+            <div>
+                <h2>Yoharshini</h2>
+                <h2>Mart</h2>
+                <small>Admin Dashboard</small>
+            </div>
+        </div>
+
+        <nav>
+
+            <button onclick="showPage('dashboard')" class="menu active">
+                🏠 Dashboard
+            </button>
+
+            <button onclick="showPage('addProduct')" class="menu">
+                ➕ Add Product
+            </button>
+
+            <button onclick="showPage('products')" class="menu">
+                📦 Products
+            </button>
+
+            <button onclick="showPage('categories')" class="menu">
+                🗂️ Categories
+            </button>
+
+            <button class="menu">
+                🛒 Orders
+            </button>
+
+            <button class="menu">
+                👥 Customers
+            </button>
+
+            <button class="menu">
+                🛍️ Cart
+            </button>
+
+            <button class="menu">
+                📊 Reports
+            </button>
+
+        </nav>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+
+        <!-- TOP BAR -->
+        <header class="topbar">
+
+            <div class="search">
+                🔍
+                <input
+                    type="text"
+                    placeholder="Search products, orders, customers"
+                    onkeyup="searchProducts(this.value)"
+                >
+            </div>
+
+            <div class="profile">
+                🔔
+                <div class="avatar">Y</div>
+                <div>
+                    <b>Yoharshini</b>
+                    <small>Admin</small>
+                </div>
+            </div>
+
+        </header>
+
+
+        <!-- DASHBOARD PAGE -->
+        <section id="dashboard" class="page">
+
+            <div class="welcome">
+
+                <div>
+                    <h1>👋 Welcome back, Yoharshini!</h1>
+                    <p>Here's what's happening with your store today</p>
+                </div>
+
+                <div class="decor">
+                    🍃 💻 ☕
+                    <br>
+                    <b>Small steps<br>Big goals ♡</b>
+                </div>
+
+            </div>
+
+
+            <!-- STAT CARDS -->
+            <div class="cards">
+
+                <div class="card">
+                    <span>📦</span>
+                    <p>Total Products</p>
+                    <h2 id="totalProducts">512</h2>
+                    <small>↑ 18% this month</small>
+                </div>
+
+                <div class="card">
+                    <span>🛍️</span>
+                    <p>Total Orders</p>
+                    <h2>156</h2>
+                    <small>↑ 14% this month</small>
+                </div>
+
+                <div class="card">
+                    <span>₹</span>
+                    <p>Total Sales</p>
+                    <h2>₹ 3,45,000</h2>
+                    <small>↑ 22% this month</small>
+                </div>
+
+                <div class="card">
+                    <span>👥</span>
+                    <p>Customers</p>
+                    <h2>680</h2>
+                    <small>↑ 12% this month</small>
+                </div>
+
+                <div class="card">
+                    <span>⭐</span>
+                    <p>Reviews</p>
+                    <h2>4.8/5</h2>
+                    <small>↑ 6% this month</small>
+                </div>
+
+            </div>
+
+
+            <div class="sales">
+                <h2>📈 Sales Overview</h2>
+
+                <div class="chart">
+                    <div style="height:40%">Jan</div>
+                    <div style="height:60%">Feb</div>
+                    <div style="height:45%">Mar</div>
+                    <div style="height:75%">Apr</div>
+                    <div style="height:55%">May</div>
+                    <div style="height:90%">Jun</div>
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- ADD PRODUCT PAGE -->
+        <section id="addProduct" class="page hidden">
+
+            <div class="page-title">
+                <h1>➕ Add Product</h1>
+                <p>Add a new product to Yoharshini Mart</p>
+            </div>
+
+            <div class="form-box">
+
+                <label>Product Name</label>
+                <input
+                    type="text"
+                    id="productName"
+                    placeholder="Enter product name"
+                >
+
+                <label>Price</label>
+                <input
+                    type="number"
+                    id="productPrice"
+                    placeholder="Enter price"
+                >
+
+                <label>Category</label>
+
+                <select id="productCategory">
+
+                    <option value="">Select Category</option>
+
+                    <option>Men</option>
+                    <option>Women</option>
+                    <option>Kids</option>
+                    <option>Groceries</option>
+                    <option>Accessories</option>
+
+                </select>
+
+
+                <label>Stock</label>
+
+                <input
+                    type="number"
+                    id="productStock"
+                    placeholder="Enter stock"
+                >
+
+
+                <label>Product Image</label>
+
+                <input
+                    type="file"
+                    id="productImage"
+                    accept="image/*"
+                >
+
+
+                <button onclick="addProduct()" class="add-btn">
+                    ➕ Add Product
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- PRODUCTS PAGE -->
+        <section id="products" class="page hidden">
+
+            <div class="page-title">
+
+                <div>
+                    <h1>📦 Products</h1>
+                    <p>All products added to your store</p>
+                </div>
+
+                <button
+                    onclick="showPage('addProduct')"
+                    class="add-small"
+                >
+                    + Add Product
+                </button>
+
+            </div>
+
+
+            <div id="productList" class="product-grid"></div>
+
+        </section>
+
+
+        <!-- CATEGORIES PAGE -->
+        <section id="categories" class="page hidden">
+
+            <div class="page-title">
+
+                <h1>🗂️ Categories</h1>
+
+                <p>Manage your product categories</p>
+
+            </div>
+
+
+            <div class="category-grid">
+
+                <div class="category">
+                    👔
+                    <h2>Men</h2>
+                    <p>Men's Products</p>
+                </div>
+
+                <div class="category">
+                    👗
+                    <h2>Women</h2>
+                    <p>Women's Products</p>
+                </div>
+
+                <div class="category">
+                    🧸
+                    <h2>Kids</h2>
+                    <p>Kids Products</p>
+                </div>
+
+                <div class="category">
+                    🛒
+                    <h2>Groceries</h2>
+                    <p>Grocery Products</p>
+                </div>
+
+                <div class="category">
+                    💍
+                    <h2>Accessories</h2>
+                    <p>Accessories Products</p>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
