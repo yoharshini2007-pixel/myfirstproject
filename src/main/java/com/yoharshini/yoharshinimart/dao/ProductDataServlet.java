@@ -40,6 +40,8 @@ public class ProductDataServlet extends HttpServlet {
             out.print("\"name\":\"" + p.getName() + "\",");
             out.print("\"price\":" + p.getPrice() + ",");
             out.print("\"category\":\"" + p.getCategory() + "\",");
+            out.print("\"subCategory\":\"" + p.getSubCategory() + "\",");
+            out.print("\"imageUrl\":\"" + p.getImageUrl() + "\",");
             out.print("\"stock\":" + p.getStockQty());
             out.print("}");
 

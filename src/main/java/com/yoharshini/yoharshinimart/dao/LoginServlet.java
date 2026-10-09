@@ -28,18 +28,20 @@ public class LoginServlet extends HttpServlet {
 
         String email = request.getParameter("email");
         String password = request.getParameter("password");
+        String selectedRole = request.getParameter("role");
 
         try {
 
             Connection con = DatabaseConnection.getConnection();
 
             String query =
-                "SELECT * FROM users WHERE email = ? AND password_hash = ?";
+                "SELECT * FROM users WHERE email = ? AND password_hash = ? AND role = ?";
 
             PreparedStatement ps = con.prepareStatement(query);
 
             ps.setString(1, email);
             ps.setString(2, password);
+            ps.setString(3, selectedRole);
 
             ResultSet rs = ps.executeQuery();
 

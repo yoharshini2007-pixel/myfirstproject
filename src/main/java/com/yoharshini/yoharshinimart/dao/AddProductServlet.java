@@ -19,45 +19,173 @@ public class AddProductServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void doPost(HttpServletRequest request,
-                           HttpServletResponse response)
+                          HttpServletResponse response)
             throws ServletException, IOException {
 
-        response.setContentType("text/html");
+        response.setContentType("text/html;charset=UTF-8");
+
         PrintWriter out = response.getWriter();
 
-        String sellerId = "2";
-        System.out.println("ADD PRODUCT SERVLET CALLED");
-        String name = request.getParameter("pname");
-        String description = request.getParameter("pdescription");
-        String category = request.getParameter("pcategory");
-        String price = request.getParameter("pprice");
-        String stockQty = request.getParameter("pstock");
+        try {
 
-        String sql = "INSERT INTO products " +
-                     "(seller_id, name, description, price, stock_qty, category) " +
-                     "VALUES (?, ?, ?, ?, ?, ?)";
+            // =========================
+            // SELLER ID
+            // =========================
 
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+            String sellerId = "2";
 
-            ps.setInt(1, Integer.parseInt(sellerId));
-            ps.setString(2, name);
-            ps.setString(3, description);
-            ps.setDouble(4, Double.parseDouble(price));
-            ps.setInt(5, Integer.parseInt(stockQty));
-            ps.setString(6, category);
+            Object userIdObject =
+                    request.getSession().getAttribute("userId");
 
-            int result = ps.executeUpdate();
+            if (userIdObject != null) {
+                sellerId = userIdObject.toString();
+            }
 
-            if (result > 0) {
-                out.println("<h2>Product Added Successfully!</h2>");
-                out.println("<a href='seller.html'>Add Another Product</a>");
-            } else {
-                out.println("<h2>Failed to Add Product</h2>");
+
+            // =========================
+            // PRODUCT DETAILS
+            // =========================
+
+            String name =
+                    request.getParameter("pname");
+
+            String description =
+                    request.getParameter("pdescription");
+
+            String category =
+                    request.getParameter("pcategory");
+
+            String subCategory =
+                    request.getParameter("psubcategory");
+
+            String price =
+                    request.getParameter("pprice");
+
+            String stockQty =
+                    request.getParameter("pstock");
+
+            String imageUrl =
+                    request.getParameter("imageUrl");
+
+
+            // =========================
+            // NULL CHECK
+            // =========================
+
+            if (name == null) {
+                name = "";
+            }
+
+            if (description == null) {
+                description = "";
+            }
+
+            if (category == null) {
+                category = "";
+            }
+
+            if (subCategory == null) {
+                subCategory = "";
+            }
+
+            if (price == null || price.trim().isEmpty()) {
+                price = "0";
+            }
+
+            if (stockQty == null || stockQty.trim().isEmpty()) {
+                stockQty = "0";
+            }
+
+            if (imageUrl == null) {
+                imageUrl = "";
+            }
+
+
+            // =========================
+            // VALIDATION
+            // =========================
+
+            if (name.trim().isEmpty()) {
+                out.println("ERROR: Product name is missing.");
+                return;
+            }
+
+            if (category.trim().isEmpty()) {
+                out.println("ERROR: Category is missing.");
+                return;
+            }
+
+
+            // =========================
+            // INSERT PRODUCT
+            // =========================
+
+            String sql =
+                    "INSERT INTO products " +
+                    "(seller_id, name, description, price, stock_qty, " +
+                    "category, subcategory, image_url) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+
+
+            try (
+                Connection conn =
+                        DatabaseConnection.getConnection();
+
+                PreparedStatement ps =
+                        conn.prepareStatement(sql)
+            ) {
+
+                ps.setInt(
+                        1,
+                        Integer.parseInt(sellerId)
+                );
+
+                ps.setString(2, name);
+
+                ps.setString(3, description);
+
+                ps.setDouble(
+                        4,
+                        Double.parseDouble(price)
+                );
+
+                ps.setInt(
+                        5,
+                        Integer.parseInt(stockQty)
+                );
+
+                ps.setString(6, category);
+
+                ps.setString(7, subCategory);
+
+                ps.setString(8, imageUrl);
+
+
+                int result =
+                        ps.executeUpdate();
+
+
+                if (result > 0) {
+
+                    out.println(
+                            "Product Added Successfully"
+                    );
+
+                } else {
+
+                    out.println(
+                            "Product Add Failed"
+                    );
+                }
             }
 
         } catch (Exception e) {
-            e.printStackTrace(out);
+
+            e.printStackTrace();
+
+            out.println(
+                    "ERROR: " + e.getMessage()
+            );
         }
     }
 }

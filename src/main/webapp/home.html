@@ -1,371 +1,774 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+
+<meta charset="UTF-8"> 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Yoharshini Mart - Admin Dashboard</title>
 
 <style>
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-    font-family:Arial,sans-serif;
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
 }
 
-body{
-    background:#f7f8f5;
-    color:#173c33;
+body {
+    background: #f7f8f5;
+    color: #173c33;
+    font-size: 18px;
 }
 
 /* SIDEBAR */
-.sidebar{
-    position:fixed;
-    left:0;
-    top:0;
-    width:255px;
-    height:100vh;
-    background:#173c33;
-    color:white;
-    padding:25px 18px;
+
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 270px;
+    height: 100vh;
+    background: #173c33;
+    color: white;
+    padding: 25px 18px;
+    overflow-y: auto;
 }
 
-.logo-area{
-    display:flex;
-    align-items:center;
-    gap:12px;
-    margin-bottom:35px;
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 35px;
 }
 
-.logo-icon{
-    width:45px;
-    height:45px;
-    background:white;
-    color:#173c33;
-    border-radius:12px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:23px;
+.logo-icon {
+    width: 50px;
+    height: 50px;
+    background: white;
+    color: #173c33;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 26px;
 }
 
-.logo-area h2{
-    font-size:20px;
+.logo-area h2 {
+    font-size: 23px;
 }
 
-.menu{
-    display:flex;
-    flex-direction:column;
-    gap:8px;
+.menu {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
-.menu a{
-    text-decoration:none;
-    color:#dce8e3;
-    padding:13px 14px;
-    border-radius:10px;
-    display:flex;
-    align-items:center;
-    gap:12px;
-    cursor:pointer;
+.menu a {
+    text-decoration: none;
+    color: #dce8e3;
+    padding: 14px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    font-size: 19px;
 }
 
 .menu a:hover,
-.menu a.active{
-    background:#28584c;
-    color:white;
+.menu a.active {
+    background: #28584c;
+    color: white;
 }
 
-.menu-icon{
-    width:25px;
-    font-size:19px;
+.menu-icon {
+    width: 28px;
+    font-size: 22px;
 }
 
-.business-card{
-    margin-top:30px;
-    padding:15px;
-    background:#28584c;
-    border-radius:12px;
+.business-card {
+    margin-top: 30px;
+    padding: 15px;
+    background: #28584c;
+    border-radius: 12px;
 }
 
-.business-card p{
-    font-size:12px;
-    color:#b9ccc5;
-    margin-top:5px;
+.business-card p {
+    color: #b9ccc5;
+    margin-top: 5px;
+    font-size: 15px;
 }
 
 /* MAIN */
-.main{
-    margin-left:255px;
-    padding:25px 35px;
+
+.main {
+    margin-left: 270px;
+    padding: 30px 40px;
 }
 
-.topbar{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:25px;
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
 }
 
-.search-box input{
-    width:430px;
-    padding:13px 18px;
-    border:1px solid #ddd;
-    border-radius:12px;
-    outline:none;
+.search-box input {
+    width: 450px;
+    padding: 14px 18px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    outline: none;
+    font-size: 18px;
 }
 
-.user-area{
-    display:flex;
-    align-items:center;
-    gap:15px;
+.user-area {
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
 
-.user-circle{
-    width:42px;
-    height:42px;
-    background:#173c33;
-    color:white;
-    border-radius:50%;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    font-weight:bold;
+.user-circle {
+    width: 45px;
+    height: 45px;
+    background: #173c33;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
 }
 
 /* PAGE */
-.page{
-    display:none;
+
+.page {
+    display: none;
 }
 
-.page.active-page{
-    display:block;
+.page.active-page {
+    display: block;
+}
+/* ================= DASHBOARD CLEAN LAYOUT ================= */
+
+#dashboard {
+    width: 100%;
 }
 
-.welcome{
-    margin-bottom:25px;
+/* Welcome */
+#dashboard .welcome {
+    width: 100%;
+    margin-bottom: 25px;
 }
 
-.welcome h1{
-    font-size:28px;
-    margin-bottom:7px;
+/* Statistics */
+#dashboard .stats {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+    margin-bottom: 25px;
 }
 
-.welcome p{
-    color:#777;
+/* Make stat cards fill their grid area */
+#dashboard .stat {
+    width: 100%;
+    min-height: 130px;
 }
 
-/* STATS */
-.stats{
-    display:grid;
-    grid-template-columns:repeat(5,1fr);
-    gap:18px;
-    margin-bottom:25px;
+/* Store Overview + Recent Orders */
+#dashboard .card {
+    width: 100%;
 }
 
-.stat{
-    background:white;
-    padding:20px;
-    border-radius:15px;
-    display:flex;
-    align-items:center;
-    gap:15px;
-    box-shadow:0 4px 15px rgba(0,0,0,.05);
+/* Put the two dashboard cards side by side */
+#dashboard .card:nth-of-type(1),
+#dashboard .card:nth-of-type(2) {
+    width: 100%;
 }
 
-.stat-icon{
-    font-size:30px;
+/* Dashboard cards container effect */
+#dashboard > .card {
+    display: inline-block;
+    vertical-align: top;
 }
 
-.stat p{
-    color:#777;
-    font-size:13px;
+/* First and second cards */
+#dashboard > .card:nth-of-type(1) {
+    width: calc(50% - 12px);
+    margin-right: 20px;
 }
 
-.stat h2{
-    margin:5px 0;
+#dashboard > .card:nth-of-type(2) {
+    width: calc(50% - 12px);
 }
 
-.stat-growth{
-    color:#198754;
-    font-size:11px;
+/* Recent orders */
+#dashboard .recent-orders {
+    width: 100%;
 }
 
-/* CARDS */
-.card{
-    background:white;
-    padding:25px;
-    border-radius:16px;
-    margin-bottom:25px;
-    box-shadow:0 4px 15px rgba(0,0,0,.05);
+/* Responsive */
+@media (max-width: 1100px) {
+
+    #dashboard .stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    #dashboard > .card:nth-of-type(1),
+    #dashboard > .card:nth-of-type(2) {
+        width: 100%;
+        margin-right: 0;
+    }
 }
 
-.card h2{
-    margin-bottom:20px;
+@media (max-width: 650px) {
+
+    #dashboard .stats {
+        grid-template-columns: 1fr;
+    }
+
+    #dashboard .stat {
+        min-height: 110px;
+    }
+}
+.main {
+    width: calc(100% - 270px);
+    min-height: 100vh;
+    padding: 35px 45px;
 }
 
-/* FORM */
-.form-box{
-    max-width:650px;
-    background:white;
-    padding:25px;
-    border-radius:16px;
-    box-shadow:0 4px 15px rgba(0,0,0,.05);
+.welcome h1 {
+    font-size: 42px !important;
 }
 
-.form-box label{
-    display:block;
-    margin-top:15px;
-    margin-bottom:6px;
-    font-weight:bold;
+.welcome p {
+    font-size: 22px !important;
 }
 
-.form-box input,
-.form-box select{
-    width:100%;
-    padding:12px;
-    border:1px solid #ddd;
-    border-radius:9px;
-    outline:none;
+.stats {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 25px !important;
 }
 
-.add-btn{
-    margin-top:20px;
-    width:100%;
-    padding:13px;
-    background:#173c33;
-    color:white;
-    border:none;
-    border-radius:9px;
-    cursor:pointer;
-    font-size:16px;
+.stat {
+    min-height: 150px !important;
+    padding: 30px !important;
 }
 
-.add-btn:hover{
-    background:#28584c;
+.stat-icon {
+    font-size: 45px !important;
 }
 
-/* PRODUCTS */
-.product-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
-    gap:20px;
+.stat p {
+    font-size: 22px !important;
 }
 
-.product-card{
-    background:white;
-    border-radius:15px;
-    overflow:hidden;
-    box-shadow:0 4px 15px rgba(0,0,0,.07);
+.stat h2 {
+    font-size: 34px !important;
 }
 
-.product-card img{
-    width:100%;
-    height:180px;
-    object-fit:cover;
-    background:#eee;
+.card {
+    padding: 30px !important;
 }
 
-.product-info{
-    padding:15px;
+.card h2 {
+    font-size: 32px !important;
 }
 
-.product-info h3{
-    margin-bottom:8px;
+.card p {
+    font-size: 22px !important;
 }
 
-.product-info p{
-    color:#666;
-    margin:5px 0;
+.recent-order {
+    padding: 22px !important;
 }
 
-.delete-btn{
-    width:100%;
-    margin-top:10px;
-    padding:10px;
-    border:none;
-    border-radius:8px;
-    background:#d9534f;
-    color:white;
-    cursor:pointer;
+.recent-order b {
+    font-size: 23px !important;
 }
 
-.delete-btn:hover{
-    background:#b52b27;
+.recent-order p {
+    font-size: 20px !important;
+}
+.add-btn {
+    font-size: 24px !important;
+    padding: 18px !important;
+    min-height: 60px !important;
+}
+/* ================= ADD PRODUCT BIG FORM ================= */
+
+#addProduct {
+    max-width: 1000px;
 }
 
-/* CATEGORY */
-.category-grid{
-    display:grid;
-    grid-template-columns:repeat(5,1fr);
-    gap:15px;
+#addProduct h1 {
+    font-size: 42px !important;
+    margin-bottom: 25px;
 }
 
-.category-card{
-    background:white;
-    padding:25px;
-    border-radius:15px;
-    text-align:center;
-    box-shadow:0 4px 15px rgba(0,0,0,.05);
-    cursor:pointer;
+#addProduct .back-btn {
+    font-size: 24px !important;
+    padding: 16px 28px !important;
+    min-height: 60px;
 }
 
-.category-card:hover{
-    transform:translateY(-3px);
+#addProduct .form-box {
+    max-width: 900px !important;
+    width: 100%;
+    padding: 35px !important;
 }
 
-.category-card .emoji{
-    font-size:35px;
-    margin-bottom:10px;
+#addProduct .form-box label {
+    display: block;
+    font-size: 24px !important;
+    margin-top: 22px;
+    margin-bottom: 10px;
 }
 
-/* BUTTON */
-.back-btn{
-    border:none;
-    background:#173c33;
-    color:white;
-    padding:10px 18px;
-    border-radius:8px;
-    cursor:pointer;
-    margin-bottom:20px;
+#addProduct .form-box input,
+#addProduct .form-box select {
+    display: block;
+    width: 100% !important;
+    height: 60px !important;
+    padding: 15px 18px !important;
+    font-size: 22px !important;
 }
 
-.empty{
-    text-align:center;
-    padding:40px;
-    color:#777;
+#addProduct .form-box .add-btn {
+    width: 100%;
+    height: 65px !important;
+    font-size: 24px !important;
+    margin-top: 30px;
+}
+/* CATEGORY GRID */
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.category-card {
+    background: white;
+    min-height: 180px;
+    padding: 30px 20px;
+    border-radius: 18px;
+    text-align: center;
+    box-shadow: 0 5px 18px rgba(0,0,0,0.08);
+    cursor: pointer;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.category-card:hover {
+    transform: translateY(-6px);
+}
+
+.category-card .emoji {
+    font-size: 55px;
+    margin-bottom: 15px;
+}
+
+.category-card h3 {
+    font-size: 22px;
+    margin: 0;
+}
+
+.category-card p {
+    font-size: 16px;
+    color: #777;
+    margin-top: 8px;
 }
 
 /* MOBILE */
-@media(max-width:900px){
-    .sidebar{
-        width:200px;
-    }
-
-    .main{
-        margin-left:200px;
-        padding:20px;
-    }
-
-    .stats{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    .category-grid{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    .search-box input{
-        width:250px;
+@media (max-width: 900px) {
+    .category-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
+/* ================= ADD PRODUCT PAGE ================= */
+
+#addProduct h1 {
+    font-size: 36px;
+    margin-bottom: 25px;
+}
+
+#addProduct .form-box {
+    width: 100%;
+    max-width: 750px;
+    padding: 35px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+}
+
+#addProduct .form-box label {
+    display: block;
+    font-size: 22px;
+    font-weight: bold;
+    margin-top: 22px;
+    margin-bottom: 10px;
+}
+
+#addProduct .form-box input,
+#addProduct .form-box select {
+    display: block;
+    width: 100%;
+    height: 55px;
+    padding: 12px 15px;
+    font-size: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    outline: none;
+}
+
+#addProduct .form-box input:focus,
+#addProduct .form-box select:focus {
+    border-color: #28584c;
+}
+
+#addProduct .add-btn {
+    width: 100%;
+    height: 58px;
+    margin-top: 30px;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+/* DASHBOARD BUTTON */
+#addProduct .back-btn {
+    font-size: 21px;
+    padding: 14px 25px;
+    margin-bottom: 25px;
+}
+/* ================= PRODUCTS FONT SIZE ================= */
+
+#products h1 {
+    font-size: 38px !important;
+}
+
+#products .product-info {
+    padding: 25px;
+}
+
+#products .product-info h3 {
+    font-size: 26px !important;
+    margin-bottom: 15px;
+}
+
+#products .product-info p {
+    font-size: 21px !important;
+    margin: 10px 0;
+}
+
+#products .delete-btn {
+    font-size: 20px !important;
+    padding: 14px;
+}
+
+#products .add-btn {
+    font-size: 20px !important;
+    padding: 14px;
+}
+
+#products .back-btn {
+    font-size: 22px !important;
+    padding: 14px 25px;
+}
+
+#products .empty h2 {
+    font-size: 28px !important;
+}
+
+#products .empty p {
+    font-size: 20px !important;
+}
+/* ================= PRODUCTS PAGE ================= */
+
+#products {
+    width: 100%;
+}
+
+#products h1 {
+    font-size: 38px !important;
+    margin-bottom: 20px;
+}
+
+#products .product-grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+}
+
+#products .product-card {
+    background: white;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 5px 18px rgba(0,0,0,0.08);
+}
+
+#products .product-card img {
+    width: 100%;
+    height: 240px;
+    object-fit: contain;
+    background: #f5f5f5;
+}
+
+#products .product-info {
+    padding: 25px;
+}
+
+#products .product-info h3 {
+    font-size: 27px !important;
+    margin-bottom: 15px;
+}
+
+#products .product-info p {
+    font-size: 21px !important;
+    margin: 11px 0;
+    color: #555;
+}
+
+#products .add-btn,
+#products .delete-btn {
+    font-size: 20px !important;
+    padding: 14px;
+}
+
+#products .back-btn {
+    font-size: 22px !important;
+    padding: 14px 25px;
+}
+
+/* TABLET / MOBILE */
+@media (max-width: 1000px) {
+    #products .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    #products .product-grid {
+        grid-template-columns: 1fr;
+    }
+}
+/* ===== PRODUCTS FULL WIDTH GRID ===== */
+
+#products {
+    width: 100%;
+    max-width: none;
+}
+
+#products .product-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(280px, 1fr)) !important;
+    gap: 30px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+#products .product-card {
+    width: 100% !important;
+    min-width: 0 !important;
+}
+
+/* Large screen */
+@media (min-width: 1200px) {
+    #products .product-grid {
+        grid-template-columns: repeat(4, minmax(250px, 1fr)) !important;
+    }
+}
+
+/* Medium screen */
+@media (max-width: 1100px) {
+    #products .product-grid {
+        grid-template-columns: repeat(2, minmax(250px, 1fr)) !important;
+    }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    #products .product-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
+.product-card img {
+    width: 100% !important;
+    height: 500px !important;
+    object-fit: contain !important;
+    background: #f5f5f5;
+}
+#addProduct {
+    width: 100%;
+}
+
+#addProduct h1 {
+    text-align: center;
+}
+
+#addProduct .form-box {
+    width: 650px;
+    max-width: 90%;
+    margin: 0 auto;
+}
+/* ===== COLORFUL ADD PRODUCT PAGE ===== */
+
+#addProduct {
+    background: linear-gradient(135deg, #eef7f3, #f5efff);
+    padding: 30px;
+    border-radius: 20px;
+    min-height: 75vh;
+}
+
+#addProduct h1 {
+    text-align: center;
+    color: #173c33;
+    font-size: 36px;
+    margin-bottom: 25px;
+}
+
+#addProduct .form-box {
+    width: 650px;
+    max-width: 95%;
+    margin: 0 auto;
+    padding: 30px;
+    border-radius: 22px;
+    background: linear-gradient(145deg, #ffffff, #f0faf6);
+    box-shadow: 0 10px 30px rgba(23,60,51,0.15);
+    border: 2px solid #d5ebe3;
+}
+
+#addProduct .form-box label {
+    color: #28584c;
+    font-size: 19px;
+    margin-top: 18px;
+}
+
+#addProduct .form-box input,
+#addProduct .form-box select {
+    background: #f8fffc;
+    border: 2px solid #cfe5dd;
+    padding: 15px;
+    border-radius: 12px;
+    transition: 0.3s;
+}
+
+#addProduct .form-box input:focus,
+#addProduct .form-box select:focus {
+    border-color: #5c9e8b;
+    box-shadow: 0 0 8px rgba(92,158,139,0.25);
+}
+
+#addProduct .add-btn {
+    background: linear-gradient(135deg, #173c33, #3c806d);
+    border-radius: 12px;
+    font-size: 21px;
+    font-weight: bold;
+    padding: 16px;
+    margin-top: 25px;
+}
+
+#addProduct .add-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 7px 15px rgba(23,60,51,0.25);
+}
+
+#addProduct .back-btn {
+    background: #28584c;
+    border-radius: 10px;
+}
+/* ===== ADMIN ORDERS PAGE ===== */
+
+#orders {
+    width: 100%;
+}
+
+#orders h1 {
+    font-size: 38px !important;
+    margin-bottom: 25px;
+}
+
+#ordersList {
+    width: 100%;
+}
+
+#ordersList .card {
+    padding: 28px !important;
+    margin-bottom: 22px;
+    border-radius: 18px;
+}
+
+#ordersList .card h2 {
+    font-size: 28px !important;
+    margin-bottom: 18px;
+}
+
+#ordersList .card p {
+    font-size: 21px !important;
+    margin: 12px 0;
+    line-height: 1.6;
+}
+
+#ordersList .card b {
+    font-size: 21px;
+}
+
+#orders .back-btn {
+    font-size: 20px !important;
+    padding: 13px 24px;
+}
+/* ===== CUSTOMERS PAGE ===== */
+
+#customers {
+    width: 100% !important;
+    padding: 20px !important;
+}
+
+#customers .card {
+    width: 100% !important;
+    padding: 40px !important;
+    background: white !important;
+    border-radius: 20px !important;
+}
+
+#customers .card h1 {
+    font-size: 42px !important;
+    font-weight: bold !important;
+}
+
+#customers .card p {
+    font-size: 28px !important;
+    line-height: 1.8 !important;
+}
+
+#customers .card p b {
+    font-size: 30px !important;
+}
+/* ===== CUSTOMERS DASHBOARD BUTTON ===== */
+
+#customers .back-btn {
+    font-size: 22px !important;
+    padding: 15px 28px !important;
+    min-width: 180px;
+    height: 55px;
+}
+
 </style>
+
 </head>
 
 <body>
+    <!-- SIDEBAR -->
 
-<!-- SIDEBAR -->
 <div class="sidebar">
 
     <div class="logo-area">
@@ -375,42 +778,50 @@ body{
 
     <div class="menu">
 
-        <a href="#" class="active" onclick="showPage('dashboard',this)">
+        <a href="javascript:void(0)"
+           class="active"
+           onclick="showPage('dashboard', this)">
             <span class="menu-icon">⌂</span>
             <span>Dashboard</span>
         </a>
 
-        <a href="#" onclick="showPage('addProduct',this)">
+        <a href="javascript:void(0)"
+           onclick="showPage('addProduct', this)">
             <span class="menu-icon">＋</span>
             <span>Add Product</span>
         </a>
 
-        <a href="#" onclick="showPage('products',this)">
+        <a href="javascript:void(0)"
+           onclick="showPage('products', this)">
             <span class="menu-icon">📦</span>
             <span>Products</span>
         </a>
 
-        <a href="#" onclick="showPage('categories',this)">
+        <a href="javascript:void(0)"
+           onclick="showPage('categories', this)">
             <span class="menu-icon">🗂️</span>
             <span>Categories</span>
         </a>
 
-        <a href="#" onclick="showPage('orders',this)">
+        <a href="javascript:void(0)"
+           onclick="showPage('orders', this)">
             <span class="menu-icon">🛒</span>
             <span>Orders</span>
         </a>
 
-        <a href="#" onclick="showPage('customers',this)">
+        <a href="javascript:void(0)"
+           onclick="showPage('customers', this)">
             <span class="menu-icon">👥</span>
             <span>Customers</span>
         </a>
 
-        <a href="cart.html">
+        <a href="AdminCartServlet">
             <span class="menu-icon">🛍️</span>
             <span>Cart</span>
         </a>
 
-        <a href="#" onclick="showPage('reports',this)">
+        <a href="javascript:void(0)"
+           onclick="showPage('reports', this)">
             <span class="menu-icon">📊</span>
             <span>Reports</span>
         </a>
@@ -427,9 +838,11 @@ body{
 
 
 <!-- MAIN -->
+
 <div class="main">
 
-    <!-- TOPBAR -->
+    <!-- TOP BAR -->
+
     <div class="topbar">
 
         <div class="search-box">
@@ -442,164 +855,293 @@ body{
         </div>
 
         <div class="user-area">
+
             <span>🔔</span>
-            <div class="user-circle">Y</div>
+
+            <div class="user-circle">
+                Y
+            </div>
+
             <b>Admin</b>
+
+        </div>
+
+    </div>
+    <!-- DASHBOARD -->
+
+<section id="dashboard" class="page active-page">
+
+    <div class="welcome">
+
+        <h1>Welcome back, Admin 👋</h1>
+
+        <p>
+            Here's what's happening with your store today.
+        </p>
+
+    </div>
+
+
+    <!-- STAT CARDS -->
+
+    <div class="stats">
+
+        <div class="stat">
+
+            <div class="stat-icon">📦</div>
+
+            <div>
+                <p>Total Products</p>
+                <h2 id="totalProducts">0</h2>
+                <span class="stat-growth">
+                    Products
+                </span>
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-icon">🛒</div>
+
+            <div>
+                <p>Total Orders</p>
+                <h2 id="totalOrders">0</h2>
+                <span class="stat-growth">
+                    Orders
+                </span>
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-icon">👥</div>
+
+            <div>
+                <p>Customers</p>
+                <h2 id="totaklCustomers">0</h2>
+                <span class="stat-growth"
+                id="customerGrowth">
+                Loading...
+                    
+                </span>
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-icon">💰</div>
+
+            <div>
+                <p>Revenue</p>
+                <h2 id="revenueAmount">₹0</h2>
+                <span class="stat-growth"
+                   id="revenueGrowth">Loading...
+                </span>
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-icon">⭐</div>
+
+            <div>
+                <p>Reviews</p>
+                <h2 id="totalReviews">0</h2>
+                <span class="stat-growth"
+                    id="reviewGrowth">
+                    Loading...
+                </span>
+            </div>
+
         </div>
 
     </div>
 
 
-    <!-- DASHBOARD -->
-    <section id="dashboard" class="page active-page">
+    <!-- STORE OVERVIEW -->
 
-        <div class="welcome">
-            <h1>Welcome back, Admin 👋</h1>
-            <p>Here's what's happening with your store today.</p>
-        </div>
+    <div class="card">
 
-        <div class="stats">
+        <h2>Store Overview 📊</h2>
 
-            <div class="stat">
-                <div class="stat-icon">📦</div>
-                <div>
-                    <p>Total Products</p>
-                    <h2 id="totalProducts">512</h2>
-                    <span class="stat-growth">↑ 18% this month</span>
-                </div>
-            </div>
+        <p>
+            Your store is running successfully.
+        </p>
 
-            <div class="stat">
-                <div class="stat-icon">🛒</div>
-                <div>
-                    <p>Total Orders</p>
-                    <h2 id="totalOrders">128</h2>
-                    <span class="stat-growth">↑ 12% this month</span>
-                </div>
-            </div>
-
-            <div class="stat">
-                <div class="stat-icon">👥</div>
-                <div>
-                    <p>Customers</p>
-                    <h2>356</h2>
-                    <span class="stat-growth">↑ 8% this month</span>
-                </div>
-            </div>
-
-            <div class="stat">
-                <div class="stat-icon">💰</div>
-                <div>
-                    <p>Revenue</p>
-                    <h2>₹45,280</h2>
-                    <span class="stat-growth">↑ 20%</span>
-                </div>
-            </div>
-
-            <div class="stat">
-                <div class="stat-icon">⭐</div>
-                <div>
-                    <p>Reviews</p>
-                    <h2>89</h2>
-                    <span class="stat-growth">↑ 5%</span>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="card">
-            <h2>Store Overview 📊</h2>
-            <p>Your store is running successfully.</p>
-            <br>
-            <button class="add-btn" onclick="showPage('addProduct')">
-                ＋ Add New Product
-            </button>
-        </div>
-
-    </section>
-
-
-    <!-- ADD PRODUCT -->
-    <section id="addProduct" class="page">
-
-        <button class="back-btn" onclick="showPage('dashboard')">
-            ← Dashboard
-        </button>
-
-        <h1>Add New Product</h1>
         <br>
 
-        <div class="form-box">
+        <button
+            class="add-btn"
+            onclick="showPage('addProduct')">
 
-            <label>Product Name</label>
-            <input
-                type="text"
-                id="productName"
-                placeholder="Enter product name"
-            >
+            ＋ Add New Product
 
-            <label>Price</label>
-            <input
-                type="number"
-                id="productPrice"
-                placeholder="Enter price"
-            >
+        </button>
 
-            <label>Category</label>
-            <select id="productCategory">
-                <option value="">Select Category</option>
-                <option value="Men">Men</option>
-                <option value="Women">Women</option>
-                <option value="Kids">Kids</option>
-                <option value="Groceries">Groceries</option>
-                <option value="Accessories">Accessories</option>
-            </select>
-            <label>Sub-Category</label>
+    </div>
 
-<select id="productSubCategory">
-    <option value="">Select Sub-Category</option>
+
+    <!-- RECENT ORDERS -->
+
+    <div class="card">
+
+        <h2>Recent Orders 🛒</h2>
+
+        <div id="recentOrders">
+
+            <div class="empty">
+                <p>No recent orders.</p>
+            </div>
+
+        </div>
+
+        <button
+            class="add-btn"
+            onclick="showPage('orders')">
+
+            View All Orders →
+
+        </button>
+
+    </div>
+
+</section>
+<!-- ADD PRODUCT -->
+
+<section id="addProduct" class="page">
+    <div class="add-product-color"></div>
+
+    <button
+        class="back-btn"
+        onclick="showPage('dashboard')">
+
+        ← Dashboard
+
+    </button>
+
+    <h1>Add New Product</h1>
+
+    <br>
+
+    <div class="form-box">
+
+        <label>Product Name</label>
+
+        <input
+            type="text"
+            id="productName"
+            placeholder="Enter product name"
+        >
+
+
+        <label>Price</label>
+
+        <input
+            type="number"
+            id="productPrice"
+            placeholder="Enter price"
+        >
+
+
+        <label>Category</label>
+
+       <select id="productCategory">
+
+    <option value="">Select Category</option>
+
+    <option value="Men">Men</option>
+    <option value="Women">Women</option>
+    <option value="Kids">Kids</option>
+    <option value="Electronics">Electronics</option>
+    <option value="Fashion">Fashion</option>
+    <option value="Groceries">Groceries</option>
+    <option value="Home & Kitchen">Home & Kitchen</option>
+    <option value="Beauty">Beauty</option>
+    <option value="Sports">Sports</option>
+    <option value="Books">Books</option>
+    <option value="Toys & Games">Toys & Games</option>
+    <option value="Baby Products">Baby Products</option>
+    <option value="Automotive">Automotive</option>
+    <option value="Footwear">Footwear</option>
+    <option value="Jewellery">Jewellery</option>
+    <option value="Pet Supplies">Pet Supplies</option>
+
 </select>
 
-            <label>Stock</label>
-            <input
-                type="number"
-                id="productStock"
-                placeholder="Enter stock"
-            >
+        <label>Sub-Category</label>
 
-            <label>Product Image (Optional)</label>
-            <input
-                type="file"
-                id="productImage"
-                accept="image/*"
-            >
+        <select id="productSubCategory">
 
-            <button class="add-btn" onclick="addProduct()">
-                ＋ Add Product
-            </button>
+            <option value="">
+                Select Sub-Category
+            </option>
 
-        </div>
-
-    </section>
+        </select>
 
 
-    <!-- PRODUCTS -->
-    <section id="products" class="page">
+        <label>Stock</label>
 
-        <button class="back-btn" onclick="showPage('dashboard')">
-            ← Dashboard
+        <input
+            type="number"
+            id="productStock"
+            placeholder="Enter stock"
+        >
+
+
+        <label>Product Image URL</label>
+
+        <input
+            type="url"
+            id="productImageUrl"
+            placeholder="Paste product image URL"
+        >
+
+
+        <button
+            class="add-btn"
+            onclick="addProduct()">
+
+            ＋ Add Product
+
         </button>
 
-        <h1>Products 📦</h1>
-        <br>
+    </div>
 
-        <div id="productList" class="product-grid"></div>
+</section>
+<!-- PRODUCTS -->
 
-    </section>
+<section id="products" class="page">
+
+    <button
+        class="back-btn"
+        onclick="showPage('dashboard')">
+
+        ← Dashboard
+
+    </button>
+
+    <h1>Products 📦</h1>
+
+    <br>
+
+    <div
+        id="productList"
+        class="product-grid">
+    </div>
+
+</section>
 
 
+<!-- CATEGORIES -->
 <section id="categories" class="page">
-    
 
     <button class="back-btn" onclick="showPage('dashboard')">
         ← Dashboard
@@ -625,75 +1167,179 @@ body{
             <h3>Kids</h3>
         </div>
 
+        <div class="category-card" onclick="showSubCategories('Electronics')">
+            <div class="emoji">📱</div>
+            <h3>Electronics</h3>
+        </div>
+
+        <div class="category-card" onclick="showSubCategories('Fashion')">
+            <div class="emoji">👕</div>
+            <h3>Fashion</h3>
+        </div>
+
         <div class="category-card" onclick="showSubCategories('Groceries')">
             <div class="emoji">🛒</div>
             <h3>Groceries</h3>
         </div>
 
-        <div class="category-card" onclick="showSubCategories('Accessories')">
-            <div class="emoji">👜</div>
-            <h3>Accessories</h3>
+        <div class="category-card" onclick="showSubCategories('Home & Kitchen')">
+            <div class="emoji">🏠</div>
+            <h3>Home & Kitchen</h3>
+        </div>
+
+        <div class="category-card" onclick="showSubCategories('Beauty')">
+            <div class="emoji">💄</div>
+            <h3>Beauty</h3>
+        </div>
+
+        <div class="category-card" onclick="showSubCategories('Sports')">
+            <div class="emoji">⚽</div>
+            <h3>Sports</h3>
+        </div>
+
+        <div class="category-card" onclick="showSubCategories('Books')">
+            <div class="emoji">📚</div>
+            <h3>Books</h3>
+        </div>
+
+        <div class="category-card" onclick="showSubCategories('Toys & Games')">
+            <div class="emoji">🧸</div>
+            <h3>Toys & Games</h3>
+        </div>
+
+        <div class="category-card" onclick="showSubCategories('Baby Products')">
+            <div class="emoji">👶</div>
+            <h3>Baby Products</h3>
+        </div>
+
+        <div class="category-card" onclick="showSubCategories('Automotive')">
+            <div class="emoji">🚗</div>
+            <h3>Automotive</h3>
+        </div>
+
+        <div class="category-card" onclick="showSubCategories('Footwear')">
+            <div class="emoji">👟</div>
+            <h3>Footwear</h3>
+        </div>
+
+        <div class="category-card" onclick="showSubCategories('Jewellery')">
+            <div class="emoji">💍</div>
+            <h3>Jewellery</h3>
+        </div>
+
+        <div class="category-card" onclick="showSubCategories('Pet Supplies')">
+            <div class="emoji">🐶</div>
+            <h3>Pet Supplies</h3>
         </div>
 
     </div>
 
 </section>
+
+<!-- SUB CATEGORIES -->
+
 <section id="subCategories" class="page">
 
-    <button class="back-btn" onclick="showPage('categories')">
+    <button
+        class="back-btn"
+        onclick="showPage('categories')">
+
         ← Categories
+
     </button>
 
-    <h1 id="subCategoryTitle">Sub-Categories</h1>
+    <h1 id="subCategoryTitle">
+        Sub-Categories
+    </h1>
 
     <br>
 
-    <div id="subCategoryList" class="category-grid"></div>
+    <div
+        id="subCategoryList"
+        class="category-grid">
+    </div>
+
+</section>
+<!-- CUSTOMERS -->
+
+<section id="customers" class="page">
+
+    <button
+        class="back-btn"
+        onclick="showPage('dashboard')">
+
+        ← Dashboard
+
+    </button>
+
+    <h1>Customers 👥</h1>
+
+    <br>
+
+    <div class="card">
+
+        <p>
+            Total Customers:
+            <b id="totalCustomers">0</b>
+        </p>
+
+    </div>
+
+    <br>
+
+    <div id="customersList">
+
+        <div class="empty">
+            <h2>Loading Customers...</h2>
+        </div>
+
+    </div>
 
 </section>
 
-    
-
-
-
-    </section>
-
-
-    <!-- CUSTOMERS -->
-    <section id="customers" class="page">
-
-        <button class="back-btn" onclick="showPage('dashboard')">
-            ← Dashboard
-        </button>
-
-        <div class="card">
-            <h1>Customers 👥</h1>
-            <br>
-            <p>Total Customers: <b>356</b></p>
-        </div>
-
-    </section>
 <!-- ORDERS -->
+
 <section id="orders" class="page">
 
-    <button class="back-btn" onclick="showPage('dashboard')">
+    <button
+        class="back-btn"
+        onclick="showPage('dashboard')">
+
         ← Dashboard
+
     </button>
 
     <h1>Orders 🛒</h1>
 
     <br>
 
-    <div id="ordersList"></div>
+    <div id="ordersList">
+
+        <div class="empty">
+
+            <h2>No Orders Available 📦</h2>
+
+            <p>
+                Orders will appear here.
+            </p>
+
+        </div>
+
+    </div>
 
 </section>
 
 
 <!-- REPORTS -->
+
 <section id="reports" class="page">
 
-    <button class="back-btn" onclick="showPage('dashboard')">
+    <button
+        class="back-btn"
+        onclick="showPage('dashboard')">
+
         ← Dashboard
+
     </button>
 
     <div class="card">
@@ -702,160 +1348,434 @@ body{
 
         <br>
 
-        <p>Monthly Sales Report</p>
+        <p>
+            Monthly Sales Report
+        </p>
 
         <br>
 
-        <p>Total Products: <b id="reportProducts">512</b></p>
+        <p>
+            Total Products:
+            <b id="reportProducts">0</b>
+        </p>
 
-        <p>Total Orders: <b>128</b></p>
+        <br>
 
-        <p>Revenue: <b>₹45,280</b></p>
+        <p>
+            Total Orders:
+            <b id="reportOrders">0</b>
+        </p>
+
+        <br>
+        <p>
+    Revenue:
+    <b id="reportRevenue">₹0</b>
+</p>
+<br>
+
+<p>
+    Total Reviews:
+    <b id="reportReviews">0</b>
+</p>
+
 
     </div>
 
 </section>
 
+
 </div>
 <script>
+    function loadCustomers() {
 
-let products = [];
+    const customersList =
+        document.getElementById("customersList");
 
-function loadProductsFromDatabase() {
+    if (!customersList) {
+        return;
+    }
 
-    fetch("/yoharshinimart/ProductDataServlet")
-        .then(function(response) {
+    fetch("CustomerDataServlet")
+        .then(response => response.json())
+        .then(customers => {
 
-            if (!response.ok) {
-                throw new Error("Server error: " + response.status);
+            customersList.innerHTML = "";
+
+            if (customers.length === 0) {
+
+                customersList.innerHTML =
+                    "<div class='empty'>" +
+                    "<h2>No Customers Found 👥</h2>" +
+                    "</div>";
+
+                return;
             }
 
-            return response.json();
-        })
-        .then(function(data) {
+            customers.forEach(function(customer) {
 
-            products = data;
+                customersList.innerHTML +=
+                    "<div class='card' style='margin-bottom:20px;'>" +
 
-            updateCount();
-            displayProducts();
+                    "<h2>👤 " +
+                    customer.name +
+                    "</h2>" +
+
+                    "<p>🆔 Customer ID: " +
+                    customer.id +
+                    "</p>" +
+
+                    "<p>📧 Email: " +
+                    customer.email +
+                    "</p>" +
+
+                    "<p>📅 Joined: " +
+                    customer.date +
+                    "</p>" +
+
+                    "</div>";
+            });
 
         })
         .catch(function(error) {
 
-            console.error("Product loading error:", error);
+            console.error(
+                "Customer loading error:",
+                error
+            );
 
+            customersList.innerHTML =
+                "<div class='empty'>" +
+                "<h2>Unable to load customers</h2>" +
+                "</div>";
         });
 }
+
+/* =====================================
+   PRODUCT DATA
+===================================== */
+
+let products = [];
+
+function loadProductsFromDatabase() {
+    fetch("ProductDataServlet")
+        .then(response => response.json())
+        .then(data => {
+
+            products = data.map(function(product) {
+
+                return {
+                    id: product.id,
+                    name: product.name,
+                    price: product.price,
+                    category: product.category,
+                    subCategory: product.subCategory,
+                    stock: product.stock,
+                    image: product.imageUrl
+                };
+
+            });
+
+            displayProducts();
+
+        })
+        .catch(function(error) {
+            console.error("Product loading error:", error);
+        });
+}
+
+
+/* =====================================
+   SUB-CATEGORIES
+===================================== */
+
 const subCategories = {
-    Men: ["Shirts", "Pants", "Shoes"],
-    Women: ["Sarees", "Dresses", "Tops"],
-    Kids: ["Boys", "Girls", "Toys"],
-    Groceries: ["Fruits", "Vegetables", "Snacks"],
-    Accessories: ["Bags", "Watches", "Jewellery"]
+
+    Men: [
+        "Shirts",
+        "T-Shirts",
+        "Pants",
+        "Jeans",
+        "Shoes"
+    ],
+
+    Women: [
+        "Sarees",
+        "Dresses",
+        "Tops",
+        "Jeans",
+        "Kurtis"
+    ],
+
+    Kids: [
+        "Boys",
+        "Girls",
+        "Toys",
+        "Kids Clothing",
+        "School Items"
+    ],
+
+    Electronics: [
+        "Mobiles",
+        "Laptops",
+        "Headphones",
+        "Televisions",
+        "Cameras"
+    ],
+
+    Fashion: [
+        "Clothing",
+        "Bags",
+        "Watches",
+        "Sunglasses",
+        "Fashion Accessories"
+    ],
+
+    Groceries: [
+        "Fruits",
+        "Vegetables",
+        "Snacks",
+        "Beverages",
+        "Staples"
+    ],
+
+    "Home & Kitchen": [
+        "Kitchen",
+        "Furniture",
+        "Home Decor",
+        "Cookware",
+        "Storage"
+    ],
+
+    Beauty: [
+        "Makeup",
+        "Skincare",
+        "Hair Care",
+        "Fragrances",
+        "Personal Care"
+    ],
+
+    Sports: [
+        "Cricket",
+        "Football",
+        "Fitness",
+        "Badminton",
+        "Sports Shoes"
+    ],
+
+    Books: [
+        "Education",
+        "Fiction",
+        "Non-Fiction",
+        "Competitive Exams",
+        "Children Books"
+    ],
+
+    "Toys & Games": [
+        "Toys",
+        "Board Games",
+        "Video Games",
+        "Puzzles",
+        "Outdoor Games"
+    ],
+
+    "Baby Products": [
+        "Baby Clothing",
+        "Diapers",
+        "Baby Food",
+        "Baby Care",
+        "Baby Toys"
+    ],
+
+    Automotive: [
+        "Car Accessories",
+        "Bike Accessories",
+        "Car Care",
+        "Helmets",
+        "Tools"
+    ],
+
+    Footwear: [
+        "Men's Footwear",
+        "Women's Footwear",
+        "Kids Footwear",
+        "Sports Shoes",
+        "Sandals"
+    ],
+
+    Jewellery: [
+        "Gold Jewellery",
+        "Silver Jewellery",
+        "Earrings",
+        "Necklaces",
+        "Rings"
+    ],
+
+    "Pet Supplies": [
+        "Dog Food",
+        "Cat Food",
+        "Pet Toys",
+        "Pet Accessories",
+        "Pet Care"
+    ]
+
 };
 
 
-// PAGE CHANGE
+/* =====================================
+   PAGE CHANGE
+===================================== */
+
 function showPage(pageName, clickedMenu = null) {
 
-    document.querySelectorAll(".page").forEach(function(page) {
-        page.classList.remove("active-page");
-    });
+    /* Hide all pages */
 
-    let page = document.getElementById(pageName);
+    document
+        .querySelectorAll(".page")
+        .forEach(function(page) {
 
-    if (page) {
-        page.classList.add("active-page");
-    }
-
-    document.querySelectorAll(".menu a").forEach(function(item) {
-        item.classList.remove("active");
-    });
-
-    if (clickedMenu) {
-        clickedMenu.classList.add("active");
-    }
-
-    if (pageName === "products") {
-        displayProducts();
-    }
-
-    if (pageName === "orders") {
-        displayOrders();
-    }
-
-    if (pageName === "reports") {
-        updateCount();
-    }
-}
-// TOTAL PRODUCTS
-
-
-function updateCount() {
-
-    let total = products.length;
-
-    let totalProducts =
-        document.getElementById("totalProducts");
-
-    if (totalProducts) {
-        totalProducts.innerText = total;
-    }
-
-    let reportProducts =
-        document.getElementById("reportProducts");
-
-    if (reportProducts) {
-        reportProducts.innerText = total;
-    }
-}
-
-
-// CATEGORY → SUB CATEGORY
-document.getElementById("productCategory").addEventListener("change", function() {
-
-    let category = this.value;
-
-    let subCategory =
-        document.getElementById("productSubCategory");
-
-    subCategory.innerHTML =
-        '<option value="">Select Sub-Category</option>';
-
-    if (subCategories[category]) {
-
-        subCategories[category].forEach(function(item) {
-
-            subCategory.innerHTML +=
-                '<option value="' + item + '">' +
-                item +
-                '</option>';
+            page.classList.remove("active-page");
 
         });
+
+
+    /* Show selected page */
+
+    const page =
+        document.getElementById(pageName);
+
+    if (page) {
+
+        page.classList.add("active-page");
+
     }
-});
 
 
-// ADD PRODUCT
+    /* Remove active from menu */
+
+    document
+        .querySelectorAll(".menu a")
+        .forEach(function(item) {
+
+            item.classList.remove("active");
+
+        });
+
+
+    /* Add active to clicked menu */
+
+    if (clickedMenu) {
+
+        clickedMenu.classList.add("active");
+
+    }
+
+
+    /* Load products page */
+
+    if (pageName === "products") {
+
+        loadProductsFromDatabase();
+
+    }
+
+
+    /* Load orders page */
+
+    if (pageName === "orders") {
+
+        displayOrders();
+
+    }
+
+
+    /* Load reports */
+
+    if (pageName === "reports") {
+
+        updateCount();
+
+    }
+    if (pageName === "customers") {
+        loadCustomers();
+    }
+
+}
+
+
+/* =====================================
+   CATEGORY → SUB-CATEGORY
+===================================== */
+
+const categorySelect =
+    document.getElementById("productCategory");
+
+
+if (categorySelect) {
+
+    categorySelect.addEventListener(
+        "change",
+        function() {
+
+            const category =
+                this.value;
+
+            const subCategory =
+                document.getElementById(
+                    "productSubCategory"
+                );
+
+
+            subCategory.innerHTML =
+                '<option value="">Select Sub-Category</option>';
+
+
+            if (subCategories[category]) {
+
+                subCategories[category]
+                    .forEach(function(item) {
+
+                        const option =
+                            document.createElement(
+                                "option"
+                            );
+
+                        option.value = item;
+
+                        option.textContent = item;
+
+                        subCategory.appendChild(
+                            option
+                        );
+
+                    });
+
+            }
+
+        }
+    );
+
+}
+
 function addProduct() {
 
-    let name =
-        document.getElementById("productName").value;
+    const name =
+        document.getElementById("productName").value.trim();
 
-    let price =
+    const price =
         document.getElementById("productPrice").value;
 
-    let category =
+    const category =
         document.getElementById("productCategory").value;
 
-    let subCategory =
+    const subCategory =
         document.getElementById("productSubCategory").value;
 
-    let stock =
+    const stock =
         document.getElementById("productStock").value;
 
-    let image =
-        document.getElementById("productImage");
+    const image =
+        document.getElementById("productImageUrl").value.trim();
+
 
     if (
         name === "" ||
@@ -864,113 +1784,101 @@ function addProduct() {
         subCategory === "" ||
         stock === ""
     ) {
-
         alert("Please fill all product details.");
         return;
     }
 
 
-    if (image.files.length > 0) {
-
-        let reader = new FileReader();
-
-        reader.onload = function(event) {
-
-            saveProduct(
-                name,
-                price,
-                category,
-                subCategory,
-                stock,
-                event.target.result
-            );
-
-        };
-
-        reader.readAsDataURL(image.files[0]);
-
-    } else {
-
-        saveProduct(
-            name,
-            price,
-            category,
-            subCategory,
-            stock,
-            ""
-        );
-    }
-}
-
-
-// SAVE PRODUCT
-function saveProduct(
-    name,
-    price,
-    category,
-    subCategory,
-    stock,
-    image
-) {
-
-    let formData = new FormData();
+    const formData = new URLSearchParams();
 
     formData.append("pname", name);
     formData.append("pdescription", "");
     formData.append("pcategory", category);
+    formData.append("psubcategory", subCategory);
     formData.append("pprice", price);
     formData.append("pstock", stock);
+    formData.append("imageUrl", image);
 
-    fetch("/yoharshinimart/AddProductServlet", {
+
+    fetch("AddProductServlet", {
         method: "POST",
-        body: formData
+        headers: {
+            "Content-Type":
+                "application/x-www-form-urlencoded"
+        },
+        body: formData.toString()
     })
-    .then(function(response) {
+    .then(response => response.text())
+    .then(result => {
 
-        return response.text();
+        if (
+            result.includes(
+                "Product Added Successfully"
+            )
+        ) {
 
-    })
-    .then(function(data) {
+            alert(
+                "Product Added Successfully! 🎉"
+            );
 
-        if (data.includes("Product Added Successfully")) {
 
-            alert("Product Added Successfully! 🎉");
+            document.getElementById(
+                "productName"
+            ).value = "";
 
-            document.getElementById("productName").value = "";
-            document.getElementById("productPrice").value = "";
-            document.getElementById("productCategory").value = "";
+            document.getElementById(
+                "productPrice"
+            ).value = "";
 
-            document.getElementById("productSubCategory").innerHTML =
+            document.getElementById(
+                "productCategory"
+            ).value = "";
+
+            document.getElementById(
+                "productSubCategory"
+            ).innerHTML =
                 '<option value="">Select Sub-Category</option>';
 
-            document.getElementById("productStock").value = "";
-            document.getElementById("productImage").value = "";
+            document.getElementById(
+                "productStock"
+            ).value = "";
 
-            loadProductsFromDatabase();
+            document.getElementById(
+                "productImageUrl"
+            ).value = "";
+
 
             showPage("products");
 
+            displayProducts();
+
         } else {
 
-            alert("Product Add Failed ❌");
-            console.log(data);
+            alert(result);
 
         }
 
     })
-    .catch(function(error) {
+    .catch(error => {
 
-        console.error("Add Product Error:", error);
-        alert("Server Error ❌");
+        console.error(
+            "Add Product Error:",
+            error
+        );
+
+        alert(
+            "Product could not be added."
+        );
 
     });
 }
+/* =====================================
+   DISPLAY PRODUCTS FROM DATABASE
+===================================== */
 
-
-// DISPLAY PRODUCTS
 function displayProducts() {
 
-    let productList =
+    const productList =
         document.getElementById("productList");
 
     if (!productList) {
@@ -979,146 +1887,203 @@ function displayProducts() {
 
     productList.innerHTML = "";
 
-    if (products.length === 0) {
+    fetch("ProductDataServlet")
+        .then(response => response.json())
+        .then(data => {
 
-        productList.innerHTML = `
-            <div class="empty">
-                <h2>No Products Added 📦</h2>
-                <p>Add a product from Add Product.</p>
-            </div>
-        `;
+            products = data;
 
+            if (products.length === 0) {
+
+                productList.innerHTML = `
+                    <div class="empty">
+                        <h2>No Products Added 📦</h2>
+                        No products found in database.</p>
+                    </div>
+                `;
+
+                return;
+            }
+
+            products.forEach(function(product) {
+
+                let imageHTML;
+
+                if (product.imageUrl) {
+
+                    imageHTML = `
+                        <img
+                            src="${product.imageUrl}"
+                            alt="${product.name}"
+                        >
+                    `;
+
+                } else {
+
+                    imageHTML = `
+                        <div style="
+                            height:200px;
+                            background:#eee;
+                            display:flex;
+                            align-items:center;
+                            justify-content:center;
+                            font-size:60px;
+                        ">
+                            📦
+                        </div>
+                    `;
+                }
+
+                productList.innerHTML += `
+
+                    <div class="product-card">
+
+                        ${imageHTML}
+
+                        <div class="product-info">
+
+                            <h3>
+                                ${product.name}
+                            </h3>
+
+                            <p>
+                                💰 Price:
+                                ₹${product.price}
+                            </p>
+
+                            <p>
+                                🗂️ Category:
+                                ${product.category}
+                            </p>
+
+                            <p>
+                                📁 Sub-Category:
+                                ${product.subCategory}
+                            </p>
+
+                            <p>
+                                📦 Stock:
+                                ${product.stock}
+                            </p>
+
+                            <button
+                                class="delete-btn"
+                                onclick="deleteProduct(${product.id})">
+
+                                Delete Product
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                `;
+
+            });
+
+        })
+        .catch(function(error) {
+
+            console.error(
+                "Database product loading error:",
+                error
+            );
+
+        });
+    }
+    /* =====================================
+   DELETE PRODUCT
+===================================== */
+
+function deleteProduct(id) {
+
+    const confirmDelete =
+        confirm(
+            "Are you sure you want to delete this product?"
+        );
+
+    if (!confirmDelete) {
         return;
     }
 
+    fetch("ProductDeleteServlet?id=" + id, {
+        method: "GET"
+    })
+    .then(response => response.text())
+    .then(result => {
 
-    products.forEach(function(product) {
+        if (result.includes("successfully")) {
 
-        let imageHTML = "";
+            alert("Product Deleted Successfully! 🗑️");
 
-        if (product.image) {
-
-            imageHTML =
-                '<img src="' +
-                product.image +
-                '" alt="' +
-                product.name +
-                '">';
+            displayProducts();
 
         } else {
 
-            imageHTML = `
-                <div style="
-                    height:180px;
-                    background:#eee;
-                    display:flex;
-                    align-items:center;
-                    justify-content:center;
-                    font-size:60px;
-                ">
-                    📦
-                </div>
-            `;
+            alert(result);
+
         }
 
+    })
+    .catch(error => {
 
-        productList.innerHTML += `
+        console.error(
+            "Delete Product Error:",
+            error
+        );
 
-            <div class="product-card">
+        alert(
+            "Product could not be deleted."
+        );
 
-                ${imageHTML}
-
-                <div class="product-info">
-
-                    <h3>${product.name}</h3>
-
-                    <p>💰 Price: ₹${product.price}</p>
-
-                    <p>🗂️ Category: ${product.category}</p>
-
-                    <p>📁 Sub-Category: ${product.subCategory}</p>
-
-                    <p>📦 Stock: ${product.stock}</p>
-                    <button
-                        class="add-btn"
-                        onclick="addToCart(${product.id})">
-                        🛒 Add to Cart
-                    </button>
-
-                    <button
-                        class="delete-btn"
-                        onclick="deleteProduct(${product.id})">
-                        Delete Product
-                    </button>
-
-                </div>
-
-            </div>
-        `;
     });
 }
-// ADD TO CART
-function addToCart(id) {
 
-    let form = document.createElement("form");
+/* =====================================
+   SEARCH PRODUCTS
+===================================== */
 
-    form.method = "POST";
-    form.action = "CartServlet";
+function searchProducts(text) {
 
-    let input = document.createElement("input");
+    const productList =
+        document.getElementById(
+            "productList"
+        );
 
-    input.type = "hidden";
-    input.name = "productId";
-    input.value = id;
-
-    form.appendChild(input);
-    document.body.appendChild(form);
-
-    form.submit();
-}
-
-
-// DELETE PRODUCT
-function deleteProduct(id) {
-
-    if (!confirm("Are you sure you want to delete this product?")) {
-        return;
-    }
-
-    products = products.filter(function(product) {
-        return product.id !== id;
-    });
-
-    localStorage.setItem(
-        "yoharshiniProducts",
-        JSON.stringify(products)
-    );
-
-    updateCount();
-
-    displayProducts();
-}
-
-
-// SEARCH
-function searchProducts(searchText) {
-
-    let productList =
-        document.getElementById("productList");
 
     if (!productList) {
+
         return;
+
     }
 
-    searchText = searchText.toLowerCase();
 
-    let filtered =
+    const searchText =
+        text.toLowerCase().trim();
+
+
+    const filtered =
         products.filter(function(product) {
 
             return (
-                product.name.toLowerCase().includes(searchText) ||
-                product.category.toLowerCase().includes(searchText) ||
-                product.subCategory.toLowerCase().includes(searchText)
+
+                product.name
+                    .toLowerCase()
+                    .includes(searchText)
+
+                ||
+
+                product.category
+                    .toLowerCase()
+                    .includes(searchText)
+
+                ||
+
+                product.subCategory
+                    .toLowerCase()
+                    .includes(searchText)
+
             );
 
         });
@@ -1126,33 +2091,49 @@ function searchProducts(searchText) {
 
     productList.innerHTML = "";
 
+
     if (filtered.length === 0) {
 
         productList.innerHTML = `
+
             <div class="empty">
-                <h2>No Products Found 🔍</h2>
+
+                <h2>
+                    No Products Found 🔍
+                </h2>
+
             </div>
+
         `;
 
         return;
+
     }
 
 
     filtered.forEach(function(product) {
 
-        let imageHTML = product.image
-            ? '<img src="' + product.image + '">'
+        let imageHTML =
+            product.image
+
+            ? `<img src="${product.image}"
+                    alt="${product.name}">`
+
             : `
+
                 <div style="
-                    height:180px;
+                    height:200px;
                     background:#eee;
                     display:flex;
                     align-items:center;
                     justify-content:center;
                     font-size:60px;
                 ">
+
                     📦
+
                 </div>
+
             `;
 
 
@@ -1164,43 +2145,74 @@ function searchProducts(searchText) {
 
                 <div class="product-info">
 
-                    <h3>${product.name}</h3>
+                    <h3>
+                        ${product.name}
+                    </h3>
 
-                    <p>💰 Price: ₹${product.price}</p>
+                    <p>
+                        💰 Price:
+                        ₹${product.price}
+                    </p>
 
-                    <p>🗂️ Category: ${product.category}</p>
+                    <p>
+                        🗂️ Category:
+                        ${product.category}
+                    </p>
 
-                    <p>📁 Sub-Category: ${product.subCategory}</p>
+                    <p>
+                        📁 Sub-Category:
+                        ${product.subCategory}
+                    </p>
 
-                    <p>📦 Stock: ${product.stock}</p>
+                    <p>
+                        📦 Stock:
+                        ${product.stock}
+                    </p>
 
                     <button
                         class="delete-btn"
                         onclick="deleteProduct(${product.id})">
+
                         Delete Product
+
                     </button>
 
                 </div>
 
             </div>
+
         `;
+
     });
+
 }
 
 
-// SHOW SUB CATEGORIES
+/* =====================================
+   SHOW SUB-CATEGORIES
+===================================== */
+
 function showSubCategories(category) {
 
-    let list = subCategories[category] || [];
+    const list =
+        subCategories[category] || [];
 
-    let subCategoryList =
-        document.getElementById("subCategoryList");
 
-    let title =
-        document.getElementById("subCategoryTitle");
+    const title =
+        document.getElementById(
+            "subCategoryTitle"
+        );
+
+
+    const subCategoryList =
+        document.getElementById(
+            "subCategoryList"
+        );
+
 
     title.innerText =
         category + " Sub-Categories";
+
 
     subCategoryList.innerHTML = "";
 
@@ -1209,57 +2221,115 @@ function showSubCategories(category) {
 
         let emoji = "📦";
 
-        if (item === "Shirts") emoji = "👕";
-        else if (item === "Pants") emoji = "👖";
-        else if (item === "Shoes") emoji = "👟";
-        else if (item === "Sarees") emoji = "🥻";
-        else if (item === "Dresses") emoji = "👗";
-        else if (item === "Tops") emoji = "👚";
-        else if (item === "Boys") emoji = "👦";
-        else if (item === "Girls") emoji = "👧";
-        else if (item === "Toys") emoji = "🧸";
-        else if (item === "Fruits") emoji = "🍎";
-        else if (item === "Vegetables") emoji = "🥕";
-        else if (item === "Snacks") emoji = "🍿";
-        else if (item === "Bags") emoji = "👜";
-        else if (item === "Watches") emoji = "⌚";
-        else if (item === "Jewellery") emoji = "💍";
+
+        if (item === "Shirts")
+            emoji = "👕";
+
+        else if (item === "Pants")
+            emoji = "👖";
+
+        else if (item === "Shoes")
+            emoji = "👟";
+
+        else if (item === "Sarees")
+            emoji = "🥻";
+
+        else if (item === "Dresses")
+            emoji = "👗";
+
+        else if (item === "Tops")
+            emoji = "👚";
+
+        else if (item === "Boys")
+            emoji = "👦";
+
+        else if (item === "Girls")
+            emoji = "👧";
+
+        else if (item === "Toys")
+            emoji = "🧸";
+
+        else if (item === "Fruits")
+            emoji = "🍎";
+
+        else if (item === "Vegetables")
+            emoji = "🥕";
+
+        else if (item === "Snacks")
+            emoji = "🍿";
+
+        else if (item === "Bags")
+            emoji = "👜";
+
+        else if (item === "Watches")
+            emoji = "⌚";
+
+        else if (item === "Jewellery")
+            emoji = "💍";
 
 
         subCategoryList.innerHTML += `
 
-            <div class="category-card"
-                 onclick="filterSubCategory('${category}','${item}')">
+            <div
+                class="category-card"
+                onclick="filterSubCategory(
+                    '${category}',
+                    '${item}'
+                )">
 
-                <div class="emoji">${emoji}</div>
+                <div class="emoji">
+                    ${emoji}
+                </div>
 
-                <h3>${item}</h3>
+                <h3>
+                    ${item}
+                </h3>
 
-                <p>Click to view products</p>
+                <p>
+                    Click to view products
+                </p>
 
             </div>
+
         `;
+
     });
 
 
     showPage("subCategories");
+
 }
 
 
-// FILTER SUB CATEGORY
-function filterSubCategory(category, subCategory) {
+/* =====================================
+   FILTER BY SUB-CATEGORY
+===================================== */
 
-    let productList =
-        document.getElementById("productList");
+function filterSubCategory(
+    category,
+    subCategory
+) {
 
     showPage("products");
 
-    let filtered =
+
+    const productList =
+        document.getElementById(
+            "productList"
+        );
+
+
+    const filtered =
         products.filter(function(product) {
 
             return (
-                product.category === category &&
+
+                product.category === category
+
+                &&
+
                 product.subCategory === subCategory
+
             );
 
         });
@@ -1271,34 +2341,51 @@ function filterSubCategory(category, subCategory) {
     if (filtered.length === 0) {
 
         productList.innerHTML = `
+
             <div class="empty">
-                <h2>No Products Available 📦</h2>
+
+                <h2>
+                    No Products Available 📦
+                </h2>
+
                 <p>
-                    No products found in
-                    ${category} → ${subCategory}
+                    ${category}
+                    →
+                    ${subCategory}
                 </p>
+
             </div>
+
         `;
 
         return;
+
     }
 
 
     filtered.forEach(function(product) {
 
-        let imageHTML = product.image
-            ? '<img src="' + product.image + '">'
+        const imageHTML =
+            product.image
+
+            ? `<img src="${product.image}"
+                    alt="${product.name}">`
+
             : `
+
                 <div style="
-                    height:180px;
+                    height:200px;
                     background:#eee;
                     display:flex;
                     align-items:center;
                     justify-content:center;
                     font-size:60px;
                 ">
+
                     📦
+
                 </div>
+
             `;
 
 
@@ -1310,127 +2397,478 @@ function filterSubCategory(category, subCategory) {
 
                 <div class="product-info">
 
-                    <h3>${product.name}</h3>
+                    <h3>
+                        ${product.name}
+                    </h3>
 
-                    <p>💰 Price: ₹${product.price}</p>
+                    <p>
+                        💰 Price:
+                        ₹${product.price}
+                    </p>
 
-                    <p>🗂️ Category: ${product.category}</p>
+                    <p>
+                        🗂️ Category:
+                        ${product.category}
+                    </p>
 
-                    <p>📁 Sub-Category: ${product.subCategory}</p>
+                    <p>
+                        📁 Sub-Category:
+                        ${product.subCategory}
+                    </p>
 
-                    <p>📦 Stock: ${product.stock}</p>
+                    <p>
+                        📦 Stock:
+                        ${product.stock}
+                    </p>
 
                     <button
                         class="delete-btn"
                         onclick="deleteProduct(${product.id})">
+
                         Delete Product
+
                     </button>
 
                 </div>
 
             </div>
+
         `;
+
     });
+
 }
 
-
-// DISPLAY ORDERS
 function displayOrders() {
 
-    let ordersList =
+    const ordersList =
         document.getElementById("ordersList");
 
     if (!ordersList) {
         return;
     }
 
-    let orders =
-        JSON.parse(
-            localStorage.getItem("yoharshiniOrders")
-        ) || [];
+    fetch("OrderDataServlet")
+        .then(response => response.json())
+        .then(orders => {
 
+            ordersList.innerHTML = "";
 
-    ordersList.innerHTML = "";
+            if (orders.length === 0) {
 
+                ordersList.innerHTML =
+                    "<div class='empty'>" +
+                    "<h2>No Orders Available 📦</h2>" +
+                    "<p>No orders found in database.</p>" +
+                    "</div>";
 
-    if (orders.length === 0) {
+                return;
+            }
 
-        ordersList.innerHTML = `
+            orders.forEach(function(order) {
 
-            <div class="empty">
+                const card =
+                    document.createElement("div");
 
-                <h2>No New Orders Available 📦</h2>
+                card.className = "card";
 
-                <p>
-                    Orders placed from Cart will appear here.
-                </p>
+                let itemsHTML = "";
 
-            </div>
-        `;
+                if (order.items && order.items.length > 0) {
 
-        return;
-    }
+                    order.items.forEach(function(item) {
 
+                        let imageHTML = "";
 
-    orders.slice().reverse().forEach(function(order) {
+                        if (item.imageUrl) {
 
-        let itemsText =
-            order.items.map(function(item) {
+                            imageHTML =
+                                "<img src='" +
+                                item.imageUrl +
+                                "' alt='" +
+                                item.name +
+                                "' style='width:120px;height:120px;object-fit:cover;border-radius:10px;margin-right:20px;'>";
 
-                return (
-                    item.name +
-                    " × " +
-                    (item.quantity || 1)
-                );
+                        } else {
 
-            }).join(", ");
+                            imageHTML =
+                                "<div style='width:120px;height:120px;background:#eee;display:flex;align-items:center;justify-content:center;font-size:40px;border-radius:10px;margin-right:20px;'>📦</div>";
+                        }
 
+                        itemsHTML +=
 
-        ordersList.innerHTML += `
+                            "<div style='display:flex;align-items:center;margin:15px 0;padding:15px;background:#f7f8f5;border-radius:12px;'>" +
 
-            <div class="card">
+                            imageHTML +
 
-                <h2>Order #${order.id}</h2>
+                            "<div>" +
 
-                <p>📅 Date: ${order.date}</p>
+                            "<h3>" +
+                            item.name +
+                            "</h3>" +
 
-                <p>📦 Products: ${itemsText}</p>
+                            "<p>💰 Price: ₹" +
+                            item.unitPrice +
+                            "</p>" +
 
-                <p>💰 Total: ₹${order.total}</p>
+                            "<p>🔢 Quantity: " +
+                            item.quantity +
+                            "</p>" +
 
-                <p>
-                    📌 Status:
-                    <b>${order.status}</b>
-                </p>
+                            "<p>💵 Item Total: ₹" +
+                            (item.unitPrice * item.quantity) +
+                            "</p>" +
 
-            </div>
-        `;
+                            "</div>" +
+
+                            "</div>";
+                    });
+                }
+
+                card.innerHTML =
+
+                    "<h2>Order #" +
+                    order.id +
+                    "</h2>" +
+
+                    "<p>👤 Buyer: <b>" +
+                    order.buyerName +
+                    "</b></p>" +
+
+                    "<p>🆔 Buyer ID: " +
+                    order.buyerId +
+                    "</p>" +
+
+                    "<p>📱 Phone: " +
+                    order.phone +
+                    "</p>" +
+
+                    "<p>🏠 Address: " +
+                    order.address +
+                    "</p>" +
+
+                    "<p>🌆 City: " +
+                    order.city +
+                    "</p>" +
+
+                    "<p>📍 PIN: " +
+                    order.pinCode +
+                    "</p>" +
+
+                    "<p>📅 Date: " +
+                    order.date +
+                    "</p>" +
+
+                
+                    "<p>📌 Status: <b>" +
+                    order.status +
+                    "</b></p>" +
+
+                    "<label><b>Change Status:</b></label> " +
+
+                    "<select onchange=\"updateOrderStatus(" +
+                    order.id +
+                    ", this.value)\" style='padding:8px;margin-left:10px;border-radius:6px;'>" +
+
+                    "<option value='CONFIRMED' " +
+                    (order.status === "CONFIRMED" ? "selected" : "") +
+                    ">CONFIRMED</option>" +
+
+                    "<option value='SHIPPED' " +
+                    (order.status === "SHIPPED" ? "selected" : "") +
+                    ">SHIPPED</option>" +
+
+                    "<option value='DELIVERED' " +
+                    (order.status === "DELIVERED" ? "selected" : "") +
+                    ">DELIVERED</option>" +
+
+                    "<option value='CANCELLED' " +
+                    (order.status === "CANCELLED" ? "selected" : "") +
+                    ">CANCELLED</option>" +
+
+                    "</select>" +
+                    "<hr>" +
+
+                    "<hr>" +
+
+                    "<h3>🛍️ Ordered Products</h3>" +
+
+                    itemsHTML +
+
+                    "<h2>💰 Order Total: ₹" +
+                    order.total +
+                    "</h2>";
+
+                ordersList.appendChild(card);
+
+            });
+
+        })
+        .catch(function(error) {
+
+            console.error(
+                "Order loading error:",
+                error
+            );
+
+            ordersList.innerHTML =
+                "<div class='empty'>" +
+                "<h2>Unable to load orders</h2>" +
+                "</div>";
+        });
+}
+function updateOrderStatus(orderId, status) {
+
+    const formData = new URLSearchParams();
+
+    formData.append("orderId", orderId);
+    formData.append("status", status);
+
+    fetch("OrderStatusServlet", {
+        method: "POST",
+        headers: {
+            "Content-Type":
+                "application/x-www-form-urlencoded"
+        },
+        body: formData.toString()
+    })
+    .then(response => response.text())
+    .then(result => {
+
+        if (result.includes("Successfully")) {
+
+            alert("Order status updated successfully! ✅");
+
+            displayOrders();
+
+        } else {
+
+            alert(result);
+        }
+    })
+    .catch(error => {
+
+        console.error(
+            "Order Status Error:",
+            error
+        );
+
+        alert("Unable to update order status.");
     });
 }
 
+/* =====================================
+   LOAD SAVED PRODUCTS
+===================================== */
 
-// WHEN PAGE LOADS
-window.addEventListener("load", function() {
+function loadSavedProducts() {
 
-    loadProductsFromDatabase();
+    const saved =
+        localStorage.getItem(
+            "yoharshiniProducts"
+        );
+
+
+    if (saved) {
+
+        try {
+
+            products =
+                JSON.parse(saved) || [];
+
+        }
+
+        catch (error) {
+
+            products = [];
+
+        }
+
+    }
+
 
     updateCount();
 
     displayProducts();
 
-});
-fetch("OrderCountServlet")
-    .then(function(response) {
-        return response.text();
-    })
-    .then(function(count) {
-        document.getElementById("totalOrders").innerText = count;
-    })
-    .catch(function(error) {
-        console.log("Order count error:", error);
-    });
-    
-</script>
+}
 
+
+/* =====================================
+   PAGE LOAD
+===================================== */
+
+window.addEventListener(
+    "load",
+    function() {
+
+        loadSavedProducts();
+
+        updateCount();
+
+    }
+);
+fetch("CustomerCountServlet")
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById("totalCustomers").textContent = data.count;
+    })
+    .catch(error => {
+        console.log("Customer count error:", error);
+    });
+    fetch("/yoharshinimart/RevenueServlet")
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById("revenueAmount").textContent =
+            "₹" + Number(data.revenue).toLocaleString("en-IN");
+    })
+    .catch(error => {
+        console.error("Revenue error:", error);
+    });
+    fetch("/yoharshinimart/ReviewCountServlet")
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById("totalReviews").textContent = data.count;
+    })
+    .catch(error => {
+        console.error("Review count error:", error);
+    });
+    fetch("ReportServlet")
+    .then(response => response.json())
+    .then(data => {
+
+        document.getElementById("totalProducts").innerText =
+            data.totalProducts;
+
+        document.getElementById("totalOrders").innerText =
+            data.totalOrders;
+
+        document.getElementById("totaklCustomers").innerText =
+            data.totalCustomers;
+
+        document.getElementById("#reports #revenueAmount").innerText =
+            "₹" + Number(data.revenue).toLocaleString("en-IN");
+
+        document.getElementById("totalReviews").innerText =
+            data.totalReviews;
+
+    })
+    .catch(error => {
+        console.error("Dashboard error:", error);
+    });
+    fetch("ReportServlet")
+
+    .then(response => response.json())
+    .then(data => {
+
+        document.getElementById("reportProducts").innerText =
+            data.totalProducts;
+
+        document.getElementById("reportOrders").innerText =
+            data.totalOrders;
+
+        document.getElementById("reportRevenue").innerText =
+            "₹" + Number(data.revenue).toLocaleString("en-IN");
+            document.getElementById("reportReviews").innerText =
+    data.totalReviews;
+
+    })
+    .catch(error => {
+        console.error("Reports error:", error);
+    });
+    function loadCustomers() {
+
+    const customerSection =
+        document.getElementById("customers");
+
+    if (!customerSection) {
+        return;
+    }
+
+    fetch("CustomerDataServlet")
+        .then(response => response.json())
+        .then(customers => {
+
+            let html =
+                "<button class='back-btn' onclick=\"showPage('dashboard')\">" +
+                "← Dashboard</button>" +
+
+                "<div class='card'>" +
+                "<h1>Customers 👥</h1>" +
+                "<p>Total Customers: <b>" +
+                customers.length +
+                "</b></p>" +
+                "</div>";
+
+            if (customers.length === 0) {
+
+                html +=
+                    "<div class='card'>" +
+                    "<h2>No Customers Found</h2>" +
+                    "</div>";
+
+            } else {
+
+                customers.forEach(function(customer) {
+
+                    html +=
+
+                        "<div class='card' style='margin-top:20px;'>" +
+
+                        "<h2>👤 " +
+                        customer.name +
+                        "</h2>" +
+
+                        "<p>🆔 Customer ID: " +
+                        customer.id +
+                        "</p>" +
+
+                        "<p>📧 Email: " +
+                        customer.email +
+                        "</p>" +
+
+                        "<p>📅 Joined: " +
+                        customer.date +
+                        "</p>" +
+
+                        "</div>";
+                });
+            }
+
+            customerSection.innerHTML = html;
+        })
+        .catch(function(error) {
+
+            console.error(
+                "Customer loading error:",
+                error
+            );
+
+        });
+}
+function loadDashboardGrowth() {
+
+    fetch("DashboardGrowthServlet")
+        .then(response => response.json())
+        .then(data => {
+
+            document.getElementById("customerGrowth").innerText =
+                "↑ " + Math.round(data.customerGrowth) + "% this month";
+
+            document.getElementById("revenueGrowth").innerText =
+                "↑ " + Math.round(data.revenueGrowth) + "% this month";
+
+            document.getElementById("reviewGrowth").innerText =
+                "↑ " + Math.round(data.reviewGrowth) + "% this month";
+
+        })
+        .catch(error => {
+            console.error("Growth data error:", error);
+        });
+}
+window.addEventListener("load", function() {
+    loadDashboardGrowth();
+});
+    </script>
 </body>
 </html>

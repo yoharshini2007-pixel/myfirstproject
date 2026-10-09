@@ -15,6 +15,7 @@ CREATE TABLE products (
     price DECIMAL(10,2) NOT NULL,
     stock_qty INT NOT NULL,
     category VARCHAR(100) NOT NULL,
+    subcategory VARCHAR(100),
     image_url VARCHAR(255),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (seller_id) REFERENCES users(id) ON DELETE CASCADE

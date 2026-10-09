@@ -70,16 +70,33 @@ function showPage(pageName) {
 
 function updateTotalProducts() {
 
-    let total = 512 + products.length;
+    fetch("/yoharshinimart/ReportServlet")
+        .then(response => response.json())
+        .then(data => {
 
-    let totalElement =
-        document.getElementById("totalProducts");
+            document.getElementById("totalProducts").innerText =
+                data.totalProducts;
 
-    if (totalElement) {
-        totalElement.innerText = total;
-    }
+            document.getElementById("totalOrders").innerText =
+                data.totalOrders;
+
+            let stats = document.querySelectorAll(".stat h2");
+            stats[2].innerText = data.totalCustomers;
+
+if (customerElements.length >= 3) {
+    customerElements[2].innerText = data.totalCustomers;
 }
 
+            document.getElementById("revenueAmount").innerText =
+                "₹" + Number(data.revenue).toLocaleString("en-IN");
+
+            document.getElementById("totalReviews").innerText =
+                data.totalReviews;
+        })
+        .catch(error => {
+            console.error("Dashboard data error:", error);
+        });
+}
 
 // =====================================
 // ADD PRODUCT

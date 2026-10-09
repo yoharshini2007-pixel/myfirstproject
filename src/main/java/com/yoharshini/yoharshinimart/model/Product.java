@@ -11,6 +11,7 @@ public class Product {
     private double price;
     private int stockQty;
     private String category;
+    private String subCategory;
     private String imageUrl;
     private Timestamp createdAt;
 
@@ -18,7 +19,7 @@ public class Product {
     }
 
     public Product(int id, int sellerId, String name, String description,
-                   double price, int stockQty, String category,
+                   double price, int stockQty, String category, String subCategory,
                    String imageUrl, Timestamp createdAt) {
 
         this.id = id;
@@ -28,6 +29,7 @@ public class Product {
         this.price = price;
         this.stockQty = stockQty;
         this.category = category;
+        this.subCategory = subCategory;
         this.imageUrl = imageUrl;
         this.createdAt = createdAt;
     }
@@ -86,6 +88,13 @@ public class Product {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+    public String getSubCategory() {
+        return subCategory;
+    }
+
+    public void setSubCategory(String subCategory) {
+        this.subCategory = subCategory;
     }
 
     public String getImageUrl() {

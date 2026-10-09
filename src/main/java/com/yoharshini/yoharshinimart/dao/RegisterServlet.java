@@ -37,6 +37,15 @@ public class RegisterServlet extends HttpServlet {
         out.println("Password:<br>");
         out.println("<input type='password' name='password' required><br><br>");
 
+
+        out.println("Phone Number:<br>");
+        out.println("<input type='text' name='phone' required><br><br>");
+
+        out.println("Address:<br>");
+        out.println("<input type='text' name='address' required><br><br>");
+
+
+
         out.println("<button type='submit'>Register</button>");
 
         out.println("</form>");
@@ -49,8 +58,10 @@ public class RegisterServlet extends HttpServlet {
         String name = request.getParameter("name");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
+        String phone = request.getParameter("phone");
+        String address = request.getParameter("address");
 
-        String sql = "INSERT INTO users (name, email, password_hash, role) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO users (name, email, password_hash, phone, address, role) VALUES (?, ?, ?, ?, ?, ?)";
 
         try {
             Connection con = DatabaseConnection.getConnection();
@@ -60,7 +71,9 @@ public class RegisterServlet extends HttpServlet {
             ps.setString(1, name);
             ps.setString(2, email);
             ps.setString(3, password);
-            ps.setString(4, "BUYER");
+            ps.setString(4, phone);
+            ps.setString(5, address);
+            ps.setString(6, "BUYER");
 
             ps.executeUpdate();
 

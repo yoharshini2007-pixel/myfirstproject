@@ -12,4 +12,4 @@ function login() {
         document.getElementById("message").innerHTML =
             "❌ Invalid Email or Password";
     }
-}
+} 

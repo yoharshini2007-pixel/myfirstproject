@@ -93,17 +93,82 @@
                       required></textarea>
         </div>
 
+        <!-- CATEGORY -->
+
         <div class="form-group">
             <label>Category:</label>
 
-            <select name="pcategory" required>
-                <option value="Groceries">Groceries</option>
-                <option value="Fashion">Fashion</option>
+            <select name="pcategory" id="category" required>
+
+                <option value="">Select Category</option>
+
                 <option value="Electronics">Electronics</option>
+
+                <option value="Fashion">Fashion</option>
+
+                <option value="Groceries">Groceries</option>
+
+                <option value="Home & Kitchen">Home & Kitchen</option>
+
+                <option value="Beauty & Personal Care">
+                    Beauty & Personal Care
+                </option>
+
+                <option value="Sports & Fitness">
+                    Sports & Fitness
+                </option>
+
+                <option value="Books">Books</option>
+
+                <option value="Toys & Games">
+                    Toys & Games
+                </option>
+
+                <option value="Baby Products">
+                    Baby Products
+                </option>
+
+                <option value="Automotive">
+                    Automotive
+                </option>
+
+                <option value="Footwear">
+                    Footwear
+                </option>
+
+                <option value="Jewellery & Accessories">
+                    Jewellery & Accessories
+                </option>
+
+                <option value="Pet Supplies">
+                    Pet Supplies
+                </option>
+
             </select>
         </div>
 
+
+        <!-- SUB CATEGORY -->
+
         <div class="form-group">
+
+            <label>Sub-Category:</label>
+
+            <select name="psubcategory"
+                    id="subcategory"
+                    required>
+
+                <option value="">
+                    Select Sub-Category
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="form-group">
+
             <label>Price (₹):</label>
 
             <input type="number"
@@ -111,9 +176,12 @@
                    placeholder="E.g., 500"
                    step="0.01"
                    required>
+
         </div>
 
+
         <div class="form-group">
+
             <label>Stock Quantity:</label>
 
             <input type="number"
@@ -121,15 +189,285 @@
                    placeholder="E.g., 10"
                    min="1"
                    required>
+
         </div>
 
-        <button type="submit" class="btn-submit">
+
+        <div class="form-group">
+
+            <label>Product Image URL:</label>
+
+            <input type="text"
+                   name="imageUrl"
+                   placeholder="Paste image URL"
+                   required>
+
+        </div>
+
+
+        <button type="submit"
+                class="btn-submit">
+
             Add Product
+
         </button>
 
     </form>
 
+
+    <button type="button"
+            onclick="window.location.href='ProductServlet';"
+            class="btn-submit"
+            style="margin-top: 10px;">
+
+        View My Products
+
+    </button>
+
 </div>
+
+
+<!-- CATEGORY / SUB-CATEGORY JAVASCRIPT -->
+
+<script>
+
+    const category =
+        document.getElementById("category");
+
+    const subcategory =
+        document.getElementById("subcategory");
+
+
+    category.addEventListener("change", function () {
+
+        const selectedCategory =
+            this.value;
+
+
+        subcategory.innerHTML =
+            '<option value="">Select Sub-Category</option>';
+
+
+        if (selectedCategory === "Electronics") {
+
+            addOptions([
+                "Laptops",
+                "Mobiles",
+                "Tablets",
+                "Headphones",
+                "Smart Watches",
+                "Cameras",
+                "Televisions",
+                "Speakers",
+                "Computer Accessories",
+                "Printers"
+            ]);
+
+        }
+
+
+        else if (selectedCategory === "Fashion") {
+
+            addOptions([
+                "Men",
+                "Women",
+                "Kids",
+                "Shirts",
+                "T-Shirts",
+                "Jeans",
+                "Dresses",
+                "Sarees",
+                "Chudidars",
+                "Kurtis",
+                "Jackets",
+                "Ethnic Wear"
+            ]);
+
+        }
+
+
+        else if (selectedCategory === "Groceries") {
+
+            addOptions([
+                "Rice",
+                "Sugar",
+                "Tea Powder",
+                "Coffee",
+                "Masala",
+                "Cooking Oil",
+                "Flour",
+                "Dal",
+                "Biscuits",
+                "Snacks",
+                "Beverages",
+                "Dry Fruits"
+            ]);
+
+        }
+
+
+        else if (selectedCategory === "Home & Kitchen") {
+
+            addOptions([
+                "Furniture",
+                "Kitchen Appliances",
+                "Cookware",
+                "Home Decor",
+                "Storage",
+                "Bedsheets",
+                "Curtains",
+                "Cleaning Products"
+            ]);
+
+        }
+
+
+        else if (selectedCategory === "Beauty & Personal Care") {
+
+            addOptions([
+                "Makeup",
+                "Skincare",
+                "Hair Care",
+                "Fragrances",
+                "Grooming",
+                "Bath & Body"
+            ]);
+
+        }
+
+
+        else if (selectedCategory === "Sports & Fitness") {
+
+            addOptions([
+                "Cricket",
+                "Football",
+                "Badminton",
+                "Tennis",
+                "Gym Equipment",
+                "Sports Shoes",
+                "Fitness Accessories"
+            ]);
+
+        }
+
+
+        else if (selectedCategory === "Books") {
+
+            addOptions([
+                "Education",
+                "Fiction",
+                "Non-Fiction",
+                "Comics",
+                "Competitive Exams",
+                "Children Books"
+            ]);
+
+        }
+
+
+        else if (selectedCategory === "Toys & Games") {
+
+            addOptions([
+                "Toys",
+                "Board Games",
+                "Puzzles",
+                "Outdoor Games",
+                "Educational Toys",
+                "Remote Control Toys"
+            ]);
+
+        }
+
+
+        else if (selectedCategory === "Baby Products") {
+
+            addOptions([
+                "Baby Clothes",
+                "Diapers",
+                "Baby Food",
+                "Feeding",
+                "Baby Care",
+                "Baby Toys"
+            ]);
+
+        }
+
+
+        else if (selectedCategory === "Automotive") {
+
+            addOptions([
+                "Car Accessories",
+                "Bike Accessories",
+                "Cleaning Products",
+                "Tools",
+                "Helmets",
+                "Car Care"
+            ]);
+
+        }
+
+
+        else if (selectedCategory === "Footwear") {
+
+            addOptions([
+                "Men Shoes",
+                "Women Shoes",
+                "Kids Shoes",
+                "Sports Shoes",
+                "Sandals",
+                "Slippers"
+            ]);
+
+        }
+
+
+        else if (selectedCategory === "Jewellery & Accessories") {
+
+            addOptions([
+                "Jewellery",
+                "Watches",
+                "Bags",
+                "Wallets",
+                "Sunglasses",
+                "Belts"
+            ]);
+
+        }
+
+
+        else if (selectedCategory === "Pet Supplies") {
+
+            addOptions([
+                "Dog Supplies",
+                "Cat Supplies",
+                "Pet Food",
+                "Pet Toys",
+                "Pet Grooming"
+            ]);
+
+        }
+
+    });
+
+
+    function addOptions(options) {
+
+        options.forEach(function (item) {
+
+            const option =
+                document.createElement("option");
+
+            option.value = item;
+
+            option.textContent = item;
+
+            subcategory.appendChild(option);
+
+        });
+
+    }
+
+</script>
 
 </body>
 </html>
