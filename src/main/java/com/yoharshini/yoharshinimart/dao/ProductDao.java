@@ -111,22 +111,24 @@ public class ProductDao {
         return products;
     }
 
-    public boolean deleteProduct(int productId) {
+    
+public boolean deleteProduct(int productId, int sellerId) {
 
-        String query = "DELETE FROM products WHERE id = ?";
+    String query = "DELETE FROM products WHERE id = ? AND seller_id = ?";
 
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(query)) {
+    try (Connection conn = DatabaseConnection.getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(query)) {
 
-            pstmt.setInt(1, productId);
+        pstmt.setInt(1, productId);
+        pstmt.setInt(2, sellerId);
 
-            return pstmt.executeUpdate() > 0;
+        return pstmt.executeUpdate() > 0;
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return false;
     }
+}
 
     public boolean updateProduct(Product product) {
 

@@ -165,9 +165,18 @@ public class ProductServlet extends HttpServlet {
                 out.println("<a class='btn edit' href='ProductEditServlet?id="
                         + p.getId() + "'>Edit</a>");
 
-                out.println("<a class='btn delete' href='ProductDeleteServlet?id="
-                        + p.getId()
-                        + "' onclick=\"return confirm('Are you sure you want to delete this product?');\">Delete</a>");
+                
+out.println("<form method='post' action='ProductDeleteServlet' "
+        + "onsubmit=\"return confirm('Are you sure you want to delete this product?');\" "
+        + "style='flex:1;margin:0;'>");
+
+out.println("<input type='hidden' name='id' value='"
+        + p.getId() + "'>");
+
+out.println("<button type='submit' class='btn delete' "
+        + "style='width:100%;border:none;cursor:pointer;'>Delete</button>");
+
+out.println("</form>");
 
                 out.println("</div>");
                 out.println("</div>");
