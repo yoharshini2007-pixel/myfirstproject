@@ -1,3 +1,4 @@
+
 package com.yoharshini.yoharshinimart.dao;
 
 import java.io.IOException;
@@ -9,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.yoharshini.yoharshinimart.model.Product;
 
@@ -22,12 +24,37 @@ public class ProductServlet extends HttpServlet {
                          HttpServletResponse response)
             throws ServletException, IOException {
 
+        // Verify seller login
+        HttpSession session = request.getSession(false);
+
+        if (session == null
+                || session.getAttribute("userId") == null
+                || !"SELLER".equalsIgnoreCase(
+                        String.valueOf(session.getAttribute("role")))) {
+
+            response.sendRedirect(
+                    request.getContextPath() + "/index.html");
+            return;
+        }
+
+        int sellerId;
+
+        try {
+            sellerId = Integer.parseInt(
+                    session.getAttribute("userId").toString());
+        } catch (NumberFormatException e) {
+            response.sendError(
+                    HttpServletResponse.SC_UNAUTHORIZED);
+            return;
+        }
+
         response.setContentType("text/html;charset=UTF-8");
 
         PrintWriter out = response.getWriter();
 
+        // Display products belonging to the logged-in seller
         ProductDao dao = new ProductDao();
-        List<Product> products = dao.getAllProducts();
+        List<Product> products = dao.getProductsBySeller(sellerId);
 
         out.println("<!DOCTYPE html>");
         out.println("<html lang='en'>");
@@ -37,7 +64,6 @@ public class ProductServlet extends HttpServlet {
         out.println("<title>My Products - Yoharshini Mart</title>");
 
         out.println("<style>");
-
         out.println("*{box-sizing:border-box;}");
         out.println("body{margin:0;font-family:Arial,sans-serif;background:#f3f7f4;color:#26352d;}");
         out.println(".header{background:linear-gradient(135deg,#173c33,#285c4f);color:white;padding:22px 5%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}");
@@ -66,8 +92,8 @@ public class ProductServlet extends HttpServlet {
         out.println(".add{display:inline-block;margin-top:20px;background:#173c33;color:white;text-decoration:none;padding:12px 18px;border-radius:9px;}");
         out.println("footer{text-align:center;color:#819087;padding:25px;font-size:13px;}");
         out.println("@media(max-width:500px){.container{padding:0 12px;}.grid{grid-template-columns:1fr;}.product-image,.no-image{height:230px;}.header{padding:18px;}.logo{font-size:21px;}}");
-
         out.println("</style>");
+
         out.println("</head>");
         out.println("<body>");
 
@@ -79,7 +105,8 @@ public class ProductServlet extends HttpServlet {
         out.println("<main class='container'>");
         out.println("<div class='heading'>");
         out.println("<h1>My Products</h1>");
-        out.println("<span class='count'>Total Products: " + products.size() + "</span>");
+        out.println("<span class='count'>Total Products: "
+                + products.size() + "</span>");
         out.println("</div>");
 
         if (products.isEmpty()) {
@@ -98,13 +125,7 @@ public class ProductServlet extends HttpServlet {
 
                 out.println("<article class='card'>");
 
-                String imageUrl = null;
-
-                try {
-                    imageUrl = p.getImageUrl();
-                } catch (Exception ignored) {
-                    // Image URL is optional if the model does not provide it.
-                }
+                String imageUrl = p.getImageUrl();
 
                 if (imageUrl != null && !imageUrl.trim().isEmpty()) {
 
