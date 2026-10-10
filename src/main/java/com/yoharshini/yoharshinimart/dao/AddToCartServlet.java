@@ -50,10 +50,6 @@ if (!"BUYER".equalsIgnoreCase(roleObject.toString())) {
     return;
 }
 
-            if (userIdObject == null) {
-                response.getWriter().println("Please login first");
-                return;
-            }
 
             int userId =
                     Integer.parseInt(userIdObject.toString());
