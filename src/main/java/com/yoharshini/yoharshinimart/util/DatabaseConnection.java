@@ -5,10 +5,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DatabaseConnection {
-
     public static Connection getConnection() {
         Connection con = null;
-
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             
@@ -19,7 +17,6 @@ public class DatabaseConnection {
             String password = System.getenv("MYSQLPASSWORD");
 
             String url;
-
             if (host != null && !host.isEmpty()) {
                 url = "jdbc:mysql://" + host + ":" + port + "/" + database + "?useSSL=true&trustServerCertificate=true&allowPublicKeyRetrieval=true";
             } else {
@@ -29,13 +26,9 @@ public class DatabaseConnection {
             }
 
             con = DriverManager.getConnection(url, username, password);
-
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
+        } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
-
         return con;
     }
 }
