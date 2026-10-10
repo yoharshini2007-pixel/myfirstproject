@@ -11,45 +11,16 @@ public class DatabaseConnection {
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-
-            // Render Environment Variables உடன் Local-க்கு Fallback வசதி
-            String host = System.getenv("MYSQLHOST");
-            if (host == null || host.isEmpty()) {
-                host = "localhost";
-            }
-
-            String port = System.getenv("MYSQLPORT");
-            if (port == null || port.isEmpty()) {
-                port = "3306";
-            }
-
-            String database = System.getenv("MYSQLDATABASE");
-            if (database == null || database.isEmpty()) {
-                database = "yoharshinimart"; // உங்கள் டேட்டாபேஸ் பெயர்
-            }
-
-            String username = System.getenv("MYSQLUSER");
-            if (username == null || username.isEmpty()) {
-                username = "root";
-            }
-
-            String password = System.getenv("MYSQLPASSWORD");
-            if (password == null) {
-                password = ""; // உங்கள் லோக்கல் பாஸ்வேர்ட் (தேவைப்பட்டால் மாற்றிக் கொள்ளலாம்)
-            }
-
-            String url = "jdbc:mysql://" + host + ":" + port
-                    + "/" + database
-                    + "?useSSL=false&allowPublicKeyRetrieval=true";
+            
+            String url = "jdbc:mysql://localhost:3306/yoharshinimart?useSSL=false&allowPublicKeyRetrieval=true";
+            String username = "root";
+            String password = "";
 
             con = DriverManager.getConnection(url, username, password);
 
         } catch (ClassNotFoundException e) {
-            System.out.println("MySQL JDBC Driver not found!");
             e.printStackTrace();
-
-        } catch (SQLException | RuntimeException e) {
-            System.out.println("Database Connection Failed!");
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
