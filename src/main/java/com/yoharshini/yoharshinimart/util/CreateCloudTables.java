@@ -20,14 +20,15 @@ public class CreateCloudTables {
                 stmt.executeUpdate("DROP TABLE IF EXISTS users");
                 
                 // 1. Users Table
-                stmt.executeUpdate("CREATE TABLE users ("
-                        + "id INT AUTO_INCREMENT PRIMARY KEY, "
-                        + "name VARCHAR(100) NOT NULL, "
-                        + "email VARCHAR(100) NOT NULL UNIQUE, "
-                        + "password_hash VARCHAR(255) NOT NULL, "
-                        + "role ENUM('BUYER', 'SELLER', 'ADMIN') NOT NULL, "
-                        + "created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP"
-                        + ")");
+      stmt.executeUpdate("CREATE TABLE users ("
+        + "id INT AUTO_INCREMENT PRIMARY KEY, "
+        + "name VARCHAR(100) NOT NULL, "
+        + "email VARCHAR(100) NOT NULL UNIQUE, "
+        + "password_hash VARCHAR(255) NOT NULL, "
+        + "phone VARCHAR(20), "
+        + "role ENUM('BUYER', 'SELLER', 'ADMIN') NOT NULL, "
+        + "created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP"
+        + ")");
 
                 // 2. Products Table
                 stmt.executeUpdate("CREATE TABLE products ("
