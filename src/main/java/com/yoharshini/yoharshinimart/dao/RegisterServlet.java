@@ -60,6 +60,31 @@ public class RegisterServlet extends HttpServlet {
         String password = request.getParameter("password");
         String phone = request.getParameter("phone");
         String address = request.getParameter("address");
+        if (name == null || name.trim().isEmpty()
+        || email == null || email.trim().isEmpty()
+        || password == null || password.trim().isEmpty()
+        || phone == null || phone.trim().isEmpty()
+        || address == null || address.trim().isEmpty()) {
+
+    response.sendError(
+        HttpServletResponse.SC_BAD_REQUEST,
+        "All fields are required."
+    );
+    return;
+}
+
+name = name.trim();
+email = email.trim();
+phone = phone.trim();
+address = address.trim();
+
+if (!email.matches("^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$")) {
+    response.sendError(
+        HttpServletResponse.SC_BAD_REQUEST,
+        "Please enter a valid email address."
+    );
+    return;
+}
 
         String sql = "INSERT INTO users (name, email, password_hash, phone, address, role) VALUES (?, ?, ?, ?, ?, ?)";
 
