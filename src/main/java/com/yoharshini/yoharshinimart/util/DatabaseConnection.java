@@ -5,22 +5,34 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DatabaseConnection {
-    private static final String URL = "jdbc:mysql://localhost:3306/yoharshinimart";
-    private static final String USERNAME = "root";
-    private static final String PASSWORD = "yoha@2026";
 
     public static Connection getConnection() {
         Connection con = null;
+
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+
+            String host = System.getenv("MYSQLHOST");
+            String port = System.getenv("MYSQLPORT");
+            String database = System.getenv("MYSQLDATABASE");
+            String username = System.getenv("MYSQLUSER");
+            String password = System.getenv("MYSQLPASSWORD");
+
+            String url = "jdbc:mysql://" + host + ":" + port
+                    + "/" + database
+                    + "?useSSL=false&allowPublicKeyRetrieval=true";
+
+            con = DriverManager.getConnection(url, username, password);
+
         } catch (ClassNotFoundException e) {
             System.out.println("MySQL JDBC Driver not found!");
             e.printStackTrace();
-        } catch (SQLException e) {
+
+        } catch (SQLException | RuntimeException e) {
             System.out.println("Database Connection Failed!");
             e.printStackTrace();
         }
+
         return con;
     }
 }
