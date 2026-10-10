@@ -40,10 +40,23 @@ public class AddToCartServlet extends HttpServlet {
             int userId =
                     Integer.parseInt(userIdObject.toString());
 
-            int productId =
-                    Integer.parseInt(
-                        request.getParameter("productId")
-                    );
+            String productIdValue = request.getParameter("productId");
+
+int productId;
+
+try {
+    productId = Integer.parseInt(productIdValue);
+} catch (NumberFormatException e) {
+    response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+    response.getWriter().println("ERROR: Invalid product ID.");
+    return;
+}
+
+if (productId <= 0) {
+    response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+    response.getWriter().println("ERROR: Product ID must be positive.");
+    return;
+}
 
             String sql =
                     "INSERT INTO cart_items " +
