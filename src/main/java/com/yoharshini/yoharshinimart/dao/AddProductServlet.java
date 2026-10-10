@@ -120,6 +120,12 @@ try {
             if (imageUrl == null) {
                 imageUrl = "";
             }
+            
+name = name.trim();
+description = description.trim();
+category = category.trim();
+subCategory = subCategory.trim();
+imageUrl = imageUrl.trim();
 
 
             // =========================
