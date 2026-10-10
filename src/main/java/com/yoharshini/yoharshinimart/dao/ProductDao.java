@@ -1,3 +1,4 @@
+
 package com.yoharshini.yoharshinimart.dao;
 
 import java.sql.Connection;
@@ -71,43 +72,45 @@ public class ProductDao {
 
         return products;
     }
+
     public List<Product> getProductsBySeller(int sellerId) {
 
-    List<Product> products = new ArrayList<>();
+        List<Product> products = new ArrayList<>();
 
-    String query = "SELECT * FROM products WHERE seller_id = ?";
+        String query = "SELECT * FROM products WHERE seller_id = ?";
 
-    try (Connection conn = DatabaseConnection.getConnection();
-         PreparedStatement pstmt = conn.prepareStatement(query)) {
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
 
-        pstmt.setInt(1, sellerId);
+            pstmt.setInt(1, sellerId);
 
-        ResultSet rs = pstmt.executeQuery();
+            try (ResultSet rs = pstmt.executeQuery()) {
 
-        while (rs.next()) {
+                while (rs.next()) {
 
-            Product p = new Product();
+                    Product p = new Product();
 
-            p.setId(rs.getInt("id"));
-            p.setSellerId(rs.getInt("seller_id"));
-            p.setName(rs.getString("name"));
-            p.setDescription(rs.getString("description"));
-            p.setPrice(rs.getDouble("price"));
-            p.setStockQty(rs.getInt("stock_qty"));
-            p.setCategory(rs.getString("category"));
-            p.setSubCategory(rs.getString("subcategory"));
-            p.setImageUrl(rs.getString("image_url"));
-            p.setCreatedAt(rs.getTimestamp("created_at"));
+                    p.setId(rs.getInt("id"));
+                    p.setSellerId(rs.getInt("seller_id"));
+                    p.setName(rs.getString("name"));
+                    p.setDescription(rs.getString("description"));
+                    p.setPrice(rs.getDouble("price"));
+                    p.setStockQty(rs.getInt("stock_qty"));
+                    p.setCategory(rs.getString("category"));
+                    p.setSubCategory(rs.getString("subcategory"));
+                    p.setImageUrl(rs.getString("image_url"));
+                    p.setCreatedAt(rs.getTimestamp("created_at"));
 
-            products.add(p);
+                    products.add(p);
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
 
-    } catch (SQLException e) {
-        e.printStackTrace();
+        return products;
     }
-
-    return products;
-}
 
     public boolean deleteProduct(int productId) {
 
