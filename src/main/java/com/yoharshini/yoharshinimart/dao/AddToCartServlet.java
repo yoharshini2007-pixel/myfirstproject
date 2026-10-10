@@ -27,10 +27,28 @@ public class AddToCartServlet extends HttpServlet {
 
         try {
 
-            HttpSession session = request.getSession();
+            HttpSession session = request.getSession(false);
 
-            Object userIdObject =
-                    session.getAttribute("userId");
+if (session == null) {
+    response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+    response.getWriter().println("Please login first.");
+    return;
+}
+
+Object userIdObject = session.getAttribute("userId");
+Object roleObject = session.getAttribute("role");
+
+if (userIdObject == null || roleObject == null) {
+    response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+    response.getWriter().println("Please login first.");
+    return;
+}
+
+if (!"BUYER".equalsIgnoreCase(roleObject.toString())) {
+    response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+    response.getWriter().println("Only buyers can add products to cart.");
+    return;
+}
 
             if (userIdObject == null) {
                 response.getWriter().println("Please login first");
