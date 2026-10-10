@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.yoharshini.yoharshinimart.util.DatabaseConnection;
 
@@ -32,14 +33,19 @@ public class AddProductServlet extends HttpServlet {
             // SELLER ID
             // =========================
 
-            String sellerId = "2";
+            HttpSession session = request.getSession(false);
 
-            Object userIdObject =
-                    request.getSession().getAttribute("userId");
+if (session == null
+        || session.getAttribute("userId") == null
+        || !"SELLER".equalsIgnoreCase(
+                String.valueOf(session.getAttribute("role")))) {
 
-            if (userIdObject != null) {
-                sellerId = userIdObject.toString();
-            }
+    response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+    out.println("ERROR: Only logged-in sellers can add products.");
+    return;
+}
+
+String sellerId = session.getAttribute("userId").toString();
 
 
             // =========================
