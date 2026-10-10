@@ -45,7 +45,22 @@ if (session == null
     return;
 }
 
-String sellerId = session.getAttribute("userId").toString();
+int sellerId;
+
+try {
+    sellerId = Integer.parseInt(
+        session.getAttribute("userId").toString()
+    );
+
+    if (sellerId <= 0) {
+        response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+        return;
+    }
+
+} catch (NumberFormatException e) {
+    response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+    return;
+}
 
 
             // =========================
@@ -161,10 +176,7 @@ if (productStock < 0) {
                         conn.prepareStatement(sql)
             ) {
 
-                ps.setInt(
-                        1,
-                        Integer.parseInt(sellerId)
-                );
+                ps.setInt(1,sellerId);
 
                 ps.setString(2, name);
 
