@@ -11,7 +11,7 @@ public class CreateCloudTables {
             if (con != null) {
                 Statement stmt = con.createStatement();
                 
-                // பழைய அட்டவணைகளை வரிசையாக நீக்குதல் (Foreign key constraints காரணமாக மாற்று வரிசை)
+                
                 stmt.executeUpdate("DROP TABLE IF EXISTS reviews");
                 stmt.executeUpdate("DROP TABLE IF EXISTS cart_items");
                 stmt.executeUpdate("DROP TABLE IF EXISTS order_items");
@@ -19,13 +19,14 @@ public class CreateCloudTables {
                 stmt.executeUpdate("DROP TABLE IF EXISTS products");
                 stmt.executeUpdate("DROP TABLE IF EXISTS users");
                 
-                // 1. Users Table
-      stmt.executeUpdate("CREATE TABLE users ("
+                 // 1. Users Table
+stmt.executeUpdate("CREATE TABLE users ("
         + "id INT AUTO_INCREMENT PRIMARY KEY, "
         + "name VARCHAR(100) NOT NULL, "
         + "email VARCHAR(100) NOT NULL UNIQUE, "
         + "password_hash VARCHAR(255) NOT NULL, "
         + "phone VARCHAR(20), "
+        + "address VARCHAR(255), "
         + "role ENUM('BUYER', 'SELLER', 'ADMIN') NOT NULL, "
         + "created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP"
         + ")");
