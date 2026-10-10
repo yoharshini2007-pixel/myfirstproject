@@ -29,6 +29,30 @@ public class LoginServlet extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String selectedRole = request.getParameter("role");
+        if (email == null || email.trim().isEmpty()
+        || password == null || password.isEmpty()
+        || selectedRole == null || selectedRole.trim().isEmpty()) {
+
+    response.sendError(
+        HttpServletResponse.SC_BAD_REQUEST,
+        "Email, password, and role are required."
+    );
+    return;
+}
+
+email = email.trim();
+selectedRole = selectedRole.trim().toUpperCase();
+
+if (!selectedRole.equals("ADMIN")
+        && !selectedRole.equals("BUYER")
+        && !selectedRole.equals("SELLER")) {
+
+    response.sendError(
+        HttpServletResponse.SC_BAD_REQUEST,
+        "Invalid role selected."
+    );
+    return;
+}
 
         try {
 
