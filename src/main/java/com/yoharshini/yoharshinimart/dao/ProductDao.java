@@ -41,7 +41,6 @@ public class ProductDao {
     public List<Product> getAllProducts() {
 
         List<Product> products = new ArrayList<>();
-
         String query = "SELECT * FROM products";
 
         try (Connection conn = DatabaseConnection.getConnection();
@@ -133,7 +132,8 @@ public class ProductDao {
 
         String query = "UPDATE products SET " +
                 "name = ?, description = ?, price = ?, " +
-                "stock_qty = ?, category = ? WHERE id = ?";
+                "stock_qty = ?, category = ? " +
+                "WHERE id = ? AND seller_id = ?";
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
@@ -144,6 +144,7 @@ public class ProductDao {
             pstmt.setInt(4, product.getStockQty());
             pstmt.setString(5, product.getCategory());
             pstmt.setInt(6, product.getId());
+            pstmt.setInt(7, product.getSellerId());
 
             return pstmt.executeUpdate() > 0;
 
