@@ -6,6 +6,7 @@ com\yoharshini\yoharshinimart\dao\PaymentServlet.class
 com\yoharshini\yoharshinimart\dao\AddReviewServlet.class
 com\yoharshini\yoharshinimart\dao\ReportServlet.class
 com\yoharshini\yoharshinimart\dao\ProductUpdateServlet.class
+com\yoharshini\yoharshinimart\util\CreateCloudTables.class
 com\yoharshini\yoharshinimart\model\App.class
 com\yoharshini\yoharshinimart\dao\RegisterServlet.class
 com\yoharshini\yoharshinimart\dao\RevenueServlet.class
