@@ -114,6 +114,26 @@ public class AddProductServlet extends HttpServlet {
                 out.println("ERROR: Category is missing.");
                 return;
             }
+            double productPrice;
+int productStock;
+
+try {
+    productPrice = Double.parseDouble(price.trim());
+    productStock = Integer.parseInt(stockQty.trim());
+} catch (NumberFormatException e) {
+    out.println("ERROR: Enter a valid price and stock quantity.");
+    return;
+}
+
+if (!Double.isFinite(productPrice) || productPrice <= 0) {
+    out.println("ERROR: Price must be greater than zero.");
+    return;
+}
+
+if (productStock < 0) {
+    out.println("ERROR: Stock quantity cannot be negative.");
+    return;
+}
 
 
             // =========================
@@ -146,12 +166,12 @@ public class AddProductServlet extends HttpServlet {
 
                 ps.setDouble(
                         4,
-                        Double.parseDouble(price)
+                        productPrice
                 );
 
                 ps.setInt(
                         5,
-                        Integer.parseInt(stockQty)
+                        productStock
                 );
 
                 ps.setString(6, category);
