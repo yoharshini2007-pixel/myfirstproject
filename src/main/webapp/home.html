@@ -538,6 +538,18 @@ body {
         </div>
     </section>
 
+    <!-- CUSTOMERS -->
+    <section id="customers" class="page">
+        <button class="back-btn" onclick="showPage('dashboard')">← Dashboard</button>
+        <h1>Customers 👥</h1>
+        <br>
+        <div id="customersList">
+            <div class="card">
+                <p>Loading Customers...</p>
+            </div>
+        </div>
+    </section>
+
     <!-- REPORTS -->
     <section id="reports" class="page">
         <button class="back-btn" onclick="showPage('dashboard')">← Dashboard</button>
@@ -569,6 +581,9 @@ function showPage(pageName, clickedMenu = null) {
 
     if (pageName === "products") {
         loadProductsFromDatabase();
+    }
+    if (pageName === "customers") {
+        loadCustomers();
     }
 }
 
@@ -623,13 +638,41 @@ function deleteProduct(id) {
         fetch("DeleteProductServlet?id=" + id, { method: "POST" })
             .then(response => {
                 if (response.ok) {
-                    loadProductsFromDatabase(); // Refresh product list after deletion
+                    loadProductsFromDatabase();
                 } else {
                     alert("Failed to delete product.");
                 }
             })
             .catch(error => console.error("Delete error:", error));
     }
+}
+
+function loadCustomers() {
+    const customersList = document.getElementById("customersList");
+    if (!customersList) return;
+
+    fetch("CustomerDataServlet")
+        .then(response => response.json())
+        .then(customers => {
+            customersList.innerHTML = "";
+            if (!customers || customers.length === 0) {
+                customersList.innerHTML = "<div class='card'><h2>No Customers Found 👥</h2></div>";
+                return;
+            }
+            customers.forEach(customer => {
+                customersList.innerHTML += `
+                    <div class='card'>
+                        <h2>👤 ${customer.name}</h2>
+                        <p>🆔 ID: ${customer.id}</p>
+                        <p>📧 Email: ${customer.email}</p>
+                    </div>
+                `;
+            });
+        })
+        .catch(error => {
+            console.error("Customer loading error:", error);
+            customersList.innerHTML = "<div class='card'><h2>No Customers Available 👥</h2></div>";
+        });
 }
 </script>
 
