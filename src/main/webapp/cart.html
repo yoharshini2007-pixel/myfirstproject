@@ -1,387 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Yoharshini Mart - Shopping Cart</title>
-
-    <style>
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f7f8f5;
-            color: #24352e;
-        }
-
-        header {
-            background: #173c33;
-            color: white;
-            padding: 20px 6%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 15px;
-            flex-wrap: wrap;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
-        }
-
-        .logo h1 {
-            font-size: 25px;
-            margin: 0;
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            border: 1px solid #b9d0c4;
-            padding: 10px 16px;
-            border-radius: 7px;
-            display: inline-block;
-        }
-
-        nav a:hover {
-            background: #ffffff;
-            color: #173c33;
-        }
-
-        main {
-            max-width: 1000px;
-            margin: 35px auto;
-            padding: 0 20px;
-        }
-
-        .page-title {
-            margin-bottom: 8px;
-            color: #173c33;
-            font-size: 28px;
-        }
-
-        .subtitle {
-            color: #6b756f;
-            margin-top: 0;
-            margin-bottom: 25px;
-        }
-
-        #cart-container {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .cart-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 15px;
-            background: white;
-            border: 1px solid #e1e7e2;
-            border-radius: 12px;
-            padding: 22px;
-            box-shadow: 0 3px 10px rgba(23, 60, 51, 0.05);
-        }
-
-        .product-info h3 {
-            margin: 0 0 10px;
-            color: #173c33;
-            font-size: 19px;
-            overflow-wrap: anywhere;
-        }
-
-        .product-price {
-            margin: 0;
-            color: #59675f;
-            font-size: 15px;
-        }
-
-        .item-total {
-            margin: 8px 0 0;
-            color: #173c33;
-            font-weight: bold;
-        }
-
-        .remove-btn {
-            background: #b93838;
-            color: white;
-            border: none;
-            padding: 10px 16px;
-            border-radius: 7px;
-            cursor: pointer;
-            font-size: 14px;
-        }
-
-        .remove-btn:hover {
-            background: #922b2b;
-        }
-
-        .empty-cart {
-            text-align: center;
-            background: white;
-            padding: 40px 20px;
-            border: 1px solid #e1e7e2;
-            border-radius: 12px;
-            color: #59675f;
-        }
-
-        .empty-cart h3 {
-            color: #173c33;
-        }
-
-        .summary {
-            margin-top: 25px;
-            padding: 25px;
-            background: #ffffff;
-            border: 1px solid #dce6df;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(23, 60, 51, 0.06);
-        }
-
-        .summary h3 {
-            margin: 0 0 18px;
-            color: #173c33;
-            font-size: 23px;
-        }
-
-        .total-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 12px;
-            padding: 15px 0;
-            border-top: 1px solid #e3e9e4;
-            font-size: 18px;
-            font-weight: bold;
-        }
-
-        .total-amount {
-            color: #173c33;
-            font-size: 25px;
-        }
-
-        .checkout-btn {
-            width: 100%;
-            margin-top: 12px;
-            padding: 15px;
-            background: #173c33;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .checkout-btn:hover {
-            background: #245648;
-        }
-
-        .checkout-btn:disabled {
-            background: #aab5ae;
-            cursor: not-allowed;
-        }
-
-        footer {
-            margin-top: 50px;
-            padding: 20px;
-            text-align: center;
-            color: #68756d;
-            font-size: 13px;
-        }
-
-        @media (max-width: 600px) {
-            header {
-                padding: 18px 20px;
-            }
-
-            .logo h1 {
-                font-size: 21px;
-            }
-
-            main {
-                margin-top: 25px;
-                padding: 0 14px;
-            }
-
-            .cart-item {
-                padding: 16px;
-            }
-
-            .product-info h3 {
-                font-size: 16px;
-            }
-
-            .remove-btn {
-                padding: 9px 11px;
-            }
-
-            .summary {
-                padding: 18px;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yoharshini Mart - Shopping Cart</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, sans-serif; }
+body { background: #f7f8f5; color: #173c33; font-size: 18px; padding: 30px; }
+.header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+.header h2 { font-size: 28px; }
+.btn { padding: 10px 20px; background: #173c33; color: white; text-decoration: none; border-radius: 8px; font-weight: bold; }
+.cart-container { background: white; padding: 30px; border-radius: 14px; box-shadow: 0 4px 15px rgba(0,0,0,0.06); max-width: 800px; margin: 0 auto; }
+.cart-item { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding: 15px 0; }
+.cart-item img { width: 80px; height: 80px; object-fit: cover; border-radius: 8px; }
+.summary { margin-top: 20px; font-size: 20px; font-weight: bold; text-align: right; }
+.checkout-btn { width: 100%; padding: 15px; background: #28584c; color: white; border: none; border-radius: 8px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 20px; }
+.checkout-btn:hover { background: #173c33; }
+</style>
 </head>
-
 <body>
 
-    <header>
-        <div class="logo">
-            <h1>Yoharshini Mart</h1>
-        </div>
+<div class="header">
+    <h2>🛒 Your Shopping Cart</h2>
+    <a href="buyer.html" class="btn">Continue Shopping</a>
+</div>
 
-        <nav>
-            <a href="buyer.html">Continue Shopping</a>
-        </nav>
-    </header>
+<div class="cart-container" id="cartContainer">
+    <!-- Cart items will load here -->
+</div>
 
-    <main>
-        <h2 class="page-title">Your Shopping Cart</h2>
-        <p class="subtitle">Review your items before confirming your order.</p>
+<script>
+function loadCart() {
+    let cartContainer = document.getElementById("cartContainer");
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-        <div id="cart-container"></div>
-
-        <section class="summary">
-            <h3>Order Summary</h3>
-
-            <div class="total-row">
-                <span>Total Amount</span>
-                <span class="total-amount" id="total-price">Rs. 0.00</span>
+    if (cart.length === 0) {
+        cartContainer.innerHTML = `
+            <div style="text-align: center; padding: 40px;">
+                <h3>Your cart is empty</h3>
+                <p style="color: #666; margin: 10px 0;">Add products to your cart before placing an order.</p>
+                <a href="buyer.html" class="btn" style="display: inline-block; margin-top: 15px;">Continue Shopping</a>
             </div>
+        `;
+        return;
+    }
 
-            <button
-                type="button"
-                class="checkout-btn"
-                id="checkout-btn"
-                onclick="placeOrder()">
-                Confirm Order
-            </button>
-        </section>
-    </main>
+    let html = "";
+    let total = 0;
 
-    <footer>
-        Yoharshini Mart - Thank you for shopping with us.
-    </footer>
+    cart.forEach((item, index) => {
+        let itemTotal = item.price * (item.quantity || 1);
+        total += itemTotal;
+        html += `
+            <div class="cart-item">
+                <img src="${item.image}" alt="${item.name}">
+                <div>
+                    <h3>${item.name}</h3>
+                    <p>Price: ₹${item.price} x ${item.quantity || 1}</p>
+                </div>
+                <p><b>₹${itemTotal}</b></p>
+                <button onclick="removeItem(${index})" style="background: #d9534f; color: white; border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer;">Remove</button>
+            </div>
+        `;
+    });
 
-    <script>
-        function loadCart() {
-            let cart = JSON.parse(localStorage.getItem("cart")) || [];
-            let container = document.getElementById("cart-container");
-            let total = 0;
+    html += `
+        <div class="summary">Total Amount: ₹${total}</div>
+        <button class="checkout-btn" onclick="confirmOrder()">Confirm Order</button>
+    `;
 
-            container.innerHTML = "";
+    cartContainer.innerHTML = html;
+}
 
-            if (cart.length === 0) {
-                container.innerHTML = `
-                    <div class="empty-cart">
-                        <h3>Your cart is empty</h3>
-                        <p>Add products to your cart before placing an order.</p>
-                        <a href="home.html">Continue Shopping</a>
-                    </div>
-                `;
+function removeItem(index) {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    cart.splice(index, 1);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    loadCart();
+}
 
-                document.getElementById("total-price").innerText = "Rs. 0.00";
-                document.getElementById("checkout-btn").disabled = true;
-                return;
-            }
+function confirmOrder() {
+    alert("Order placed successfully! 🎉 Thank you for shopping with Yoharshini Mart.");
+    localStorage.removeItem("cart");
+    window.location.href = "buyer.html";
+}
 
-            document.getElementById("checkout-btn").disabled = false;
-
-            cart.forEach(function(item, index) {
-                let price = Number(item.price) || 0;
-                total += price;
-
-                let card = document.createElement("div");
-                card.className = "cart-item";
-
-                let info = document.createElement("div");
-                info.className = "product-info";
-
-                let name = document.createElement("h3");
-                name.textContent = item.name || "Product";
-
-                let priceText = document.createElement("p");
-                priceText.className = "product-price";
-                priceText.textContent = "Price: Rs. " + price.toFixed(2);
-
-                let itemTotal = document.createElement("p");
-                itemTotal.className = "item-total";
-                itemTotal.textContent = "Item Total: Rs. " + price.toFixed(2);
-
-                info.appendChild(name);
-                info.appendChild(priceText);
-                info.appendChild(itemTotal);
-
-                let removeButton = document.createElement("button");
-                removeButton.className = "remove-btn";
-                removeButton.textContent = "Remove";
-                removeButton.type = "button";
-                removeButton.onclick = function() {
-                    removeItem(index);
-                };
-
-                card.appendChild(info);
-                card.appendChild(removeButton);
-                container.appendChild(card);
-            });
-
-            document.getElementById("total-price").innerText =
-                "Rs. " + total.toFixed(2);
-        }
-
-        function removeItem(index) {
-            let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-            cart.splice(index, 1);
-
-            localStorage.setItem("cart", JSON.stringify(cart));
-
-            loadCart();
-        }
-
-        function placeOrder() {
-            let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-            if (cart.length === 0) {
-                alert("Your cart is empty. Add products before placing an order.");
-                return;
-            }
-
-            let orders =
-                JSON.parse(localStorage.getItem("yoharshiniOrders")) || [];
-
-            let total = 0;
-
-            cart.forEach(function(item) {
-                total += Number(item.price) || 0;
-            });
-
-            let order = {
-                id: Date.now(),
-                items: cart,
-                total: total,
-                status: "Pending",
-                date: new Date().toLocaleDateString()
-            };
-
-            orders.push(order);
-
-            localStorage.setItem(
-                "yoharshiniOrders",
-                JSON.stringify(orders)
-            );
-
-            localStorage.removeItem("cart");
-
-            alert("Order placed successfully!");
-
-            window.location.href = "home.html";
-        }
-
-        window.onload = loadCart;
-    </script>
+window.onload = loadCart;
+</script>
 
 </body>
 </html>
