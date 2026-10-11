@@ -298,6 +298,42 @@ body {
 .delete-btn:hover {
     background: #c9302c;
 }
+
+/* CATEGORY GRID */
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.category-card {
+    background: white;
+    min-height: 180px;
+    padding: 30px 20px;
+    border-radius: 18px;
+    text-align: center;
+    box-shadow: 0 5px 18px rgba(0,0,0,0.08);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.category-card:hover {
+    transform: translateY(-6px);
+}
+
+.category-card .emoji {
+    font-size: 55px;
+    margin-bottom: 15px;
+}
+
+.category-card h3 {
+    font-size: 22px;
+}
 </style>
 
 </head>
@@ -382,6 +418,23 @@ body {
             <p>Here's what's happening with your store today.</p>
         </div>
 
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-icon">📦</div>
+                <div>
+                    <p>Total Products</p>
+                    <h2 id="totalProducts">0</h2>
+                </div>
+            </div>
+            <div class="stat">
+                <div class="stat-icon">🛒</div>
+                <div>
+                    <p>Total Orders</p>
+                    <h2 id="totalOrders">0</h2>
+                </div>
+            </div>
+        </div>
+
         <div class="card">
             <h2>Store Overview 📊</h2>
             <p>Your store is running successfully.</p>
@@ -390,12 +443,115 @@ body {
         </div>
     </section>
 
+    <!-- ADD PRODUCT -->
+    <section id="addProduct" class="page">
+        <button class="back-btn" onclick="showPage('dashboard')">← Dashboard</button>
+        <h1>Add New Product</h1>
+        <br>
+        <form action="AddProductServlet" method="POST">
+            <div class="card">
+                <label>Product Name</label>
+                <input type="text" name="pname" placeholder="Enter product name" style="width:100%; padding:12px; margin:10px 0; border:1px solid #ccc; border-radius:8px;" required>
+
+                <label>Description</label>
+                <input type="text" name="pdescription" placeholder="Enter description" style="width:100%; padding:12px; margin:10px 0; border:1px solid #ccc; border-radius:8px;">
+
+                <label>Category</label>
+                <input type="text" name="pcategory" placeholder="Enter category (e.g., Groceries)" style="width:100%; padding:12px; margin:10px 0; border:1px solid #ccc; border-radius:8px;" required>
+
+                <label>Sub-Category</label>
+                <input type="text" name="psubcategory" placeholder="Enter sub-category" style="width:100%; padding:12px; margin:10px 0; border:1px solid #ccc; border-radius:8px;">
+
+                <label>Price (₹)</label>
+                <input type="number" name="pprice" placeholder="Enter price" style="width:100%; padding:12px; margin:10px 0; border:1px solid #ccc; border-radius:8px;" required>
+
+                <label>Stock Quantity</label>
+                <input type="number" name="pstock" placeholder="Enter stock" style="width:100%; padding:12px; margin:10px 0; border:1px solid #ccc; border-radius:8px;" required>
+
+                <label>Image URL</label>
+                <input type="url" name="imageUrl" placeholder="Paste image URL" style="width:100%; padding:12px; margin:10px 0; border:1px solid #ccc; border-radius:8px;">
+
+                <button type="submit" class="add-btn" style="margin-top:20px;">＋ Add Product</button>
+            </div>
+        </form>
+    </section>
+
     <!-- PRODUCTS -->
     <section id="products" class="page">
         <button class="back-btn" onclick="showPage('dashboard')">← Dashboard</button>
         <h1>Products 📦</h1>
         <br>
         <div id="productList" class="product-grid"></div>
+    </section>
+
+    <!-- CATEGORIES -->
+    <section id="categories" class="page">
+        <button class="back-btn" onclick="showPage('dashboard')">← Dashboard</button>
+        <h1>Categories 🗂️</h1>
+        <br>
+        <div class="category-grid">
+            <div class="category-card">
+                <div class="emoji">👔</div>
+                <h3>Men</h3>
+            </div>
+            <div class="category-card">
+                <div class="emoji">👗</div>
+                <h3>Women</h3>
+            </div>
+            <div class="category-card">
+                <div class="emoji">📱</div>
+                <h3>Electronics</h3>
+            </div>
+            <div class="category-card">
+                <div class="emoji">🛒</div>
+                <h3>Groceries</h3>
+            </div>
+            <div class="category-card">
+                <div class="emoji">🏠</div>
+                <h3>Home & Kitchen</h3>
+            </div>
+            <div class="category-card">
+                <div class="emoji">💄</div>
+                <h3>Beauty</h3>
+            </div>
+            <div class="category-card">
+                <div class="emoji">⚽</div>
+                <h3>Sports</h3>
+            </div>
+            <div class="category-card">
+                <div class="emoji">💍</div>
+                <h3>Jewellery</h3>
+            </div>
+        </div>
+    </section>
+
+    <!-- ORDERS -->
+    <section id="orders" class="page">
+        <button class="back-btn" onclick="showPage('dashboard')">← Dashboard</button>
+        <h1>Orders 🛒</h1>
+        <br>
+        <div id="ordersList" class="card">
+            <div class="empty">
+                <h2>No Orders Available 📦</h2>
+                <p>Orders will appear here.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- REPORTS -->
+    <section id="reports" class="page">
+        <button class="back-btn" onclick="showPage('dashboard')">← Dashboard</button>
+        <div class="card">
+            <h1>Reports 📊</h1>
+            <br>
+            <p>Monthly Sales Report</p>
+            <br>
+            <p>Total Products: <b id="reportProducts">0</b></p>
+            <br>
+            <p>Total Orders: <b id="reportOrders">0</b></p>
+            <br>
+            <p>Revenue: <b id="reportRevenue">₹0</b></p>
+        </div>
     </section>
 
 </div>
