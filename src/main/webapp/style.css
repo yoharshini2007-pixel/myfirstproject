@@ -1,15 +1,14 @@
-function login() {
+/* style.css - CSS styling mattum thaan irukkanum */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f6f9;
+    margin: 0;
+    padding: 0;
+}
 
-    let email = document.getElementById("email").value;
-    let password = document.getElementById("password").value;
-
-    if (email == "admin@gmail.com" && password == "12345") {
-
-        window.location.href = "home.html";
-
-    } else {
-
-        document.getElementById("message").innerHTML =
-            "❌ Invalid Email or Password";
-    }
-} 
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+}
