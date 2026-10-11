@@ -14,7 +14,6 @@ import com.yoharshini.yoharshinimart.util.DatabaseConnection;
 public class DeleteProductServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    // Handle GET request correctly
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         doPost(request, response);

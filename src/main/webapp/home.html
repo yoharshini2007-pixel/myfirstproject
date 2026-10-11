@@ -414,9 +414,11 @@ function displayProducts() {
 
 function deleteProduct(id) {
     if (confirm("Are you sure you want to delete this product?")) {
+        products = products.filter(product => product.id !== id);
+        displayProducts();
+
         fetch("DeleteProductServlet?id=" + id, { method: "POST" })
-            .then(response => { if (response.ok) loadProductsFromDatabase(); else alert("Failed to delete product."); })
-            .catch(error => console.error("Delete error:", error));
+            .catch(error => console.error("Delete backend sync error:", error));
     }
 }
 
@@ -465,19 +467,25 @@ function filterBySubCategory(categoryName, subCategoryName) {
         }
     }
     
+    let preloaded = getAllPreloadedProducts();
     fetch("ProductDataServlet")
         .then(response => response.json())
         .then(data => {
-            products = data
-                .filter(product => product.category && product.category.toLowerCase() === categoryName.toLowerCase() && 
-                                   product.subCategory && product.subCategory.toLowerCase() === subCategoryName.toLowerCase())
-                .map(product => ({
-                    id: product.id, name: product.name, price: product.price,
-                    category: product.category, subCategory: product.subCategory, stock: product.stock, image: product.imageUrl
-                }));
+            let dbProducts = data.map(product => ({
+                id: product.id, name: product.name, price: product.price,
+                category: product.category, subCategory: product.subCategory, stock: product.stock, image: product.imageUrl
+            }));
+            let combined = [...preloaded, ...dbProducts];
+            products = combined.filter(product => product.category && product.category.toLowerCase() === categoryName.toLowerCase() && 
+                                                 product.subCategory && product.subCategory.toLowerCase() === subCategoryName.toLowerCase());
             displayProducts();
         })
-        .catch(error => console.error("Sub-category filter error:", error));
+        .catch(error => {
+            console.error("Sub-category filter error:", error);
+            products = preloaded.filter(product => product.category && product.category.toLowerCase() === categoryName.toLowerCase() && 
+                                                 product.subCategory && product.subCategory.toLowerCase() === subCategoryName.toLowerCase());
+            displayProducts();
+        });
 }
 
 function loadCustomers() {
