@@ -26,7 +26,7 @@ body { background: #f7f8f5; color: #173c33; font-size: 18px; padding: 30px; }
 </div>
 
 <div class="cart-container" id="cartContainer">
-    <!-- Cart items will load here -->
+    <!-- Cart items will load dynamically -->
 </div>
 
 <script>
@@ -80,9 +80,12 @@ function removeItem(index) {
 }
 
 function confirmOrder() {
-    alert("Order placed successfully! 🎉 Thank you for shopping with Yoharshini Mart.");
-    localStorage.removeItem("cart");
-    window.location.href = "buyer.html";
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    if (cart.length === 0) {
+        alert("Your cart is empty!");
+        return;
+    }
+    window.location.href = "payment.html";
 }
 
 window.onload = loadCart;

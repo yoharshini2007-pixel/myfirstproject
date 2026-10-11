@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yoharshini Mart - Payment Gateway</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, sans-serif; }
+body { background: #f7f8f5; color: #173c33; font-size: 18px; padding: 40px; }
+.payment-container { background: white; padding: 40px; border-radius: 16px; box-shadow: 0 5px 20px rgba(0,0,0,0.08); max-width: 500px; margin: 0 auto; }
+h2 { margin-bottom: 20px; font-size: 26px; }
+.amount-box { font-size: 22px; font-weight: bold; margin-bottom: 25px; color: #28584c; background: #eef2ef; padding: 15px; border-radius: 10px; text-align: center; }
+.form-group { margin-bottom: 20px; }
+label { display: block; margin-bottom: 8px; font-weight: bold; }
+select, input { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 8px; font-size: 16px; outline: none; }
+.pay-btn { width: 100%; padding: 15px; background: #28584c; color: white; border: none; border-radius: 10px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+.pay-btn:hover { background: #173c33; }
+</style>
+</head>
+<body>
+
+<div class="payment-container">
+    <h2>💳 Secure Payment Gateway</h2>
+    <div class="amount-box" id="displayAmount">Total Payable: ₹0</div>
+    
+    <div class="form-group">
+        <label>Select Payment Method</label>
+        <select id="payMethod" onchange="togglePaymentFields()">
+            <option value="upi">UPI / Google Pay / PhonePe</option>
+            <option value="card">Credit / Debit Card</option>
+            <option value="cod">Cash on Delivery (COD)</option>
+        </select>
+    </div>
+
+    <div id="upiFields" class="form-group">
+        <label>Enter UPI ID</label>
+        <input type="text" id="upiId" placeholder="username@oksbi">
+    </div>
+
+    <div id="cardFields" class="form-group" style="display:none;">
+        <label>Card Number</label>
+        <input type="text" placeholder="1234 5678 9876 5432" maxlength="19">
+        <label style="margin-top:10px;">Expiry & CVV</label>
+        <div style="display:flex; gap:10px;">
+            <input type="text" placeholder="MM/YY">
+            <input type="password" placeholder="CVV" maxlength="3">
+        </div>
+    </div>
+
+    <button class="pay-btn" onclick="processPayment()">Pay & Confirm Order</button>
+</div>
+
+<script>
+window.onload = function() {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    let total = cart.reduce((sum, item) => sum + (item.price * (item.quantity || 1)), 0);
+    document.getElementById("displayAmount").textContent = "Total Payable: ₹" + total;
+};
+
+function togglePaymentFields() {
+    let method = document.getElementById("payMethod").value;
+    document.getElementById("upiFields").style.display = method === "upi" ? "block" : "none";
+    document.getElementById("cardFields").style.display = method === "card" ? "block" : "none";
+}
+
+function processPayment() {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    if (cart.length === 0) {
+        alert("Your cart is empty!");
+        window.location.href = "buyer.html";
+        return;
+    }
+
+    // Save to Order History in localStorage
+    let orders = JSON.parse(localStorage.getItem("orders")) || [];
+    let newOrder = {
+        orderId: "YM" + Math.floor(100000 + Math.random() * 900000),
+        date: new Date().toLocaleDateString(),
+        items: cart,
+        totalAmount: cart.reduce((sum, item) => sum + (item.price * (item.quantity || 1)), 0)
+    };
+    
+    orders.push(newOrder);
+    localStorage.setItem("orders", JSON.stringify(orders));
+    
+    // Clear cart
+    localStorage.removeItem("cart");
+
+    alert("Payment Successful! 🎉 Order placed successfully.");
+    window.location.href = "orders.html";
+}
+</script>
+
+</body>
+</html>

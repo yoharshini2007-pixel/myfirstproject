@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yoharshini Mart - My Orders</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, sans-serif; }
+body { background: #f7f8f5; color: #173c33; font-size: 18px; padding: 30px; }
+.header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+.btn { padding: 10px 20px; background: #173c33; color: white; text-decoration: none; border-radius: 8px; font-weight: bold; }
+.order-card { background: white; padding: 25px; border-radius: 14px; box-shadow: 0 4px 15px rgba(0,0,0,0.06); margin-bottom: 20px; max-width: 800px; margin-left: auto; margin-right: auto; }
+.order-header { display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 15px; font-weight: bold; }
+.item-row { display: flex; align-items: center; gap: 15px; margin-bottom: 10px; }
+.item-row img { width: 60px; height: 60px; object-fit: cover; border-radius: 6px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+    <h2>📦 My Order History</h2>
+    <a href="buyer.html" class="btn">Continue Shopping</a>
+</div>
+
+<div id="ordersContainer">
+    <!-- Orders will load here -->
+</div>
+
+<script>
+window.onload = function() {
+    let container = document.getElementById("ordersContainer");
+    let orders = JSON.parse(localStorage.getItem("orders")) || [];
+
+    if (orders.length === 0) {
+        container.innerHTML = `
+            <div style="text-align: center; padding: 50px;">
+                <h3>No Order History Found 📦</h3>
+                <p style="color: #666; margin: 10px 0;">You have not placed any orders yet.</p>
+                <a href="buyer.html" class="btn" style="display:inline-block; margin-top:15px;">Start Shopping</a>
+            </div>
+        `;
+        return;
+    }
+
+    let html = "";
+    orders.forEach(order => {
+        html += `
+            <div class="order-card">
+                <div class="order-header">
+                    <span>Order ID: ${order.orderId}</span>
+                    <span>Date: ${order.date}</span>
+                </div>
+        `;
+        order.items.forEach(item => {
+            html += `
+                <div class="item-row">
+                    <img src="${item.image}" alt="${item.name}">
+                    <div style="flex-grow: 1;">
+                        <h4>${item.name}</h4>
+                        <p style="color: #555; font-size: 15px;">Price: ₹${item.price} x ${item.quantity || 1}</p>
+                    </div>
+                    <b>₹${item.price * (item.quantity || 1)}</b>
+                </div>
+            `;
+        });
+        html += `
+                <div style="text-align: right; margin-top: 15px; font-size: 19px; font-weight: bold; border-top: 1px solid #eee; padding-top: 10px;">
+                    Total Paid: ₹${order.totalAmount}
+                </div>
+            </div>
+        `;
+    });
+
+    container.innerHTML = html;
+};
+</script>
+
+</body>
+</html>
