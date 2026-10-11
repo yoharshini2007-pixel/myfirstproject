@@ -173,135 +173,135 @@ body { background: #f7f8f5; color: #173c33; font-size: 18px; }
 <script>
 let products = [];
 
-// Sub-categories mapped with specific matching Emojis
+// Sub-categories with Emojis & preloaded 3 sample products per sub-category
 const subCategories = {
     Men: [
-        { name: "Shirts", emoji: "👔" },
-        { name: "T-Shirts", emoji: "👕" },
-        { name: "Pants", emoji: "👖" },
-        { name: "Jeans", emoji: "👖" },
-        { name: "Jackets", emoji: "🧥" },
-        { name: "Shoes", emoji: "👞" }
+        { name: "Shirts", emoji: "👔", products: [
+            { id: 101, name: "Formal White Shirt", price: 799, stock: 25, image: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf" },
+            { id: 102, name: "Casual Check Shirt", price: 649, stock: 30, image: "https://images.unsplash.com/photo-1598033129183-c4f50c736f10" },
+            { id: 103, name: "Denim Blue Shirt", price: 999, stock: 15, image: "https://images.unsplash.com/photo-1578932750294-f5075e85f44a" }
+        ]},
+        { name: "T-Shirts", emoji: "👕", products: [
+            { id: 104, name: "Black Plain T-Shirt", price: 399, stock: 50, image: "https://images.unsplash.com/photo-1521572267360-ee0c2909d518" },
+            { id: 105, name: "V-Neck Cotton Tee", price: 449, stock: 40, image: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a" },
+            { id: 106, name: "Graphic Printed T-Shirt", price: 499, stock: 20, image: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c" }
+        ]},
+        { name: "Pants", emoji: "👖", products: [
+            { id: 107, name: "Formal Black Trousers", price: 1199, stock: 20, image: "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80" },
+            { id: 108, name: "Cotton Khaki Pants", price: 999, stock: 30, image: "https://images.unsplash.com/photo-1473966968600-fa809b869a1e" },
+            { id: 109, name: "Slim Fit Chinos", price: 1099, stock: 18, image: "https://images.unsplash.com/photo-1541099649105-f69ad21f3246" }
+        ]},
+        { name: "Jeans", emoji: "👖", products: [
+            { id: 110, name: "Blue Slim Jeans", price: 1299, stock: 22, image: "https://images.unsplash.com/photo-1542272604-787c3835535d" },
+            { id: 111, name: "Ripped Denim Jeans", price: 1499, stock: 12, image: "https://images.unsplash.com/photo-1541099649105-f69ad21f3246" },
+            { id: 112, name: "Dark Grey Jeans", price: 1399, stock: 19, image: "https://images.unsplash.com/photo-1542272604-787c3835535d" }
+        ]},
+        { name: "Jackets", emoji: "🧥", products: [
+            { id: 113, name: "Leather Biker Jacket", price: 2999, stock: 8, image: "https://images.unsplash.com/photo-1551028719-00167b16eac5" },
+            { id: 114, name: "Winter Puffer Jacket", price: 2499, stock: 10, image: "https://images.unsplash.com/photo-1544441893-675973e31985" },
+            { id: 115, name: "Denim Blue Jacket", price: 1799, stock: 14, image: "https://images.unsplash.com/photo-1576995853123-5a10305d93c0" }
+        ]},
+        { name: "Shoes", emoji: "👞", products: [
+            { id: 116, name: "Formal Leather Shoes", price: 1899, stock: 12, image: "https://images.unsplash.com/photo-1533867617858-e7d9760cfe0b" },
+            { id: 117, name: "Casual Loafers", price: 1299, stock: 20, image: "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77" },
+            { id: 118, name: "Running Sneakers", price: 1599, stock: 25, image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff" }
+        ]}
     ],
     Women: [
-        { name: "Sarees", emoji: "🥻" },
-        { name: "Dresses", emoji: "👗" },
-        { name: "Tops", emoji: "👚" },
-        { name: "Jeans", emoji: "👖" },
-        { name: "Kurtis", emoji: "👘" },
-        { name: "Handbags", emoji: "👜" }
-    ],
-    Kids: [
-        { name: "Boys Wear", emoji: "👦" },
-        { name: "Girls Wear", emoji: "👧" },
-        { name: "Toys", emoji: "🧸" },
-        { name: "Kids Shoes", emoji: "👟" },
-        { name: "School Bags", emoji: "🎒" },
-        { name: "Baby Care", emoji: "🍼" }
+        { name: "Sarees", emoji: "🥻", products: [
+            { id: 201, name: "Silk Party Saree", price: 2499, stock: 10, image: "https://images.unsplash.com/photo-1610030469983-98e550d6193c" },
+            { id: 202, name: "Cotton Daily Saree", price: 899, stock: 25, image: "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b" },
+            { id: 203, name: "Designer Georgette Saree", price: 1799, stock: 14, image: "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1" }
+        ]},
+        { name: "Dresses", emoji: "👗", products: [
+            { id: 204, name: "Floral Summer Dress", price: 1199, stock: 18, image: "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446" },
+            { id: 205, name: "Party Wear Gown", price: 2299, stock: 9, image: "https://images.unsplash.com/photo-1566174053879-31528523f8ae" },
+            { id: 206, name: "Casual Midi Dress", price: 999, stock: 20, image: "https://images.unsplash.com/photo-1496747611176-843222e1e57c" }
+        ]},
+        { name: "Tops", emoji: "👚", products: [
+            { id: 207, name: "Casual Cotton Top", price: 599, stock: 35, image: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c" },
+            { id: 208, name: "Designer Party Top", price: 799, stock: 22, image: "https://images.unsplash.com/photo-1485968579580-b6d095142e6e" },
+            { id: 209, name: "Office Wear Shirt Top", price: 699, stock: 28, image: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b" }
+        ]},
+        { name: "Jeans", emoji: "👖", products: [
+            { id: 210, name: "High Waist Skinny Jeans", price: 1399, stock: 15, image: "https://images.unsplash.com/photo-1541099649105-f69ad21f3246" },
+            { id: 211, name: "Boyfriend Fit Jeans", price: 1499, stock: 12, image: "https://images.unsplash.com/photo-1542272604-787c3835535d" },
+            { id: 212, name: "Ripped Denim Jeans", price: 1599, stock: 10, image: "https://images.unsplash.com/photo-1541099649105-f69ad21f3246" }
+        ]},
+        { name: "Kurtis", emoji: "👘", products: [
+            { id: 213, name: "Anarkali Kurti", price: 1299, stock: 20, image: "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b" },
+            { id: 214, name: "Cotton Printed Kurti", price: 699, stock: 40, image: "https://images.unsplash.com/photo-1610030469983-98e550d6193c" },
+            { id: 215, name: "Short Rayon Kurti", price: 599, stock: 30, image: "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1" }
+        ]},
+        { name: "Handbags", emoji: "👜", products: [
+            { id: 216, name: "Leather Tote Bag", price: 1899, stock: 12, image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3" },
+            { id: 217, name: "Stylish Sling Bag", price: 999, stock: 25, image: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7" },
+            { id: 218, name: "Party Clutch", price: 799, stock: 18, image: "https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d" }
+        ]}
     ],
     Electronics: [
-        { name: "Mobiles", emoji: "📱" },
-        { name: "Laptops", emoji: "💻" },
-        { name: "Headphones", emoji: "🎧" },
-        { name: "Smartwatches", emoji: "⌚" },
-        { name: "Televisions", emoji: "📺" },
-        { name: "Cameras", emoji: "📷" }
-    ],
-    Fashion: [
-        { name: "Clothing", emoji: "👔" },
-        { name: "Bags", emoji: "🎒" },
-        { name: "Watches", emoji: "⌚" },
-        { name: "Sunglasses", emoji: "🕶️" },
-        { name: "Belts", emoji: "👖" },
-        { name: "Wallets", emoji: "👛" }
+        { name: "Mobiles", emoji: "📱", products: [
+            { id: 301, name: "Smartphone 5G (128GB)", price: 15999, stock: 10, image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9" },
+            { id: 302, name: "Pro Camera Phone", price: 29999, stock: 6, image: "https://images.unsplash.com/photo-1565849904461-04a58ad377e0" },
+            { id: 303, name: "Budget Smartphone", price: 9999, stock: 20, image: "https://images.unsplash.com/photo-1598327105666-5b89351aff97" }
+        ]},
+        { name: "Laptops", emoji: "💻", products: [
+            { id: 304, name: "Ultra Slim Laptop 15", price: 45999, stock: 8, image: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853" },
+            { id: 305, name: "Gaming Laptop Core i7", price: 75999, stock: 4, image: "https://images.unsplash.com/photo-1603302576837-37561b2e2302" },
+            { id: 306, name: "Student Notebook PC", price: 32999, stock: 12, image: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8" }
+        ]},
+        { name: "Headphones", emoji: "🎧", products: [
+            { id: 307, name: "Wireless Bluetooth Headphones", price: 2499, stock: 30, image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e" },
+            { id: 308, name: "Active Noise Cancelling Pods", price: 1999, stock: 25, image: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df" },
+            { id: 309, name: "Gaming Headset with Mic", price: 1799, stock: 15, image: "https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb" }
+        ]},
+        { name: "Smartwatches", emoji: "⌚", products: [
+            { id: 310, name: "Fitness Smart Watch", price: 2999, stock: 20, image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30" },
+            { id: 311, name: "AMOLED Display Watch", price: 4499, stock: 14, image: "https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1" },
+            { id: 312, name: "Sports Smartband", price: 1499, stock: 30, image: "https://images.unsplash.com/photo-1579586337278-3befd40fd17a" }
+        ]},
+        { name: "Televisions", emoji: "📺", products: [
+            { id: 313, name: "Smart LED TV 32 inch", price: 13999, stock: 7, image: "https://images.unsplash.com/photo-1593305841991-05c297ba4575" },
+            { id: 314, name: "4K Ultra HD TV 55 inch", price: 38999, stock: 5, image: "https://images.unsplash.com/photo-1552975084-6c0273745f27" },
+            { id: 315, name: "Frameless Smart TV 43 inch", price: 23999, stock: 8, image: "https://images.unsplash.com/photo-1461151304267-38535e780c79" }
+        ]},
+        { name: "Cameras", emoji: "📷", products: [
+            { id: 316, name: "DSLR Camera 24MP", price: 42999, stock: 5, image: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32" },
+            { id: 317, name: "Action Waterproof Camera", price: 12999, stock: 11, image: "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f" },
+            { id: 318, name: "Vlogging Mirrorless Camera", price: 54999, stock: 3, image: "https://images.unsplash.com/photo-1500634245200-e524567574fb" }
+        ]}
     ],
     Groceries: [
-        { name: "Fruits", emoji: "🍎" },
-        { name: "Vegetables", emoji: "🥕" },
-        { name: "Snacks", emoji: "🍿" },
-        { name: "Beverages", emoji: "🧃" },
-        { name: "Staples", emoji: "🌾" },
-        { name: "Dairy", emoji: "🥛" }
-    ],
-    "Home & Kitchen": [
-        { name: "Cookware", emoji: "🍳" },
-        { name: "Furniture", emoji: "🛋️" },
-        { name: "Home Decor", emoji: "🖼️" },
-        { name: "Bedding", emoji: "🛏️" },
-        { name: "Storage", emoji: "📦" },
-        { name: "Lighting", emoji: "💡" }
-    ],
-    Beauty: [
-        { name: "Makeup", emoji: "💄" },
-        { name: "Skincare", emoji: "🧴" },
-        { name: "Hair Care", emoji: "💆‍♀️" },
-        { name: "Fragrances", emoji: "🌸" },
-        { name: "Personal Care", emoji: "🧼" },
-        { name: "Grooming", emoji: "✨" }
-    ],
-    Sports: [
-        { name: "Cricket", emoji: "🏏" },
-        { name: "Football", emoji: "⚽" },
-        { name: "Fitness Equipment", emoji: "🏋️‍♂️" },
-        { name: "Badminton", emoji: "🏸" },
-        { name: "Sports Wear", emoji: "🎽" },
-        { name: "Sports Shoes", emoji: "👟" }
-    ],
-    Books: [
-        { name: "Fiction", emoji: "📖" },
-        { name: "Non-Fiction", emoji: "📘" },
-        { name: "Educational", emoji: "📚" },
-        { name: "Children Books", emoji: "🎨" },
-        { name: "Comics", emoji: "💬" },
-        { name: "Self-Help", emoji: "💡" }
-    ],
-    "Toys & Games": [
-        { name: "Action Figures", emoji: "🤖" },
-        { name: "Board Games", emoji: "🎲" },
-        { name: "Video Games", emoji: "🎮" },
-        { name: "Puzzles", emoji: "🧩" },
-        { name: "Dolls", emoji: "🪆" },
-        { name: "Outdoor Toys", emoji: "🚀" }
-    ],
-    "Baby Products": [
-        { name: "Diapers", emoji: "🩲" },
-        { name: "Baby Food", emoji: "🥣" },
-        { name: "Baby Clothing", emoji: "👶" },
-        { name: "Strollers", emoji: "🛒" },
-        { name: "Baby Toys", emoji: "🧸" },
-        { name: "Skin Care", emoji: "🧴" }
-    ],
-    Automotive: [
-        { name: "Car Accessories", emoji: "🚗" },
-        { name: "Bike Accessories", emoji: "🏍️" },
-        { name: "Helmets", emoji: "🪖" },
-        { name: "Car Care", emoji: "🧽" },
-        { name: "Riding Gear", emoji: "🧤" },
-        { name: "Tools", emoji: "🔧" }
-    ],
-    Footwear: [
-        { name: "Formal Shoes", emoji: "👞" },
-        { name: "Casual Shoes", emoji: "👟" },
-        { name: "Sneakers", emoji: "👟" },
-        { name: "Sandals", emoji: "🩴" },
-        { name: "Heels", emoji: "👠" },
-        { name: "Slippers", emoji: "🩴" }
-    ],
-    Jewellery: [
-        { name: "Gold Jewellery", emoji: "🪙" },
-        { name: "Silver Jewellery", emoji: "💍" },
-        { name: "Earrings", emoji: "💎" },
-        { name: "Necklaces", emoji: "📿" },
-        { name: "Rings", emoji: "💍" },
-        { name: "Bangles", emoji: "💫" }
-    ],
-    "Pet Supplies": [
-        { name: "Dog Food", emoji: "🦴" },
-        { name: "Cat Food", emoji: "🐟" },
-        { name: "Pet Toys", emoji: "🎾" },
-        { name: "Grooming Tools", emoji: "✂️" },
-        { name: "Pet Collars", emoji: "🏷️" },
-        { name: "Pet Beds", emoji: "🐾" }
+        { name: "Fruits", emoji: "🍎", products: [
+            { id: 401, name: "Fresh Organic Apples (1kg)", price: 180, stock: 50, image: "https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6" },
+            { id: 402, name: "Ripe Bananas (1 Dozen)", price: 60, stock: 80, image: "https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e" },
+            { id: 403, name: "Fresh Juicy Oranges (1kg)", price: 120, stock: 40, image: "https://images.unsplash.com/photo-1611080626919-7cf5a9dbab5b" }
+        ]},
+        { name: "Vegetables", emoji: "🥕", products: [
+            { id: 404, name: "Fresh Carrots (1kg)", price: 50, stock: 60, image: "https://images.unsplash.com/photo-1598170845058-32b9d6a5da37" },
+            { id: 405, name: "Red Onions (1kg)", price: 40, stock: 100, image: "https://images.unsplash.com/photo-1618512495648-f9b40ab71d9d" },
+            { id: 406, name: "Fresh Tomatoes (1kg)", price: 45, stock: 90, image: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c" }
+        ]},
+        { name: "Snacks", emoji: "🍿", products: [
+            { id: 407, name: "Crispy Potato Chips", price: 30, stock: 150, image: "https://images.unsplash.com/photo-1566478989037-eec170784d0b" },
+            { id: 408, name: "Roasted Salted Peanuts", price: 45, stock: 120, image: "https://images.unsplash.com/photo-1526367790999-0150786686a2" },
+            { id: 409, name: "Chocolate Cookies Pack", price: 90, stock: 80, image: "https://images.unsplash.com/photo-1499636136210-6f4ee915583e" }
+        ]},
+        { name: "Beverages", emoji: "🧃", products: [
+            { id: 410, name: "Natural Orange Juice (1L)", price: 150, stock: 40, image: "https://images.unsplash.com/photo-1621506289937-a8e4df240d0b" },
+            { id: 411, name: "Cold Coffee Bottle", price: 50, stock: 70, image: "https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5" },
+            { id: 412, name: "Green Tea Box (25 Bags)", price: 220, stock: 50, image: "https://images.unsplash.com/photo-1576092768241-dec231879fc3" }
+        ]},
+        { name: "Staples", emoji: "🌾", products: [
+            { id: 413, name: "Basmati Rice (5kg)", price: 550, stock: 30, image: "https://images.unsplash.com/photo-1586201375761-83865001e31c" },
+            { id: 414, name: "Toor Dal (1kg)", price: 140, stock: 45, image: "https://images.unsplash.com/photo-1585998066891-63f58e0c961e" },
+            { id: 415, name: "Whole Wheat Flour (5kg)", price: 240, stock: 35, image: "https://images.unsplash.com/photo-1509440159596-0249088772ff" }
+        ]},
+        { name: "Dairy", emoji: "🥛", products: [
+            { id: 416, name: "Fresh Milk (1L)", price: 60, stock: 100, image: "https://images.unsplash.com/photo-1550583724-b2692b85b150" },
+            { id: 417, name: "Butter Block (500g)", price: 260, stock: 40, image: "https://images.unsplash.com/photo-1589985270826-4b7bb135bc9d" },
+            { id: 418, name: "Cheddar Cheese Slice", price: 180, stock: 35, image: "https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d" }
+        ]}
     ]
 };
 
@@ -388,6 +388,19 @@ function showSubCategories(categoryName) {
 
 function filterBySubCategory(categoryName, subCategoryName) {
     showPage('products');
+    const catData = subCategories[categoryName];
+    if (catData) {
+        const subObj = catData.find(s => s.name.toLowerCase() === subCategoryName.toLowerCase());
+        if (subObj && subObj.products) {
+            products = subObj.products.map(p => ({
+                id: p.id, name: p.name, price: p.price,
+                category: categoryName, subCategory: subCategoryName, stock: p.stock, image: p.image
+            }));
+            displayProducts();
+            return;
+        }
+    }
+    // Fallback to database fetch if static items are not defined for that specific category
     fetch("ProductDataServlet")
         .then(response => response.json())
         .then(data => {
