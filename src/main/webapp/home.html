@@ -149,7 +149,7 @@ body {
     display: block;
 }
 
-/* ================= DASHBOARD CLEAN LAYOUT ================= */
+/* DASHBOARD */
 #dashboard {
     width: 100%;
 }
@@ -237,7 +237,7 @@ body {
     cursor: pointer;
 }
 
-/* ================= PRODUCTS PAGE ================= */
+/* PRODUCTS PAGE */
 #products {
     width: 100%;
 }
@@ -320,10 +320,12 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    transition: 0.3s;
 }
 
 .category-card:hover {
     transform: translateY(-6px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
 }
 
 .category-card .emoji {
@@ -333,6 +335,18 @@ body {
 
 .category-card h3 {
     font-size: 22px;
+}
+
+@media (max-width: 1100px) {
+    .category-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .category-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 </style>
 
@@ -457,10 +471,30 @@ body {
                 <input type="text" name="pdescription" placeholder="Enter description" style="width:100%; padding:12px; margin:10px 0; border:1px solid #ccc; border-radius:8px;">
 
                 <label>Category</label>
-                <input type="text" name="pcategory" placeholder="Enter category (e.g., Groceries)" style="width:100%; padding:12px; margin:10px 0; border:1px solid #ccc; border-radius:8px;" required>
+                <select id="productCategory" name="pcategory" style="width:100%; padding:12px; margin:10px 0; border:1px solid #ccc; border-radius:8px;" required>
+                    <option value="">Select Category</option>
+                    <option value="Men">Men</option>
+                    <option value="Women">Women</option>
+                    <option value="Kids">Kids</option>
+                    <option value="Electronics">Electronics</option>
+                    <option value="Fashion">Fashion</option>
+                    <option value="Groceries">Groceries</option>
+                    <option value="Home & Kitchen">Home & Kitchen</option>
+                    <option value="Beauty">Beauty</option>
+                    <option value="Sports">Sports</option>
+                    <option value="Books">Books</option>
+                    <option value="Toys & Games">Toys & Games</option>
+                    <option value="Baby Products">Baby Products</option>
+                    <option value="Automotive">Automotive</option>
+                    <option value="Footwear">Footwear</option>
+                    <option value="Jewellery">Jewellery</option>
+                    <option value="Pet Supplies">Pet Supplies</option>
+                </select>
 
                 <label>Sub-Category</label>
-                <input type="text" name="psubcategory" placeholder="Enter sub-category" style="width:100%; padding:12px; margin:10px 0; border:1px solid #ccc; border-radius:8px;">
+                <select id="productSubCategory" name="psubcategory" style="width:100%; padding:12px; margin:10px 0; border:1px solid #ccc; border-radius:8px;">
+                    <option value="">Select Sub-Category</option>
+                </select>
 
                 <label>Price (₹)</label>
                 <input type="number" name="pprice" placeholder="Enter price" style="width:100%; padding:12px; margin:10px 0; border:1px solid #ccc; border-radius:8px;" required>
@@ -490,39 +524,31 @@ body {
         <h1>Categories 🗂️</h1>
         <br>
         <div class="category-grid">
-            <div class="category-card">
-                <div class="emoji">👔</div>
-                <h3>Men</h3>
-            </div>
-            <div class="category-card">
-                <div class="emoji">👗</div>
-                <h3>Women</h3>
-            </div>
-            <div class="category-card">
-                <div class="emoji">📱</div>
-                <h3>Electronics</h3>
-            </div>
-            <div class="category-card">
-                <div class="emoji">🛒</div>
-                <h3>Groceries</h3>
-            </div>
-            <div class="category-card">
-                <div class="emoji">🏠</div>
-                <h3>Home & Kitchen</h3>
-            </div>
-            <div class="category-card">
-                <div class="emoji">💄</div>
-                <h3>Beauty</h3>
-            </div>
-            <div class="category-card">
-                <div class="emoji">⚽</div>
-                <h3>Sports</h3>
-            </div>
-            <div class="category-card">
-                <div class="emoji">💍</div>
-                <h3>Jewellery</h3>
-            </div>
+            <div class="category-card" onclick="showSubCategories('Men')"><div class="emoji">👔</div><h3>Men</h3></div>
+            <div class="category-card" onclick="showSubCategories('Women')"><div class="emoji">👗</div><h3>Women</h3></div>
+            <div class="category-card" onclick="showSubCategories('Kids')"><div class="emoji">🧒</div><h3>Kids</h3></div>
+            <div class="category-card" onclick="showSubCategories('Electronics')"><div class="emoji">📱</div><h3>Electronics</h3></div>
+            <div class="category-card" onclick="showSubCategories('Fashion')"><div class="emoji">👕</div><h3>Fashion</h3></div>
+            <div class="category-card" onclick="showSubCategories('Groceries')"><div class="emoji">🛒</div><h3>Groceries</h3></div>
+            <div class="category-card" onclick="showSubCategories('Home & Kitchen')"><div class="emoji">🏠</div><h3>Home & Kitchen</h3></div>
+            <div class="category-card" onclick="showSubCategories('Beauty')"><div class="emoji">💄</div><h3>Beauty</h3></div>
+            <div class="category-card" onclick="showSubCategories('Sports')"><div class="emoji">⚽</div><h3>Sports</h3></div>
+            <div class="category-card" onclick="showSubCategories('Books')"><div class="emoji">📚</div><h3>Books</h3></div>
+            <div class="category-card" onclick="showSubCategories('Toys & Games')"><div class="emoji">🧸</div><h3>Toys & Games</h3></div>
+            <div class="category-card" onclick="showSubCategories('Baby Products')"><div class="emoji">👶</div><h3>Baby Products</h3></div>
+            <div class="category-card" onclick="showSubCategories('Automotive')"><div class="emoji">🚗</div><h3>Automotive</h3></div>
+            <div class="category-card" onclick="showSubCategories('Footwear')"><div class="emoji">👟</div><h3>Footwear</h3></div>
+            <div class="category-card" onclick="showSubCategories('Jewellery')"><div class="emoji">💍</div><h3>Jewellery</h3></div>
+            <div class="category-card" onclick="showSubCategories('Pet Supplies')"><div class="emoji">🐶</div><h3>Pet Supplies</h3></div>
         </div>
+    </section>
+
+    <!-- SUB CATEGORIES -->
+    <section id="subCategories" class="page">
+        <button class="back-btn" onclick="showPage('categories')">← Categories</button>
+        <h1 id="subCategoryTitle">Sub-Categories</h1>
+        <br>
+        <div id="subCategoryList" class="category-grid"></div>
     </section>
 
     <!-- ORDERS -->
@@ -570,6 +596,25 @@ body {
 
 <script>
 let products = [];
+
+const subCategories = {
+    Men: ["Shirts", "T-Shirts", "Pants", "Jeans", "Jackets", "Shoes"],
+    Women: ["Sarees", "Dresses", "Tops", "Jeans", "Kurtis", "Handbags"],
+    Kids: ["Boys Wear", "Girls Wear", "Toys", "Kids Shoes", "School Bags", "Baby Care"],
+    Electronics: ["Mobiles", "Laptops", "Headphones", "Smartwatches", "Televisions", "Cameras"],
+    Fashion: ["Clothing", "Bags", "Watches", "Sunglasses", "Belts", "Wallets"],
+    Groceries: ["Fruits", "Vegetables", "Snacks", "Beverages", "Staples", "Dairy"],
+    "Home & Kitchen": ["Cookware", "Furniture", "Home Decor", "Bedding", "Storage", "Lighting"],
+    Beauty: ["Makeup", "Skincare", "Hair Care", "Fragrances", "Personal Care", "Grooming"],
+    Sports: ["Cricket", "Football", "Fitness Equipment", "Badminton", "Sports Wear", "Sports Shoes"],
+    Books: ["Fiction", "Non-Fiction", "Educational", "Children Books", "Comics", "Self-Help"],
+    "Toys & Games": ["Action Figures", "Board Games", "Video Games", "Puzzles", "Dolls", "Outdoor Toys"],
+    "Baby Products": ["Diapers", "Baby Food", "Baby Clothing", "Strollers", "Baby Toys", "Skin Care"],
+    Automotive: ["Car Accessories", "Bike Accessories", "Helmets", "Car Care", "Riding Gear", "Tools"],
+    Footwear: ["Formal Shoes", "Casual Shoes", "Sneakers", "Sandals", "Heels", "Slippers"],
+    Jewellery: ["Gold Jewellery", "Silver Jewellery", "Earrings", "Necklaces", "Rings", "Bangles"],
+    "Pet Supplies": ["Dog Food", "Cat Food", "Pet Toys", "Grooming Tools", "Pet Collars", "Pet Beds"]
+};
 
 function showPage(pageName, clickedMenu = null) {
     document.querySelectorAll(".page").forEach(page => page.classList.remove("active-page"));
@@ -647,6 +692,57 @@ function deleteProduct(id) {
     }
 }
 
+function showSubCategories(categoryName) {
+    const titleElement = document.getElementById("subCategoryTitle");
+    const listElement = document.getElementById("subCategoryList");
+    
+    if (titleElement) {
+        titleElement.textContent = categoryName + " Sub-Categories 🗂️";
+    }
+    
+    if (listElement) {
+        listElement.innerHTML = "";
+        const subs = subCategories[categoryName];
+        
+        if (subs && subs.length > 0) {
+            subs.forEach(function(sub) {
+                listElement.innerHTML += `
+                    <div class='category-card' onclick="filterBySubCategory('${categoryName}', '${sub}')">
+                        <div class='emoji'>📁</div>
+                        <h3>${sub}</h3>
+                    </div>
+                `;
+            });
+        } else {
+            listElement.innerHTML = "<div class='empty'><h2>No Sub-Categories Available</h2></div>";
+        }
+    }
+    
+    showPage('subCategories');
+}
+
+function filterBySubCategory(categoryName, subCategoryName) {
+    showPage('products');
+    fetch("ProductDataServlet")
+        .then(response => response.json())
+        .then(data => {
+            products = data
+                .filter(product => product.category && product.category.toLowerCase() === categoryName.toLowerCase() && 
+                                   product.subCategory && product.subCategory.toLowerCase() === subCategoryName.toLowerCase())
+                .map(product => ({
+                    id: product.id,
+                    name: product.name,
+                    price: product.price,
+                    category: product.category,
+                    subCategory: product.subCategory,
+                    stock: product.stock,
+                    image: product.imageUrl
+                }));
+            displayProducts();
+        })
+        .catch(error => console.error("Sub-category filter error:", error));
+}
+
 function loadCustomers() {
     const customersList = document.getElementById("customersList");
     if (!customersList) return;
@@ -656,23 +752,44 @@ function loadCustomers() {
         .then(customers => {
             customersList.innerHTML = "";
             if (!customers || customers.length === 0) {
-                customersList.innerHTML = "<div class='card'><h2>No Customers Found 👥</h2></div>";
+                customersList.innerHTML = "<div class='card'><h2>No Registered Customers Found 👥</h2></div>";
                 return;
             }
             customers.forEach(customer => {
                 customersList.innerHTML += `
-                    <div class='card'>
-                        <h2>👤 ${customer.name}</h2>
-                        <p>🆔 ID: ${customer.id}</p>
-                        <p>📧 Email: ${customer.email}</p>
+                    <div class='card' style='margin-bottom: 20px; border-left: 6px solid #28584c;'>
+                        <h2 style='color: #173c33; margin-bottom: 15px;'>👤 ${customer.name}</h2>
+                        <p>🆔 <b>Customer ID:</b> ${customer.id}</p>
+                        <p>📧 <b>Email Address:</b> ${customer.email}</p>
+                        <p>📞 <b>Phone Number:</b> ${customer.phone}</p>
+                        <p>🏠 <b>Address:</b> ${customer.address}</p>
+                        <p>📅 <b>Registration Date:</b> ${customer.date}</p>
                     </div>
                 `;
             });
         })
         .catch(error => {
             console.error("Customer loading error:", error);
-            customersList.innerHTML = "<div class='card'><h2>No Customers Available 👥</h2></div>";
+            customersList.innerHTML = "<div class='card'><h2>Unable to load registered customer details.</h2></div>";
         });
+}
+
+const categorySelect = document.getElementById("productCategory");
+if (categorySelect) {
+    categorySelect.addEventListener("change", function() {
+        const category = this.value;
+        const subCategory = document.getElementById("productSubCategory");
+        subCategory.innerHTML = '<option value="">Select Sub-Category</option>';
+
+        if (subCategories[category]) {
+            subCategories[category].forEach(function(item) {
+                const option = document.createElement("option");
+                option.value = item;
+                option.textContent = item;
+                subCategory.appendChild(option);
+            });
+        }
+    });
 }
 </script>
 

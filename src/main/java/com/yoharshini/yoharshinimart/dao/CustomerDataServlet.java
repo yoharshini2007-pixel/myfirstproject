@@ -5,94 +5,82 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import com.yoharshini.yoharshinimart.util.DatabaseConnection;
 
 @WebServlet("/CustomerDataServlet")
 public class CustomerDataServlet extends HttpServlet {
-
     private static final long serialVersionUID = 1L;
 
-    protected void doGet(HttpServletRequest request,
-                         HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-
         PrintWriter out = response.getWriter();
 
-        String sql =
-                "SELECT id, name, email, created_at " +
-                "FROM users " +
-                "WHERE role = 'BUYER' " +
-                "ORDER BY id DESC";
+        StringBuilder json = new StringBuilder("[");
 
-        try (Connection con =
-                     DatabaseConnection.getConnection();
-             PreparedStatement ps =
-                     con.prepareStatement(sql);
-             ResultSet rs =
-                     ps.executeQuery()) {
-
-            out.print("[");
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement("SELECT * FROM users WHERE role = 'customer' OR role IS NULL");
+             ResultSet rs = ps.executeQuery()) {
 
             boolean first = true;
-
             while (rs.next()) {
-
                 if (!first) {
-                    out.print(",");
+                    json.append(",");
                 }
+                
+                int id = rs.getInt("id");
+                String name = rs.getString("name") != null ? rs.getString("name") : "N/A";
+                String email = rs.getString("email") != null ? rs.getString("email") : "N/A";
+                
+                // Extra details from register form (If column names exist in your DB table)
+                String phone = getOptionalString(rs, "phone");
+                String address = getOptionalString(rs, "address");
+                String joinedDate = getOptionalString(rs, "created_at");
 
-                out.print("{");
-
-                out.print("\"id\":" +
-                        rs.getInt("id") + ",");
-
-                out.print("\"name\":\"" +
-                        escapeJson(rs.getString("name")) +
-                        "\",");
-
-                out.print("\"email\":\"" +
-                        escapeJson(rs.getString("email")) +
-                        "\",");
-
-                out.print("\"date\":\"" +
-                        rs.getTimestamp("created_at") +
-                        "\"");
-
-                out.print("}");
+                json.append("{")
+                    .append("\"id\":").append(id).append(",")
+                    .append("\"name\":\"").append(escapeJson(name)).append("\",")
+                    .append("\"email\":\"").append(escapeJson(email)).append("\",")
+                    .append("\"phone\":\"").append(escapeJson(phone)).append("\",")
+                    .append("\"address\":\"").append(escapeJson(address)).append("\",")
+                    .append("\"date\":\"").append(escapeJson(joinedDate)).append("\"")
+                    .append("}");
 
                 first = false;
             }
-
-            out.print("]");
-
         } catch (Exception e) {
-
             e.printStackTrace();
+        }
 
-            out.print("[]");
+        json.append("]");
+        out.print(json.toString());
+        out.flush();
+    }
+
+    private String getOptionalString(ResultSet rs, String columnName) {
+        try {
+            String val = rs.getString(columnName);
+            return val != null ? val : "N/A";
+        } catch (Exception e) {
+            return "N/A";
         }
     }
 
-    private String escapeJson(String value) {
-
-        if (value == null) {
-            return "";
-        }
-
-        return value
-                .replace("\\", "\\\\")
-                .replace("\"", "\\\"")
-                .replace("\n", "\\n")
-                .replace("\r", "\\r");
+    private String escapeJson(String input) {
+        if (input == null) return "";
+        return input.replace("\\", "\\\\")
+                    .replace("\"", "\\\"")
+                    .replace("\b", "\\b")
+                    .replace("\f", "\\f")
+                    .replace("\n", "\\n")
+                    .replace("\r", "\\r")
+                    .replace("\t", "\\t");
     }
 }
