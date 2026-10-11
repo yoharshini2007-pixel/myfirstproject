@@ -1,528 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8"> 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Yoharshini Mart - Admin Dashboard</title>
-
 <style>
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-}
-
-body {
-    background: #f7f8f5;
-    color: #173c33;
-    font-size: 18px;
-}
-
-/* SIDEBAR */
-.sidebar {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 270px;
-    height: 100vh;
-    background: #173c33;
-    color: white;
-    padding: 25px 18px;
-    overflow-y: auto;
-}
-
-.logo-area {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 35px;
-}
-
-.logo-icon {
-    width: 50px;
-    height: 50px;
-    background: white;
-    color: #173c33;
-    border-radius: 12px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 26px;
-}
-
-.logo-area h2 {
-    font-size: 23px;
-}
-
-.menu {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.menu a {
-    text-decoration: none;
-    color: #dce8e3;
-    padding: 14px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    cursor: pointer;
-    font-size: 19px;
-}
-
-.menu a:hover,
-.menu a.active {
-    background: #28584c;
-    color: white;
-}
-
-.menu-icon {
-    width: 28px;
-    font-size: 22px;
-}
-
-.business-card {
-    margin-top: 30px;
-    padding: 15px;
-    background: #28584c;
-    border-radius: 12px;
-}
-
-.business-card p {
-    color: #b9ccc5;
-    margin-top: 5px;
-    font-size: 15px;
-}
-
-/* MAIN */
-.main {
-    margin-left: 270px;
-    min-height: 100vh;
-    padding: 35px 45px;
-}
-
-.topbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 30px;
-}
-
-.search-box input {
-    width: 450px;
-    padding: 14px 18px;
-    border: 1px solid #ddd;
-    border-radius: 12px;
-    outline: none;
-    font-size: 18px;
-}
-
-.user-area {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.user-circle {
-    width: 45px;
-    height: 45px;
-    background: #173c33;
-    color: white;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: bold;
-}
-
-/* PAGE */
-.page {
-    display: none;
-}
-
-.page.active-page {
-    display: block;
-}
-
-/* DASHBOARD */
-#dashboard {
-    width: 100%;
-}
-
-.welcome h1 {
-    font-size: 42px !important;
-}
-
-.welcome p {
-    font-size: 22px !important;
-}
-
-.stats {
-    display: grid !important;
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 25px !important;
-    margin-bottom: 25px;
-}
-
-.stat {
-    background: white;
-    min-height: 150px !important;
-    padding: 30px !important;
-    border-radius: 18px;
-    box-shadow: 0 5px 18px rgba(0,0,0,0.08);
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-
-.stat-icon {
-    font-size: 45px !important;
-}
-
-.stat p {
-    font-size: 22px !important;
-    color: #555;
-}
-
-.stat h2 {
-    font-size: 34px !important;
-}
-
-.card {
-    background: white;
-    padding: 30px !important;
-    border-radius: 18px;
-    box-shadow: 0 5px 18px rgba(0,0,0,0.08);
-    margin-bottom: 25px;
-}
-
-.card h2 {
-    font-size: 32px !important;
-    margin-bottom: 15px;
-}
-
-.card p {
-    font-size: 22px !important;
-}
-
-.add-btn {
-    font-size: 24px !important;
-    padding: 18px !important;
-    min-height: 60px !important;
-    background: #28584c;
-    color: white;
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-    width: 100%;
-}
-
-.add-btn:hover {
-    background: #173c33;
-}
-
-.back-btn {
-    font-size: 21px;
-    padding: 14px 25px;
-    margin-bottom: 25px;
-    background: #28584c;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-}
-
-/* PRODUCTS PAGE */
-#products {
-    width: 100%;
-}
-
-#products h1 {
-    font-size: 38px !important;
-    margin-bottom: 20px;
-}
-
-#products .product-grid {
-    display: grid !important;
-    grid-template-columns: repeat(3, minmax(280px, 1fr)) !important;
-    gap: 30px !important;
-    width: 100% !important;
-}
-
-#products .product-card {
-    background: white;
-    border-radius: 18px;
-    overflow: hidden;
-    box-shadow: 0 5px 18px rgba(0,0,0,0.08);
-}
-
-#products .product-card img {
-    width: 100% !important;
-    height: 240px !important;
-    object-fit: contain !important;
-    background: #f5f5f5;
-}
-
-#products .product-info {
-    padding: 25px;
-}
-
-#products .product-info h3 {
-    font-size: 27px !important;
-    margin-bottom: 15px;
-}
-
-#products .product-info p {
-    font-size: 21px !important;
-    margin: 11px 0;
-    color: #555;
-}
-
-.delete-btn {
-    font-size: 20px !important;
-    padding: 14px;
-    background: #d9534f;
-    color: white;
-    border: none;
-    width: 100%;
-    border-radius: 8px;
-    cursor: pointer;
-    margin-top: 10px;
-}
-
-.delete-btn:hover {
-    background: #c9302c;
-}
-
-/* CATEGORY GRID */
-.category-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 25px;
-    width: 100%;
-    margin-top: 20px;
-}
-
-.category-card {
-    background: white;
-    min-height: 180px;
-    padding: 30px 20px;
-    border-radius: 18px;
-    text-align: center;
-    box-shadow: 0 5px 18px rgba(0,0,0,0.08);
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    transition: 0.3s;
-}
-
-.category-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
-}
-
-.category-card .emoji {
-    font-size: 55px;
-    margin-bottom: 15px;
-}
-
-.category-card h3 {
-    font-size: 22px;
-}
-
-@media (max-width: 1100px) {
-    .category-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
-}
-
-@media (max-width: 768px) {
-    .category-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, sans-serif; }
+body { background: #f7f8f5; color: #173c33; font-size: 18px; }
+.sidebar { position: fixed; left: 0; top: 0; width: 270px; height: 100vh; background: #173c33; color: white; padding: 25px 18px; overflow-y: auto; }
+.logo-area { display: flex; align-items: center; gap: 12px; margin-bottom: 35px; }
+.logo-icon { width: 50px; height: 50px; background: white; color: #173c33; border-radius: 12px; display: flex; justify-content: center; align-items: center; font-size: 26px; }
+.logo-area h2 { font-size: 23px; }
+.menu { display: flex; flex-direction: column; gap: 8px; }
+.menu a { text-decoration: none; color: #dce8e3; padding: 14px; border-radius: 10px; display: flex; align-items: center; gap: 12px; cursor: pointer; font-size: 19px; }
+.menu a:hover, .menu a.active { background: #28584c; color: white; }
+.menu-icon { width: 28px; font-size: 22px; }
+.business-card { margin-top: 30px; padding: 15px; background: #28584c; border-radius: 12px; }
+.business-card p { color: #b9ccc5; margin-top: 5px; font-size: 15px; }
+.main { margin-left: 270px; min-height: 100vh; padding: 35px 45px; }
+.topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+.search-box input { width: 450px; padding: 14px 18px; border: 1px solid #ddd; border-radius: 12px; outline: none; font-size: 18px; }
+.user-area { display: flex; align-items: center; gap: 15px; }
+.user-circle { width: 45px; height: 45px; background: #173c33; color: white; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-weight: bold; }
+.page { display: none; }
+.page.active-page { display: block; }
+#dashboard { width: 100%; }
+.welcome h1 { font-size: 42px !important; }
+.welcome p { font-size: 22px !important; }
+.stats { display: grid !important; grid-template-columns: repeat(2, 1fr) !important; gap: 25px !important; margin-bottom: 25px; }
+.stat { background: white; min-height: 150px !important; padding: 30px !important; border-radius: 18px; box-shadow: 0 5px 18px rgba(0,0,0,0.08); display: flex; align-items: center; gap: 20px; }
+.stat-icon { font-size: 45px !important; }
+.stat p { font-size: 22px !important; color: #555; }
+.stat h2 { font-size: 34px !important; }
+.card { background: white; padding: 30px !important; border-radius: 18px; box-shadow: 0 5px 18px rgba(0,0,0,0.08); margin-bottom: 25px; }
+.card h2 { font-size: 32px !important; margin-bottom: 15px; }
+.card p { font-size: 22px !important; }
+.add-btn { font-size: 24px !important; padding: 18px !important; min-height: 60px !important; background: #28584c; color: white; border: none; border-radius: 12px; cursor: pointer; width: 100%; }
+.add-btn:hover { background: #173c33; }
+.back-btn { font-size: 21px; padding: 14px 25px; margin-bottom: 25px; background: #28584c; color: white; border: none; border-radius: 10px; cursor: pointer; }
+#products { width: 100%; }
+#products h1 { font-size: 38px !important; margin-bottom: 20px; }
+#products .product-grid { display: grid !important; grid-template-columns: repeat(3, minmax(280px, 1fr)) !important; gap: 30px !important; width: 100% !important; }
+#products .product-card { background: white; border-radius: 18px; overflow: hidden; box-shadow: 0 5px 18px rgba(0,0,0,0.08); }
+#products .product-card img { width: 100% !important; height: 240px !important; object-fit: contain !important; background: #f5f5f5; }
+#products .product-info { padding: 25px; }
+#products .product-info h3 { font-size: 27px !important; margin-bottom: 15px; }
+#products .product-info p { font-size: 21px !important; margin: 11px 0; color: #555; }
+.delete-btn { font-size: 20px !important; padding: 14px; background: #d9534f; color: white; border: none; width: 100%; border-radius: 8px; cursor: pointer; margin-top: 10px; }
+.delete-btn:hover { background: #c9302c; }
+.category-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px; width: 100%; margin-top: 20px; }
+.category-card { background: white; min-height: 180px; padding: 30px 20px; border-radius: 18px; text-align: center; box-shadow: 0 5px 18px rgba(0,0,0,0.08); cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: 0.3s; }
+.category-card:hover { transform: translateY(-6px); box-shadow: 0 8px 25px rgba(0,0,0,0.12); }
+.category-card .emoji { font-size: 55px; margin-bottom: 15px; }
+.category-card h3 { font-size: 22px; }
+@media (max-width: 1100px) { .category-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 768px) { .category-grid { grid-template-columns: repeat(2, 1fr); } }
 </style>
-
 </head>
-
 <body>
-
-<!-- SIDEBAR -->
 <div class="sidebar">
-    <div class="logo-area">
-        <div class="logo-icon">🛍️</div>
-        <h2>Yoharshini Mart</h2>
-    </div>
-
+    <div class="logo-area"><div class="logo-icon">🛍️</div><h2>Yoharshini Mart</h2></div>
     <div class="menu">
-        <a href="javascript:void(0)" class="active" onclick="showPage('dashboard', this)">
-            <span class="menu-icon">⌂</span>
-            <span>Dashboard</span>
-        </a>
-
-        <a href="javascript:void(0)" onclick="showPage('addProduct', this)">
-            <span class="menu-icon">＋</span>
-            <span>Add Product</span>
-        </a>
-
-        <a href="javascript:void(0)" onclick="showPage('products', this)">
-            <span class="menu-icon">📦</span>
-            <span>Products</span>
-        </a>
-
-        <a href="javascript:void(0)" onclick="showPage('categories', this)">
-            <span class="menu-icon">🗂️</span>
-            <span>Categories</span>
-        </a>
-
-        <a href="javascript:void(0)" onclick="showPage('orders', this)">
-            <span class="menu-icon">🛒</span>
-            <span>Orders</span>
-        </a>
-
-        <a href="javascript:void(0)" onclick="showPage('customers', this)">
-            <span class="menu-icon">👥</span>
-            <span>Customers</span>
-        </a>
-
-        <a href="AdminCartServlet">
-            <span class="menu-icon">🛍️</span>
-            <span>Cart</span>
-        </a>
-
-        <a href="javascript:void(0)" onclick="showPage('reports', this)">
-            <span class="menu-icon">📊</span>
-            <span>Reports</span>
-        </a>
+        <a href="javascript:void(0)" class="active" onclick="showPage('dashboard', this)"><span class="menu-icon">⌂</span><span>Dashboard</span></a>
+        <a href="javascript:void(0)" onclick="showPage('addProduct', this)"><span class="menu-icon">＋</span><span>Add Product</span></a>
+        <a href="javascript:void(0)" onclick="showPage('products', this)"><span class="menu-icon">📦</span><span>Products</span></a>
+        <a href="javascript:void(0)" onclick="showPage('categories', this)"><span class="menu-icon">🗂️</span><span>Categories</span></a>
+        <a href="javascript:void(0)" onclick="showPage('orders', this)"><span class="menu-icon">🛒</span><span>Orders</span></a>
+        <a href="javascript:void(0)" onclick="showPage('customers', this)"><span class="menu-icon">👥</span><span>Customers</span></a>
+        <a href="AdminCartServlet"><span class="menu-icon">🛍️</span><span>Cart</span></a>
+        <a href="javascript:void(0)" onclick="showPage('reports', this)"><span class="menu-icon">📊</span><span>Reports</span></a>
     </div>
-
-    <div class="business-card">
-        <b>Yoharshini Mart</b>
-        <p>Admin Dashboard</p>
-        <p>Online Store Management</p>
-    </div>
+    <div class="business-card"><b>Yoharshini Mart</b><p>Admin Dashboard</p><p>Online Store Management</p></div>
 </div>
 
-<!-- MAIN -->
 <div class="main">
-
-    <!-- TOP BAR -->
     <div class="topbar">
-        <div class="search-box">
-            <input type="text" id="searchInput" placeholder="Search products...">
-        </div>
-        <div class="user-area">
-            <span>🔔</span>
-            <div class="user-circle">Y</div>
-            <b>Admin</b>
-        </div>
+        <div class="search-box"><input type="text" id="searchInput" placeholder="Search products..."></div>
+        <div class="user-area"><span>🔔</span><div class="user-circle">Y</div><b>Admin</b></div>
     </div>
 
-    <!-- DASHBOARD -->
     <section id="dashboard" class="page active-page">
-        <div class="welcome">
-            <h1>Welcome back, Admin 👋</h1>
-            <p>Here's what's happening with your store today.</p>
-        </div>
-
+        <div class="welcome"><h1>Welcome back, Admin 👋</h1><p>Here's what's happening with your store today.</p></div>
         <div class="stats">
-            <div class="stat">
-                <div class="stat-icon">📦</div>
-                <div>
-                    <p>Total Products</p>
-                    <h2 id="totalProducts">0</h2>
-                </div>
-            </div>
-            <div class="stat">
-                <div class="stat-icon">🛒</div>
-                <div>
-                    <p>Total Orders</p>
-                    <h2 id="totalOrders">0</h2>
-                </div>
-            </div>
+            <div class="stat"><div class="stat-icon">📦</div><div><p>Total Products</p><h2 id="totalProducts">0</h2></div></div>
+            <div class="stat"><div class="stat-icon">🛒</div><div><p>Total Orders</p><h2 id="totalOrders">0</h2></div></div>
         </div>
-
-        <div class="card">
-            <h2>Store Overview 📊</h2>
-            <p>Your store is running successfully.</p>
-            <br>
-            <button class="add-btn" onclick="showPage('addProduct')">＋ Add New Product</button>
-        </div>
+        <div class="card"><h2>Store Overview 📊</h2><p>Your store is running successfully.</p><br><button class="add-btn" onclick="showPage('addProduct')">＋ Add New Product</button></div>
     </section>
 
-    <!-- ADD PRODUCT -->
     <section id="addProduct" class="page">
         <button class="back-btn" onclick="showPage('dashboard')">← Dashboard</button>
-        <h1>Add New Product</h1>
-        <br>
+        <h1>Add New Product</h1><br>
         <form action="AddProductServlet" method="POST">
             <div class="card">
                 <label>Product Name</label>
                 <input type="text" name="pname" placeholder="Enter product name" style="width:100%; padding:12px; margin:10px 0; border:1px solid #ccc; border-radius:8px;" required>
-
                 <label>Description</label>
                 <input type="text" name="pdescription" placeholder="Enter description" style="width:100%; padding:12px; margin:10px 0; border:1px solid #ccc; border-radius:8px;">
-
                 <label>Category</label>
                 <select id="productCategory" name="pcategory" style="width:100%; padding:12px; margin:10px 0; border:1px solid #ccc; border-radius:8px;" required>
                     <option value="">Select Category</option>
-                    <option value="Men">Men</option>
-                    <option value="Women">Women</option>
-                    <option value="Kids">Kids</option>
-                    <option value="Electronics">Electronics</option>
-                    <option value="Fashion">Fashion</option>
-                    <option value="Groceries">Groceries</option>
-                    <option value="Home & Kitchen">Home & Kitchen</option>
-                    <option value="Beauty">Beauty</option>
-                    <option value="Sports">Sports</option>
-                    <option value="Books">Books</option>
-                    <option value="Toys & Games">Toys & Games</option>
-                    <option value="Baby Products">Baby Products</option>
-                    <option value="Automotive">Automotive</option>
-                    <option value="Footwear">Footwear</option>
-                    <option value="Jewellery">Jewellery</option>
-                    <option value="Pet Supplies">Pet Supplies</option>
+                    <option value="Men">Men</option><option value="Women">Women</option><option value="Kids">Kids</option><option value="Electronics">Electronics</option><option value="Fashion">Fashion</option><option value="Groceries">Groceries</option><option value="Home & Kitchen">Home & Kitchen</option><option value="Beauty">Beauty</option><option value="Sports">Sports</option><option value="Books">Books</option><option value="Toys & Games">Toys & Games</option><option value="Baby Products">Baby Products</option><option value="Automotive">Automotive</option><option value="Footwear">Footwear</option><option value="Jewellery">Jewellery</option><option value="Pet Supplies">Pet Supplies</option>
                 </select>
-
                 <label>Sub-Category</label>
                 <select id="productSubCategory" name="psubcategory" style="width:100%; padding:12px; margin:10px 0; border:1px solid #ccc; border-radius:8px;">
                     <option value="">Select Sub-Category</option>
                 </select>
-
                 <label>Price (₹)</label>
                 <input type="number" name="pprice" placeholder="Enter price" style="width:100%; padding:12px; margin:10px 0; border:1px solid #ccc; border-radius:8px;" required>
-
                 <label>Stock Quantity</label>
                 <input type="number" name="pstock" placeholder="Enter stock" style="width:100%; padding:12px; margin:10px 0; border:1px solid #ccc; border-radius:8px;" required>
-
                 <label>Image URL</label>
                 <input type="url" name="imageUrl" placeholder="Paste image URL" style="width:100%; padding:12px; margin:10px 0; border:1px solid #ccc; border-radius:8px;">
-
                 <button type="submit" class="add-btn" style="margin-top:20px;">＋ Add Product</button>
             </div>
         </form>
     </section>
 
-    <!-- PRODUCTS -->
     <section id="products" class="page">
         <button class="back-btn" onclick="showPage('dashboard')">← Dashboard</button>
-        <h1>Products 📦</h1>
-        <br>
+        <h1>Products 📦</h1><br>
         <div id="productList" class="product-grid"></div>
     </section>
 
-    <!-- CATEGORIES -->
     <section id="categories" class="page">
         <button class="back-btn" onclick="showPage('dashboard')">← Dashboard</button>
-        <h1>Categories 🗂️</h1>
-        <br>
+        <h1>Categories 🗂️</h1><br>
         <div class="category-grid">
             <div class="category-card" onclick="showSubCategories('Men')"><div class="emoji">👔</div><h3>Men</h3></div>
             <div class="category-card" onclick="showSubCategories('Women')"><div class="emoji">👗</div><h3>Women</h3></div>
@@ -543,93 +146,173 @@ body {
         </div>
     </section>
 
-    <!-- SUB CATEGORIES -->
     <section id="subCategories" class="page">
         <button class="back-btn" onclick="showPage('categories')">← Categories</button>
-        <h1 id="subCategoryTitle">Sub-Categories</h1>
-        <br>
+        <h1 id="subCategoryTitle">Sub-Categories</h1><br>
         <div id="subCategoryList" class="category-grid"></div>
     </section>
 
-    <!-- ORDERS -->
     <section id="orders" class="page">
         <button class="back-btn" onclick="showPage('dashboard')">← Dashboard</button>
-        <h1>Orders 🛒</h1>
-        <br>
-        <div id="ordersList" class="card">
-            <div class="empty">
-                <h2>No Orders Available 📦</h2>
-                <p>Orders will appear here.</p>
-            </div>
-        </div>
+        <h1>Orders 🛒</h1><br>
+        <div id="ordersList" class="card"><div class="empty"><h2>No Orders Available 📦</h2><p>Orders will appear here.</p></div></div>
     </section>
 
-    <!-- CUSTOMERS -->
     <section id="customers" class="page">
         <button class="back-btn" onclick="showPage('dashboard')">← Dashboard</button>
-        <h1>Customers 👥</h1>
-        <br>
-        <div id="customersList">
-            <div class="card">
-                <p>Loading Customers...</p>
-            </div>
-        </div>
+        <h1>Customers 👥</h1><br>
+        <div id="customersList"><div class="card"><p>Loading Customers...</p></div></div>
     </section>
 
-    <!-- REPORTS -->
     <section id="reports" class="page">
         <button class="back-btn" onclick="showPage('dashboard')">← Dashboard</button>
-        <div class="card">
-            <h1>Reports 📊</h1>
-            <br>
-            <p>Monthly Sales Report</p>
-            <br>
-            <p>Total Products: <b id="reportProducts">0</b></p>
-            <br>
-            <p>Total Orders: <b id="reportOrders">0</b></p>
-            <br>
-            <p>Revenue: <b id="reportRevenue">₹0</b></p>
-        </div>
+        <div class="card"><h1>Reports 📊</h1><br><p>Monthly Sales Report</p><br><p>Total Products: <b id="reportProducts">0</b></p><br><p>Total Orders: <b id="reportOrders">0</b></p><br><p>Revenue: <b id="reportRevenue">₹0</b></p></div>
     </section>
-
 </div>
 
 <script>
 let products = [];
 
+// Sub-categories mapped with specific matching Emojis
 const subCategories = {
-    Men: ["Shirts", "T-Shirts", "Pants", "Jeans", "Jackets", "Shoes"],
-    Women: ["Sarees", "Dresses", "Tops", "Jeans", "Kurtis", "Handbags"],
-    Kids: ["Boys Wear", "Girls Wear", "Toys", "Kids Shoes", "School Bags", "Baby Care"],
-    Electronics: ["Mobiles", "Laptops", "Headphones", "Smartwatches", "Televisions", "Cameras"],
-    Fashion: ["Clothing", "Bags", "Watches", "Sunglasses", "Belts", "Wallets"],
-    Groceries: ["Fruits", "Vegetables", "Snacks", "Beverages", "Staples", "Dairy"],
-    "Home & Kitchen": ["Cookware", "Furniture", "Home Decor", "Bedding", "Storage", "Lighting"],
-    Beauty: ["Makeup", "Skincare", "Hair Care", "Fragrances", "Personal Care", "Grooming"],
-    Sports: ["Cricket", "Football", "Fitness Equipment", "Badminton", "Sports Wear", "Sports Shoes"],
-    Books: ["Fiction", "Non-Fiction", "Educational", "Children Books", "Comics", "Self-Help"],
-    "Toys & Games": ["Action Figures", "Board Games", "Video Games", "Puzzles", "Dolls", "Outdoor Toys"],
-    "Baby Products": ["Diapers", "Baby Food", "Baby Clothing", "Strollers", "Baby Toys", "Skin Care"],
-    Automotive: ["Car Accessories", "Bike Accessories", "Helmets", "Car Care", "Riding Gear", "Tools"],
-    Footwear: ["Formal Shoes", "Casual Shoes", "Sneakers", "Sandals", "Heels", "Slippers"],
-    Jewellery: ["Gold Jewellery", "Silver Jewellery", "Earrings", "Necklaces", "Rings", "Bangles"],
-    "Pet Supplies": ["Dog Food", "Cat Food", "Pet Toys", "Grooming Tools", "Pet Collars", "Pet Beds"]
+    Men: [
+        { name: "Shirts", emoji: "👔" },
+        { name: "T-Shirts", emoji: "👕" },
+        { name: "Pants", emoji: "👖" },
+        { name: "Jeans", emoji: "👖" },
+        { name: "Jackets", emoji: "🧥" },
+        { name: "Shoes", emoji: "👞" }
+    ],
+    Women: [
+        { name: "Sarees", emoji: "🥻" },
+        { name: "Dresses", emoji: "👗" },
+        { name: "Tops", emoji: "👚" },
+        { name: "Jeans", emoji: "👖" },
+        { name: "Kurtis", emoji: "👘" },
+        { name: "Handbags", emoji: "👜" }
+    ],
+    Kids: [
+        { name: "Boys Wear", emoji: "👦" },
+        { name: "Girls Wear", emoji: "👧" },
+        { name: "Toys", emoji: "🧸" },
+        { name: "Kids Shoes", emoji: "👟" },
+        { name: "School Bags", emoji: "🎒" },
+        { name: "Baby Care", emoji: "🍼" }
+    ],
+    Electronics: [
+        { name: "Mobiles", emoji: "📱" },
+        { name: "Laptops", emoji: "💻" },
+        { name: "Headphones", emoji: "🎧" },
+        { name: "Smartwatches", emoji: "⌚" },
+        { name: "Televisions", emoji: "📺" },
+        { name: "Cameras", emoji: "📷" }
+    ],
+    Fashion: [
+        { name: "Clothing", emoji: "👔" },
+        { name: "Bags", emoji: "🎒" },
+        { name: "Watches", emoji: "⌚" },
+        { name: "Sunglasses", emoji: "🕶️" },
+        { name: "Belts", emoji: "👖" },
+        { name: "Wallets", emoji: "👛" }
+    ],
+    Groceries: [
+        { name: "Fruits", emoji: "🍎" },
+        { name: "Vegetables", emoji: "🥕" },
+        { name: "Snacks", emoji: "🍿" },
+        { name: "Beverages", emoji: "🧃" },
+        { name: "Staples", emoji: "🌾" },
+        { name: "Dairy", emoji: "🥛" }
+    ],
+    "Home & Kitchen": [
+        { name: "Cookware", emoji: "🍳" },
+        { name: "Furniture", emoji: "🛋️" },
+        { name: "Home Decor", emoji: "🖼️" },
+        { name: "Bedding", emoji: "🛏️" },
+        { name: "Storage", emoji: "📦" },
+        { name: "Lighting", emoji: "💡" }
+    ],
+    Beauty: [
+        { name: "Makeup", emoji: "💄" },
+        { name: "Skincare", emoji: "🧴" },
+        { name: "Hair Care", emoji: "💆‍♀️" },
+        { name: "Fragrances", emoji: "🌸" },
+        { name: "Personal Care", emoji: "🧼" },
+        { name: "Grooming", emoji: "✨" }
+    ],
+    Sports: [
+        { name: "Cricket", emoji: "🏏" },
+        { name: "Football", emoji: "⚽" },
+        { name: "Fitness Equipment", emoji: "🏋️‍♂️" },
+        { name: "Badminton", emoji: "🏸" },
+        { name: "Sports Wear", emoji: "🎽" },
+        { name: "Sports Shoes", emoji: "👟" }
+    ],
+    Books: [
+        { name: "Fiction", emoji: "📖" },
+        { name: "Non-Fiction", emoji: "📘" },
+        { name: "Educational", emoji: "📚" },
+        { name: "Children Books", emoji: "🎨" },
+        { name: "Comics", emoji: "💬" },
+        { name: "Self-Help", emoji: "💡" }
+    ],
+    "Toys & Games": [
+        { name: "Action Figures", emoji: "🤖" },
+        { name: "Board Games", emoji: "🎲" },
+        { name: "Video Games", emoji: "🎮" },
+        { name: "Puzzles", emoji: "🧩" },
+        { name: "Dolls", emoji: "🪆" },
+        { name: "Outdoor Toys", emoji: "🚀" }
+    ],
+    "Baby Products": [
+        { name: "Diapers", emoji: "🩲" },
+        { name: "Baby Food", emoji: "🥣" },
+        { name: "Baby Clothing", emoji: "👶" },
+        { name: "Strollers", emoji: "🛒" },
+        { name: "Baby Toys", emoji: "🧸" },
+        { name: "Skin Care", emoji: "🧴" }
+    ],
+    Automotive: [
+        { name: "Car Accessories", emoji: "🚗" },
+        { name: "Bike Accessories", emoji: "🏍️" },
+        { name: "Helmets", emoji: "🪖" },
+        { name: "Car Care", emoji: "🧽" },
+        { name: "Riding Gear", emoji: "🧤" },
+        { name: "Tools", emoji: "🔧" }
+    ],
+    Footwear: [
+        { name: "Formal Shoes", emoji: "👞" },
+        { name: "Casual Shoes", emoji: "👟" },
+        { name: "Sneakers", emoji: "👟" },
+        { name: "Sandals", emoji: "🩴" },
+        { name: "Heels", emoji: "👠" },
+        { name: "Slippers", emoji: "🩴" }
+    ],
+    Jewellery: [
+        { name: "Gold Jewellery", emoji: "🪙" },
+        { name: "Silver Jewellery", emoji: "💍" },
+        { name: "Earrings", emoji: "💎" },
+        { name: "Necklaces", emoji: "📿" },
+        { name: "Rings", emoji: "💍" },
+        { name: "Bangles", emoji: "💫" }
+    ],
+    "Pet Supplies": [
+        { name: "Dog Food", emoji: "🦴" },
+        { name: "Cat Food", emoji: "🐟" },
+        { name: "Pet Toys", emoji: "🎾" },
+        { name: "Grooming Tools", emoji: "✂️" },
+        { name: "Pet Collars", emoji: "🏷️" },
+        { name: "Pet Beds", emoji: "🐾" }
+    ]
 };
 
 function showPage(pageName, clickedMenu = null) {
     document.querySelectorAll(".page").forEach(page => page.classList.remove("active-page"));
     const page = document.getElementById(pageName);
     if (page) page.classList.add("active-page");
-
     document.querySelectorAll(".menu a").forEach(item => item.classList.remove("active"));
     if (clickedMenu) clickedMenu.classList.add("active");
-
-    if (pageName === "products") {
-        loadProductsFromDatabase();
-    }
-    if (pageName === "customers") {
-        loadCustomers();
-    }
+    if (pageName === "products") loadProductsFromDatabase();
+    if (pageName === "customers") loadCustomers();
 }
 
 function loadProductsFromDatabase() {
@@ -637,13 +320,8 @@ function loadProductsFromDatabase() {
         .then(response => response.json())
         .then(data => {
             products = data.map(product => ({
-                id: product.id,
-                name: product.name,
-                price: product.price,
-                category: product.category,
-                subCategory: product.subCategory,
-                stock: product.stock,
-                image: product.imageUrl
+                id: product.id, name: product.name, price: product.price,
+                category: product.category, subCategory: product.subCategory, stock: product.stock, image: product.imageUrl
             }));
             displayProducts();
         })
@@ -653,14 +331,11 @@ function loadProductsFromDatabase() {
 function displayProducts() {
     const productList = document.getElementById("productList");
     if (!productList) return;
-
     productList.innerHTML = "";
-
     if (products.length === 0) {
         productList.innerHTML = "<div class='empty'><h2>No Products Available 📦</h2></div>";
         return;
     }
-
     products.forEach(product => {
         productList.innerHTML += `
             <div class='product-card'>
@@ -681,13 +356,7 @@ function displayProducts() {
 function deleteProduct(id) {
     if (confirm("Are you sure you want to delete this product?")) {
         fetch("DeleteProductServlet?id=" + id, { method: "POST" })
-            .then(response => {
-                if (response.ok) {
-                    loadProductsFromDatabase();
-                } else {
-                    alert("Failed to delete product.");
-                }
-            })
+            .then(response => { if (response.ok) loadProductsFromDatabase(); else alert("Failed to delete product."); })
             .catch(error => console.error("Delete error:", error));
     }
 }
@@ -696,10 +365,7 @@ function showSubCategories(categoryName) {
     const titleElement = document.getElementById("subCategoryTitle");
     const listElement = document.getElementById("subCategoryList");
     
-    if (titleElement) {
-        titleElement.textContent = categoryName + " Sub-Categories 🗂️";
-    }
-    
+    if (titleElement) titleElement.textContent = categoryName + " Sub-Categories 🗂️";
     if (listElement) {
         listElement.innerHTML = "";
         const subs = subCategories[categoryName];
@@ -707,9 +373,9 @@ function showSubCategories(categoryName) {
         if (subs && subs.length > 0) {
             subs.forEach(function(sub) {
                 listElement.innerHTML += `
-                    <div class='category-card' onclick="filterBySubCategory('${categoryName}', '${sub}')">
-                        <div class='emoji'>📁</div>
-                        <h3>${sub}</h3>
+                    <div class='category-card' onclick="filterBySubCategory('${categoryName}', '${sub.name}')">
+                        <div class='emoji'>${sub.emoji}</div>
+                        <h3>${sub.name}</h3>
                     </div>
                 `;
             });
@@ -717,7 +383,6 @@ function showSubCategories(categoryName) {
             listElement.innerHTML = "<div class='empty'><h2>No Sub-Categories Available</h2></div>";
         }
     }
-    
     showPage('subCategories');
 }
 
@@ -730,13 +395,8 @@ function filterBySubCategory(categoryName, subCategoryName) {
                 .filter(product => product.category && product.category.toLowerCase() === categoryName.toLowerCase() && 
                                    product.subCategory && product.subCategory.toLowerCase() === subCategoryName.toLowerCase())
                 .map(product => ({
-                    id: product.id,
-                    name: product.name,
-                    price: product.price,
-                    category: product.category,
-                    subCategory: product.subCategory,
-                    stock: product.stock,
-                    image: product.imageUrl
+                    id: product.id, name: product.name, price: product.price,
+                    category: product.category, subCategory: product.subCategory, stock: product.stock, image: product.imageUrl
                 }));
             displayProducts();
         })
@@ -746,7 +406,6 @@ function filterBySubCategory(categoryName, subCategoryName) {
 function loadCustomers() {
     const customersList = document.getElementById("customersList");
     if (!customersList) return;
-
     fetch("CustomerDataServlet")
         .then(response => response.json())
         .then(customers => {
@@ -780,18 +439,16 @@ if (categorySelect) {
         const category = this.value;
         const subCategory = document.getElementById("productSubCategory");
         subCategory.innerHTML = '<option value="">Select Sub-Category</option>';
-
         if (subCategories[category]) {
             subCategories[category].forEach(function(item) {
                 const option = document.createElement("option");
-                option.value = item;
-                option.textContent = item;
+                option.value = item.name;
+                option.textContent = item.name;
                 subCategory.appendChild(option);
             });
         }
     });
 }
 </script>
-
 </body>
 </html>
