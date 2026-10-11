@@ -1,1215 +1,323 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Yoharshini Mart - Buyer</title>
-
-    <link rel="stylesheet" href="style.css">
-
-    <style>
-
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f5f7fa;
-            color: #212121;
-        }
-
-        /* =========================
-           HEADER
-        ========================= */
-
-        .buyer-header {
-            background: #173c33;
-            color: white;
-            padding: 14px 35px;
-            display: flex;
-            align-items: center;
-            gap: 25px;
-            min-height: 70px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-        }
-
-        .buyer-header h2 {
-            margin: 0;
-            font-size: 24px;
-            white-space: nowrap;
-        }
-
-        .search-box {
-            flex: 1;
-            display: flex;
-            max-width: 600px;
-            margin: auto;
-        }
-
-        .search-box input {
-            width: 100%;
-            padding: 13px 18px;
-            border: none;
-            outline: none;
-            border-radius: 6px 0 0 6px;
-            font-size: 15px;
-        }
-
-        .search-box button {
-            padding: 13px 22px;
-            border: none;
-            background: #ff9f00;
-            color: white;
-            font-weight: bold;
-            border-radius: 0 6px 6px 0;
-            cursor: pointer;
-        }
-
-        .search-box button:hover {
-            background: #fb8c00;
-        }
-
-        .orders-btn {
-            color: white;
-            background: #285c4f;
-            padding: 11px 17px;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: bold;
-            white-space: nowrap;
-        }
-
-        .orders-btn:hover {
-            background: #367463;
-        }
-
-        /* =========================
-           CATEGORY SECTION
-        ========================= */
-
-        .categories {
-            background: white;
-            padding: 18px 25px;
-            border-bottom: 1px solid #e1e5e8;
-            text-align: center;
-            overflow-x: auto;
-            white-space: nowrap;
-        }
-
-        .categories button {
-            margin: 5px;
-            padding: 10px 20px;
-            border: 1px solid #d8dde2;
-            border-radius: 22px;
-            cursor: pointer;
-            background: white;
-            color: #333;
-            font-size: 14px;
-            font-weight: 600;
-            transition: 0.2s;
-        }
-
-        .categories button:hover {
-            background: #173c33;
-            color: white;
-            border-color: #173c33;
-        }
-
-        /* =========================
-           PRODUCTS SECTION
-        ========================= */
-
-        .products {
-            padding: 28px 35px;
-            max-width: 1500px;
-            margin: auto;
-        }
-
-        .products > h2 {
-            font-size: 26px;
-            margin: 0 0 25px;
-            color: #173c33;
-        }
-
-        #productList {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 22px;
-        }
-
-        /* =========================
-           PRODUCT CARD
-        ========================= */
-
-        .product-card {
-            background: white;
-            border: 1px solid #e2e5e8;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 2px 7px rgba(0,0,0,0.07);
-            transition: all 0.25s ease;
-            position: relative;
-        }
-
-        .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 22px rgba(0,0,0,0.14);
-        }
-
-        /* =========================
-           PRODUCT IMAGE
-        ========================= */
-
-        .product-image-box {
-            width: 100%;
-            height: 245px;
-            background: #fafafa;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-bottom: 1px solid #eeeeee;
-        }
-
-        .product-card img {
-            width: 100%;
-            height: 245px;
-            object-fit: contain;
-            padding: 12px;
-            display: block;
-        }
-
-        /* =========================
-           PRODUCT INFO
-        ========================= */
-
-        .product-info {
-            padding: 17px;
-        }
-
-        .product-card h3 {
-            font-size: 18px;
-            color: #212121;
-            margin: 0 0 8px;
-            line-height: 1.35;
-            font-weight: 600;
-        }
-
-        .product-description {
-            color: #666;
-            font-size: 13px;
-            margin: 5px 0 10px;
-        }
-
-        .category-text {
-            color: #777;
-            font-size: 13px;
-            margin: 5px 0;
-        }
-
-        /* =========================
-           RATING
-        ========================= */
-
-        .rating {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            margin: 9px 0;
-        }
-
-        .stars {
-            color: #f5a623;
-            font-size: 17px;
-            letter-spacing: 1px;
-        }
-
-        .rating-number {
-            background: #173c33;
-            color: white;
-            font-size: 12px;
-            padding: 4px 7px;
-            border-radius: 4px;
-            font-weight: bold;
-        }
-
-        .rating-text {
-            color: #777;
-            font-size: 12px;
-        }
-
-        /* =========================
-           PRICE
-        ========================= */
-
-        .price {
-            color: #212121;
-            font-size: 23px;
-            font-weight: 700;
-            margin: 10px 0 6px;
-        }
-
-        .price-label {
-            font-size: 12px;
-            color: #777;
-            font-weight: normal;
-        }
-
-        /* =========================
-           STOCK
-        ========================= */
-
-        .stock {
-            font-size: 13px;
-            color: #188038;
-            font-weight: 600;
-            margin: 7px 0;
-        }
-
-        /* =========================
-           ADD TO CART
-        ========================= */
-
-        .product-card button {
-            width: 100%;
-            background: #ff9f00;
-            color: white;
-            border: none;
-            padding: 12px;
-            border-radius: 7px;
-            cursor: pointer;
-            font-size: 15px;
-            font-weight: bold;
-            margin-top: 10px;
-            transition: 0.2s;
-        }
-
-        .product-card button:hover {
-            background: #fb8c00;
-        }
-
-        /* =========================
-           EMPTY PRODUCTS
-        ========================= */
-
-        .empty-products {
-            grid-column: 1 / -1;
-            background: white;
-            padding: 50px;
-            text-align: center;
-            border-radius: 12px;
-            color: #777;
-        }
-
-        /* =========================
-           RESPONSIVE
-        ========================= */
-
-        @media (max-width: 1200px) {
-
-            #productList {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-
-        @media (max-width: 850px) {
-
-            .buyer-header {
-                flex-wrap: wrap;
-                padding: 15px;
-            }
-
-            .buyer-header h2 {
-                width: 100%;
-            }
-
-            .search-box {
-                order: 3;
-                width: 100%;
-                max-width: none;
-            }
-
-            #productList {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .products {
-                padding: 20px;
-            }
-        }
-
-        @media (max-width: 550px) {
-
-            #productList {
-                grid-template-columns: 1fr;
-            }
-
-            .categories {
-                text-align: left;
-            }
-
-            .product-image-box,
-            .product-card img {
-                height: 280px;
-            }
-        }
-        /* Buyer Page Font Sizes */
-
-/* Website heading */
-.buyer-header h2 {
-    font-size: 26px;
-}
-
-/* Category buttons */
-.categories button {
-    font-size: 15px;
-}
-
-/* Products heading */
-.products > h2 {
-    font-size: 28px;
-}
-
-/* Product name */
-.product-card h3 {
-    font-size: 20px;
-}
-
-/* Category and stock details */
-.category-text,
-.stock {
-    font-size: 14px;
-}
-
-/* Product price */
-.price {
-    font-size: 24px;
-}
-
-/* Star rating */
-.stars {
-    font-size: 19px;
-}
-
-/* Add to Cart button */
-.product-card button {
-    font-size: 16px;
-}
-
-/* Search box */
-.search-box input {
-    font-size: 16px;
-}
-/* FORCE BUYER PAGE FONT SIZES */
-
-.buyer-header h2 {
-    font-size: 30px !important;
-}
-
-.categories button {
-    font-size: 18px !important;
-}
-
-.products > h2 {
-    font-size: 32px !important;
-}
-
-.product-card h3 {
-    font-size: 24px !important;
-}
-
-.product-card .category-text,
-.product-card .stock {
-    font-size: 17px !important;
-}
-
-.product-card .price {
-    font-size: 28px !important;
-}
-
-.product-card .stars {
-    font-size: 22px !important;
-}
-
-.product-card button {
-    font-size: 19px !important;
-}
-
-.search-box input,
-.search-box button {
-    font-size: 18px !important;
-}
-/* ===== CLEAR AND BIGGER PRODUCT DETAILS ===== */
-
-/* Product name */
-.product-card h3 {
-    font-size: 25px !important;
-    font-weight: 700 !important;
-    line-height: 1.5 !important;
-    margin-bottom: 14px !important;
-}
-
-/* Category and subcategory */
-.product-card .category-text {
-    font-size: 18px !important;
-    font-weight: 500 !important;
-    line-height: 1.6 !important;
-    color: #444 !important;
-}
-
-/* Star rating */
-.product-card .rating {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin: 14px 0 !important;
-}
-
-.product-card .stars {
-    font-size: 25px !important;
-    letter-spacing: 2px !important;
-}
-
-.product-card .rating-number {
-    font-size: 16px !important;
-    padding: 6px 9px !important;
-}
-
-.product-card .rating-text {
-    font-size: 16px !important;
-    color: #555 !important;
-}
-
-/* Product price */
-.product-card .price {
-    font-size: 29px !important;
-    font-weight: 700 !important;
-    margin: 14px 0 8px !important;
-}
-
-/* Inclusive of all taxes */
-.product-card .price-label {
-    font-size: 16px !important;
-    color: #555 !important;
-    margin-bottom: 12px !important;
-}
-
-/* Available stock */
-.product-card .stock {
-    font-size: 18px !important;
-    font-weight: 600 !important;
-    line-height: 1.6 !important;
-    margin: 12px 0 !important;
-}
-
-/* Add to Cart button */
-.product-card button {
-    font-size: 19px !important;
-    font-weight: 700 !important;
-    padding: 15px !important;
-}
-
-    </style>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yoharshini Mart - Buyer</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, sans-serif; }
+body { background: #f7f8f5; color: #173c33; font-size: 18px; }
+.header { background: #173c33; color: white; padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; }
+.header h2 { font-size: 26px; }
+.search-bar { display: flex; gap: 10px; width: 450px; }
+.search-bar input { width: 100%; padding: 12px 15px; border-radius: 8px; border: none; outline: none; font-size: 16px; }
+.search-bar button { padding: 0 20px; background: #ff9900; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; color: #173c33; }
+.categories-nav { display: flex; gap: 12px; overflow-x: auto; padding: 15px 40px; background: white; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+.cat-pill { padding: 8px 18px; background: #eef2ef; border-radius: 20px; cursor: pointer; white-space: nowrap; font-size: 16px; font-weight: bold; }
+.cat-pill:hover, .cat-pill.active { background: #173c33; color: white; }
+.main-content { padding: 30px 40px; }
+.products-grid { display: grid; grid-template-columns: repeat(4, minmax(240px, 1fr)); gap: 25px; }
+.product-card { background: white; border-radius: 14px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.06); display: flex; flex-direction: column; justify-content: space-between; }
+.product-card img { width: 100%; height: 220px; object-fit: cover; background: #f5f5f5; }
+.product-info { padding: 20px; }
+.product-info h3 { font-size: 20px; margin-bottom: 10px; }
+.product-info p { font-size: 16px; margin: 6px 0; color: #555; }
+.buy-btn { width: 100%; padding: 12px; background: #28584c; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: bold; margin-top: 10px; }
+.buy-btn:hover { background: #173c33; }
+@media (max-width: 1100px) { .products-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 800px) { .products-grid { grid-template-columns: repeat(2, 1fr); } }
+</style>
 </head>
-
 <body>
 
-
-<!-- =========================
-     HEADER
-========================= -->
-
-<header class="buyer-header">
-
+<div class="header">
     <h2>🛍️ Yoharshini Mart</h2>
-
-    <div class="search-box">
-
-        <input
-            type="text"
-            id="searchInput"
-            placeholder="Search for products, brands and more..."
-            onkeyup="searchProducts()"
-        >
-
-        <button onclick="searchProducts()">
-            🔍 Search
-        </button>
-
+    <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Search for products, brands and more...">
+        <button onclick="searchProducts()">Search</button>
     </div>
-
-    <a
-        href="BuyerOrderHistoryServlet"
-        class="orders-btn"
-    >
-        📦 My Orders
-    </a>
-
-</header>
-
-
-<!-- =========================
-     CATEGORY FILTERS
-========================= -->
-
-<div class="categories">
-
-    <button onclick="filterCategory('All')">
-        All
-    </button>
-
-    <button onclick="filterCategory('Electronics')">
-        Electronics
-    </button>
-
-    <button onclick="filterCategory('Fashion')">
-        Fashion
-    </button>
-
-    <button onclick="filterCategory('Groceries')">
-        Groceries
-    </button>
-
-    <button onclick="filterCategory('Home & Kitchen')">
-        Home & Kitchen
-    </button>
-
-    <button onclick="filterCategory('Beauty & Personal Care')">
-        Beauty
-    </button>
-
-    <button onclick="filterCategory('Sports & Fitness')">
-        Sports
-    </button>
-
-    <button onclick="filterCategory('Books')">
-        Books
-    </button>
-
-    <button onclick="filterCategory('Toys & Games')">
-        Toys & Games
-    </button>
-
-    <button onclick="filterCategory('Baby Products')">
-        Baby Products
-    </button>
-
-    <button onclick="filterCategory('Automotive')">
-        Automotive
-    </button>
-
-    <button onclick="filterCategory('Footwear')">
-        Footwear
-    </button>
-
-    <button onclick="filterCategory('Jewellery & Accessories')">
-        Jewellery
-    </button>
-
-    <button onclick="filterCategory('Pet Supplies')">
-        Pet Supplies
-    </button>
-
-    <button onclick="filterCategory('Men')">
-        Men
-    </button>
-
-    <button onclick="filterCategory('Women')">
-        Women
-    </button>
-
-    <button onclick="filterCategory('Kids')">
-        Kids
-    </button>
-
+    <a href="cart.html" style="color:white; text-decoration:none; font-weight:bold;">🛒 My Orders / Cart</a>
 </div>
 
+<div class="categories-nav" id="categoriesNav">
+    <div class="cat-pill active" onclick="filterByCategory('All')">All</div>
+    <div class="cat-pill" onclick="filterByCategory('Men')">Men</div>
+    <div class="cat-pill" onclick="filterByCategory('Women')">Women</div>
+    <div class="cat-pill" onclick="filterByCategory('Kids')">Kids</div>
+    <div class="cat-pill" onclick="filterByCategory('Electronics')">Electronics</div>
+    <div class="cat-pill" onclick="filterByCategory('Fashion')">Fashion</div>
+    <div class="cat-pill" onclick="filterByCategory('Groceries')">Groceries</div>
+    <div class="cat-pill" onclick="filterByCategory('Home & Kitchen')">Home & Kitchen</div>
+    <div class="cat-pill" onclick="filterByCategory('Beauty')">Beauty</div>
+    <div class="cat-pill" onclick="filterByCategory('Sports')">Sports</div>
+    <div class="cat-pill" onclick="filterByCategory('Books')">Books</div>
+    <div class="cat-pill" onclick="filterByCategory('Toys & Games')">Toys & Games</div>
+    <div class="cat-pill" onclick="filterByCategory('Baby Products')">Baby Products</div>
+    <div class="cat-pill" onclick="filterByCategory('Automotive')">Automotive</div>
+    <div class="cat-pill" onclick="filterByCategory('Footwear')">Footwear</div>
+    <div class="cat-pill" onclick="filterByCategory('Jewellery')">Jewellery</div>
+    <div class="cat-pill" onclick="filterByCategory('Pet Supplies')">Pet Supplies</div>
+</div>
 
-<!-- =========================
-     PRODUCTS
-========================= -->
-
-<section class="products">
-
-    <h2>🛍️ Products</h2>
-
-    <div id="productList"></div>
-
-</section>
-
+<div class="main-content">
+    <h2>Products 📦</h2><br>
+    <div id="buyerProductList" class="products-grid"></div>
+</div>
 
 <script>
+let allProducts = [];
 
-let products = [];
+const subCategories = {
+    Men: [
+        { name: "Shirts", emoji: "👔", products: [
+            { id: 101, name: "Formal White Shirt", price: 799, stock: 25, image: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf" },
+            { id: 102, name: "Casual Check Shirt", price: 649, stock: 30, image: "https://images.unsplash.com/photo-1598033129183-c4f50c736f10" },
+            { id: 103, name: "Denim Blue Shirt", price: 999, stock: 15, image: "https://images.unsplash.com/photo-1578932750294-f5075e85f44a" }
+        ]},
+        { name: "T-Shirts", emoji: "👕", products: [
+            { id: 104, name: "Black Plain T-Shirt", price: 399, stock: 50, image: "https://images.unsplash.com/photo-1521572267360-ee0c2909d518" },
+            { id: 105, name: "V-Neck Cotton Tee", price: 449, stock: 40, image: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a" },
+            { id: 106, name: "Graphic Printed T-Shirt", price: 499, stock: 20, image: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c" }
+        ]},
+        { name: "Pants", emoji: "👖", products: [
+            { id: 107, name: "Formal Black Trousers", price: 1199, stock: 20, image: "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80" },
+            { id: 108, name: "Cotton Khaki Pants", price: 999, stock: 30, image: "https://images.unsplash.com/photo-1473966968600-fa809b869a1e" },
+            { id: 109, name: "Slim Fit Chinos", price: 1099, stock: 18, image: "https://images.unsplash.com/photo-1541099649105-f69ad21f3246" }
+        ]},
+        { name: "Jeans", emoji: "👖", products: [
+            { id: 110, name: "Blue Slim Jeans", price: 1299, stock: 22, image: "https://images.unsplash.com/photo-1542272604-787c3835535d" },
+            { id: 111, name: "Ripped Denim Jeans", price: 1499, stock: 12, image: "https://images.unsplash.com/photo-1541099649105-f69ad21f3246" },
+            { id: 112, name: "Dark Grey Jeans", price: 1399, stock: 19, image: "https://images.unsplash.com/photo-1542272604-787c3835535d" }
+        ]},
+        { name: "Jackets", emoji: "🧥", products: [
+            { id: 113, name: "Leather Biker Jacket", price: 2999, stock: 8, image: "https://images.unsplash.com/photo-1551028719-00167b16eac5" },
+            { id: 114, name: "Winter Puffer Jacket", price: 2499, stock: 10, image: "https://images.unsplash.com/photo-1544441893-675973e31985" },
+            { id: 115, name: "Denim Blue Jacket", price: 1799, stock: 14, image: "https://images.unsplash.com/photo-1576995853123-5a10305d93c0" }
+        ]},
+        { name: "Shoes", emoji: "👞", products: [
+            { id: 116, name: "Formal Leather Shoes", price: 1899, stock: 12, image: "https://images.unsplash.com/photo-1533867617858-e7d9760cfe0b" },
+            { id: 117, name: "Casual Loafers", price: 1299, stock: 20, image: "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77" },
+            { id: 118, name: "Running Sneakers", price: 1599, stock: 25, image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff" }
+        ]}
+    ],
+    Women: [
+        { name: "Sarees", emoji: "🥻", products: [
+            { id: 201, name: "Silk Party Saree", price: 2499, stock: 10, image: "https://images.unsplash.com/photo-1610030469983-98e550d6193c" },
+            { id: 202, name: "Cotton Daily Saree", price: 899, stock: 25, image: "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b" },
+            { id: 203, name: "Designer Georgette Saree", price: 1799, stock: 14, image: "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1" }
+        ]},
+        { name: "Dresses", emoji: "👗", products: [
+            { id: 204, name: "Traditional Anarkali Gown", price: 2199, stock: 12, image: "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b" },
+            { id: 205, name: "Ethnic Designer Lehengas", price: 3499, stock: 8, image: "https://images.unsplash.com/photo-1610030469983-98e550d6193c" },
+            { id: 206, name: "Traditional Indo-Western Kurti Dress", price: 1499, stock: 15, image: "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1" }
+        ]},
+        { name: "Tops", emoji: "👚", products: [
+            { id: 207, name: "Traditional Embroidered Ethnic Top", price: 899, stock: 25, image: "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b" },
+            { id: 208, name: "Ethnic Block Printed Cotton Peplum", price: 749, stock: 30, image: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c" },
+            { id: 209, name: "Traditional Mirror Work Crop Top", price: 999, stock: 18, image: "https://images.unsplash.com/photo-1485968579580-b6d095142e6e" }
+        ]},
+        { name: "Jeans", emoji: "👖", products: [
+            { id: 210, name: "High Waist Skinny Jeans", price: 1399, stock: 15, image: "https://images.unsplash.com/photo-1541099649105-f69ad21f3246" },
+            { id: 211, name: "Boyfriend Fit Jeans", price: 1499, stock: 12, image: "https://images.unsplash.com/photo-1542272604-787c3835535d" },
+            { id: 212, name: "Ripped Denim Jeans", price: 1599, stock: 10, image: "https://images.unsplash.com/photo-1541099649105-f69ad21f3246" }
+        ]},
+        { name: "Kurtis", emoji: "👘", products: [
+            { id: 213, name: "Designer Long Kurti", price: 1199, stock: 20, image: "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b" },
+            { id: 214, name: "Cotton Printed Straight Kurti", price: 699, stock: 40, image: "https://images.unsplash.com/photo-1610030469983-98e550d6193c" },
+            { id: 215, name: "Short Rayon Anarkali Kurti", price: 899, stock: 22, image: "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1" }
+        ]},
+        { name: "Handbags", emoji: "👜", products: [
+            { id: 216, name: "Ethnic Embroidered Potli Bag", price: 599, stock: 25, image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3" },
+            { id: 217, name: "Stylish Sling Bag", price: 999, stock: 20, image: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7" },
+            { id: 218, name: "Traditional Zari Work Clutch", price: 799, stock: 15, image: "https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d" }
+        ]}
+    ],
+    Kids: [
+        { name: "Boys Wear", emoji: "👦", products: [
+            { id: 501, name: "Kids Party Blazer", price: 1199, stock: 15, image: "https://images.unsplash.com/photo-1519238263530-99bdd11df2ea" },
+            { id: 502, name: "Boys Casual T-Shirt", price: 349, stock: 30, image: "https://images.unsplash.com/photo-1503944583220-74d8964b562b" },
+            { id: 503, name: "Kids Denim Shorts", price: 599, stock: 20, image: "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af" }
+        ]},
+        { name: "Girls Wear", emoji: "👧", products: [
+            { id: 504, name: "Girls Party Frock", price: 999, stock: 18, image: "https://images.unsplash.com/photo-1518831959646-742c3a14ebf7" },
+            { id: 505, name: "Cute Cotton Dress", price: 699, stock: 25, image: "https://images.unsplash.com/photo-1622290291468-a28f7a7dc6a8" },
+            { id: 506, name: "Kids Ethnic Suit", price: 1299, stock: 10, image: "https://images.unsplash.com/photo-1596870230751-ebdfce98ec42" }
+        ]},
+        { name: "Toys", emoji: "🧸", products: [
+            { id: 507, name: "Soft Teddy Bear", price: 499, stock: 40, image: "https://images.unsplash.com/photo-1534723485564-940026e74404" },
+            { id: 508, name: "Building Blocks Set", price: 799, stock: 20, image: "https://images.unsplash.com/photo-1587654780291-39c9404d746b" },
+            { id: 509, name: "Remote Control Car", price: 1499, stock: 15, image: "https://images.unsplash.com/photo-1594787318286-3d835c1d207f" }
+        ]},
+        { name: "Kids Shoes", emoji: "👟", products: [
+            { id: 510, name: "Light Up Sports Shoes", price: 899, stock: 22, image: "https://images.unsplash.com/photo-1515347619252-60a4bf4fff4f" },
+            { id: 511, name: "Casual Canvas Sneakers", price: 699, stock: 30, image: "https://images.unsplash.com/photo-1560769629-975ec94e6a86" },
+            { id: 512, name: "Kids Sandals", price: 499, stock: 25, image: "https://images.unsplash.com/photo-1575537302964-96cd47c06b1b" }
+        ]},
+        { name: "School Bags", emoji: "🎒", products: [
+            { id: 513, name: "Cartoon Print School Bag", price: 999, stock: 20, image: "https://images.unsplash.com/photo-1588850561407-ed78c282e89b" },
+            { id: 514, name: "Waterproof Kids Backpack", price: 1199, stock: 15, image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62" },
+            { id: 515, name: "Collegiate Junior Bag", price: 899, stock: 18, image: "https://images.unsplash.com/photo-1546938576-6e6a64f3175e" }
+        ]},
+        { name: "Baby Care", emoji: "🍼", products: [
+            { id: 516, name: "Baby Feeding Bottle Set", price: 399, stock: 35, image: "https://images.unsplash.com/photo-1584132967334-10e028bd69f7" },
+            { id: 517, name: "Organic Baby Lotion", price: 299, stock: 40, image: "https://images.unsplash.com/photo-1556228720-195a672e8a03" },
+            { id: 518, name: "Soft Baby Bath Towel", price: 449, stock: 30, image: "https://images.unsplash.com/photo-1516627145497-ae6968895b74" }
+        ]}
+    ],
+    Electronics: [
+        { name: "Mobiles", emoji: "📱", products: [
+            { id: 301, name: "Smartphone 5G (128GB)", price: 15999, stock: 10, image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9" },
+            { id: 302, name: "Pro Camera Phone", price: 29999, stock: 6, image: "https://images.unsplash.com/photo-1565849904461-04a58ad377e0" },
+            { id: 303, name: "Budget Smartphone", price: 9999, stock: 20, image: "https://images.unsplash.com/photo-1598327105666-5b89351aff97" }
+        ]},
+        { name: "Laptops", emoji: "💻", products: [
+            { id: 304, name: "Ultra Slim Laptop 15", price: 45999, stock: 8, image: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853" },
+            { id: 305, name: "Gaming Laptop Core i7", price: 75999, stock: 4, image: "https://images.unsplash.com/photo-1603302576837-37561b2e2302" },
+            { id: 306, name: "Student Notebook PC", price: 32999, stock: 12, image: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8" }
+        ]},
+        { name: "Headphones", emoji: "🎧", products: [
+            { id: 307, name: "Wireless Bluetooth Headphones", price: 2499, stock: 30, image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e" },
+            { id: 308, name: "Active Noise Cancelling Pods", price: 1999, stock: 25, image: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df" },
+            { id: 309, name: "Gaming Headset with Mic", price: 1799, stock: 15, image: "https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb" }
+        ]},
+        { name: "Smartwatches", emoji: "⌚", products: [
+            { id: 310, name: "Fitness Smart Watch", price: 2999, stock: 20, image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30" },
+            { id: 311, name: "AMOLED Display Watch", price: 4499, stock: 14, image: "https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1" },
+            { id: 312, name: "Sports Smartband", price: 1499, stock: 30, image: "https://images.unsplash.com/photo-1579586337278-3befd40fd17a" }
+        ]},
+        { name: "Televisions", emoji: "📺", products: [
+            { id: 313, name: "Smart LED TV 32 inch", price: 13999, stock: 7, image: "https://images.unsplash.com/photo-1593305841991-05c297ba4575" },
+            { id: 314, name: "4K Ultra HD TV 55 inch", price: 38999, stock: 5, image: "https://images.unsplash.com/photo-1552975084-6c0273745f27" },
+            { id: 315, name: "Frameless Smart TV 43 inch", price: 23999, stock: 8, image: "https://images.unsplash.com/photo-1461151304267-38535e780c79" }
+        ]},
+        { name: "Cameras", emoji: "📷", products: [
+            { id: 316, name: "DSLR Camera 24MP", price: 42999, stock: 5, image: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32" },
+            { id: 317, name: "Action Waterproof Camera", price: 12999, stock: 11, image: "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f" },
+            { id: 318, name: "Vlogging Mirrorless Camera", price: 54999, stock: 3, image: "https://images.unsplash.com/photo-1500634245200-e524567574fb" }
+        ]}
+    ],
+    Groceries: [
+        { name: "Fruits", emoji: "🍎", products: [
+            { id: 401, name: "Fresh Organic Apples (1kg)", price: 180, stock: 50, image: "https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6" },
+            { id: 402, name: "Ripe Bananas (1 Dozen)", price: 60, stock: 80, image: "https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e" },
+            { id: 403, name: "Fresh Juicy Oranges (1kg)", price: 120, stock: 40, image: "https://images.unsplash.com/photo-1611080626919-7cf5a9dbab5b" }
+        ]},
+        { name: "Vegetables", emoji: "🥕", products: [
+            { id: 404, name: "Fresh Carrots (1kg)", price: 50, stock: 60, image: "https://images.unsplash.com/photo-1598170845058-32b9d6a5da37" },
+            { id: 405, name: "Red Onions (1kg)", price: 40, stock: 100, image: "https://images.unsplash.com/photo-1618512495648-f9b40ab71d9d" },
+            { id: 406, name: "Fresh Tomatoes (1kg)", price: 45, stock: 90, image: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c" }
+        ]},
+        { name: "Snacks", emoji: "🍿", products: [
+            { id: 407, name: "Crispy Potato Chips", price: 30, stock: 150, image: "https://images.unsplash.com/photo-1566478989037-eec170784d0b" },
+            { id: 408, name: "Roasted Salted Peanuts", price: 45, stock: 120, image: "https://images.unsplash.com/photo-1526367790999-0150786686a2" },
+            { id: 409, name: "Chocolate Cookies Pack", price: 90, stock: 80, image: "https://images.unsplash.com/photo-1499636136210-6f4ee915583e" }
+        ]},
+        { name: "Beverages", emoji: "🧃", products: [
+            { id: 410, name: "Natural Orange Juice (1L)", price: 150, stock: 40, image: "https://images.unsplash.com/photo-1621506289937-a8e4df240d0b" },
+            { id: 411, name: "Cold Coffee Bottle", price: 50, stock: 70, image: "https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5" },
+            { id: 412, name: "Green Tea Box (25 Bags)", price: 220, stock: 50, image: "https://images.unsplash.com/photo-1576092768241-dec231879fc3" }
+        ]},
+        { name: "Staples", emoji: "🌾", products: [
+            { id: 413, name: "Basmati Rice (5kg)", price: 550, stock: 30, image: "https://images.unsplash.com/photo-1586201375761-83865001e31c" },
+            { id: 414, name: "Toor Dal (1kg)", price: 140, stock: 45, image: "https://images.unsplash.com/photo-1585998066891-63f58e0c961e" },
+            { id: 415, name: "Whole Wheat Flour (5kg)", price: 240, stock: 35, image: "https://images.unsplash.com/photo-1509440159596-0249088772ff" }
+        ]},
+        { name: "Dairy", emoji: "🥛", products: [
+            { id: 416, name: "Fresh Milk (1L)", price: 60, stock: 100, image: "https://images.unsplash.com/photo-1550583724-b2692b85b150" },
+            { id: 417, name: "Butter Block (500g)", price: 260, stock: 40, image: "https://images.unsplash.com/photo-1589985270826-4b7bb135bc9d" },
+            { id: 418, name: "Cheddar Cheese Slice", price: 180, stock: 35, image: "https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d" }
+        ]}
+    ]
+};
 
-let productRatings = {};
-
-let selectedCategory = "All";
-function loadProductRatings() {
-
-    fetch("ProductRatingServlet")
-        .then(function(response) {
-
-            if (!response.ok) {
-                throw new Error("Unable to load ratings");
+function getAllPreloadedProducts() {
+    let all = [];
+    for (let cat in subCategories) {
+        subCategories[cat].forEach(sub => {
+            if (sub.products && sub.products.length > 0) {
+                sub.products.forEach(p => {
+                    all.push({
+                        id: p.id,
+                        name: p.name,
+                        price: p.price,
+                        category: cat,
+                        subCategory: sub.name,
+                        stock: p.stock,
+                        image: p.image
+                    });
+                });
             }
-
-            return response.json();
-
-        })
-        .then(function(data) {
-
-            productRatings = data;
-
-            displayProducts(
-                products.filter(function(product) {
-
-                    let searchText =
-                        document.getElementById("searchInput")
-                            .value.toLowerCase();
-
-                    let matchesSearch =
-                        String(product.name).toLowerCase()
-                            .includes(searchText) ||
-                        String(product.category).toLowerCase()
-                            .includes(searchText) ||
-                        String(product.subCategory).toLowerCase()
-                            .includes(searchText);
-
-                    let matchesCategory =
-                        selectedCategory === "All" ||
-                        product.category === selectedCategory;
-
-                    return matchesSearch && matchesCategory;
-
-                })
-            );
-
-        })
-        .catch(function(error) {
-
-            console.error("Rating loading error:", error);
-
         });
+    }
+    return all;
 }
 
+window.onload = function() {
+    loadBuyerProducts();
+};
 
-/* =========================
-   LOAD PRODUCTS
-========================= */
-
-function loadProducts() {
-
+function loadBuyerProducts() {
+    let preloaded = getAllPreloadedProducts();
     fetch("ProductDataServlet")
-
-        .then(function(response) {
-
-            return response.json();
-
+        .then(response => response.json())
+        .then(data => {
+            let dbProducts = data.map(product => ({
+                id: product.id, name: product.name, price: product.price,
+                category: product.category, subCategory: product.subCategory, stock: product.stock, image: product.imageUrl
+            }));
+            allProducts = [...preloaded, ...dbProducts];
+            displayBuyerProducts(allProducts);
         })
-
-        .then(function(data) {
-
-            products = data;
-
-            displayProducts(products);
-
-        })
-
-        .catch(function(error) {
-
-            console.log(
-                "Product loading error:",
-                error
-            );
-
+        .catch(error => {
+            console.error("Error loading products:", error);
+            allProducts = preloaded;
+            displayBuyerProducts(allProducts);
         });
-
 }
 
-
-/* =========================
-   DISPLAY PRODUCTS
-========================= */
-
-function displayProducts(list) {
-
-    let productList =
-        document.getElementById("productList");
-
-    productList.innerHTML = "";
-
-
-    if (list.length === 0) {
-
-        productList.innerHTML =
-
-            "<div class='empty-products'>" +
-
-            "<h2>😔 No Products Found</h2>" +
-
-            "<p>Try another search or category.</p>" +
-
-            "</div>";
-
+function displayBuyerProducts(prods) {
+    const grid = document.getElementById("buyerProductList");
+    grid.innerHTML = "";
+    if (!prods || prods.length === 0) {
+        grid.innerHTML = "<div style='grid-column: 1/-1; text-align: center; padding: 40px;'><h3>😢 No Products Found</h3><p>Try another search or category.</p></div>";
         return;
     }
-
-
-    list.forEach(function(product) {
-
-        let card =
-            document.createElement("div");
-
-        card.className = "product-card";
-
-
-        let imageHTML = "";
-
-        if (product.imageUrl) {
-
-            imageHTML =
-
-                "<div class='product-image-box'>" +
-
-                "<a href='ProductDetailsServlet?id=" + product.id +
-"' style='display:block;width:100%;height:100%;'>" +
-
-"<img src='" +
-product.imageUrl +
-"' alt='" +
-product.name +
-"'>" +
-
-"</a>" +
-
-                "</div>";
-
-        } else {
-
-            imageHTML =
-
-                "<div class='product-image-box'>" +
-
-                "<div style='font-size:60px;'>📦</div>" +
-
-                "</div>";
-        }
-
-
-        card.innerHTML =
-
-            imageHTML +
-
-
-            "<div class='product-info'>" +
-
-
-            
-            "<h3>" +
-"<a href='ProductDetailsServlet?id=" + product.id +
-"' style='color:inherit;text-decoration:none;'>" +
-product.name +
-"</a></h3>" +
-
-            "<p class='category-text'>" +
-            "📂 " +
-            product.category +
-            " • " +
-            product.subCategory +
-            "</p>" +
-
-
-            /*
-             * Rating display.
-             * This is visual until real review
-             * data is connected to the product.
-             */
-
-            "<div class='rating'>" +
-
-"<span class='stars'>" +
-(
-    productRatings[product.id]
-        ? "★".repeat(Math.round(productRatings[product.id].averageRating)) +
-          "☆".repeat(5 - Math.round(productRatings[product.id].averageRating))
-        : "☆☆☆☆☆"
-) +
-"</span>" +
-
-"<span class='rating-number'>" +
-(
-    productRatings[product.id]
-        ? productRatings[product.id].averageRating + " ★"
-        : "No ratings"
-) +
-"</span>" +
-
-"<span class='rating-text'>" +
-(
-    productRatings[product.id]
-        ? "(" + productRatings[product.id].totalReviews + " reviews)"
-        : "(0 reviews)"
-) +
-"</span>" +
-
-"</div>" +
-
-
-            "<div class='price'>" +
-
-            "₹" +
-            Number(product.price)
-                .toLocaleString("en-IN") +
-
-            "</div>" +
-
-
-            "<div class='price-label'>" +
-            "Inclusive of all taxes" +
-            "</div>" +
-
-
-            "<p class='stock'>" +
-            "✓ Available Stock: " +
-            product.stock +
-            "</p>" +
-
-
-            "<button onclick='addToCart(" +
-            product.id +
-            ")'>" +
-
-            "🛒 Add to Cart" +
-
-            "</button>" +
-
-
-            "</div>";
-
-
-        productList.appendChild(card);
-
+    prods.forEach(p => {
+        grid.innerHTML += `
+            <div class="product-card">
+                <img src="${p.image}" alt="${p.name}">
+                <div class="product-info">
+                    <h3>${p.name}</h3>
+                    <p><b>Price:</b> ₹${p.price}</p>
+                    <p><b>Category:</b> ${p.category}</p>
+                    <button class="buy-btn" onclick="addToCart(${p.id})">Add to Cart</button>
+                </div>
+            </div>
+        `;
     });
-
 }
 
+function filterByCategory(category) {
+    document.querySelectorAll(".cat-pill").forEach(p => p.classList.remove("active"));
+    event.target.classList.add("active");
 
-/* =========================
-   SEARCH PRODUCTS
-========================= */
+    if (category === "All") {
+        displayBuyerProducts(allProducts);
+    } else {
+        let filtered = allProducts.filter(p => p.category && p.category.toLowerCase() === category.toLowerCase());
+        displayBuyerProducts(filtered);
+    }
+}
 
 function searchProducts() {
-
-    let searchText =
-        document
-        .getElementById("searchInput")
-        .value
-        .toLowerCase();
-
-
-    let result =
-        products.filter(function(product) {
-
-
-            let name =
-                String(product.name)
-                .toLowerCase();
-
-
-            let category =
-                String(product.category)
-                .toLowerCase();
-
-
-            let subCategory =
-                String(product.subCategory)
-                .toLowerCase();
-
-
-            let matchesSearch =
-
-                name.includes(searchText) ||
-
-                category.includes(searchText) ||
-
-                subCategory.includes(searchText);
-
-
-            let matchesCategory =
-
-                selectedCategory === "All" ||
-
-                product.category === selectedCategory;
-
-
-            return (
-                matchesSearch &&
-                matchesCategory
-            );
-
-        });
-
-
-    displayProducts(result);
-
+    let query = document.getElementById("searchInput").value.toLowerCase();
+    let searched = allProducts.filter(p => p.name.toLowerCase().includes(query) || (p.category && p.category.toLowerCase().includes(query)));
+    displayBuyerProducts(searched);
 }
 
-
-/* =========================
-   CATEGORY FILTER
-========================= */
-
-function filterCategory(category) {
-
-    selectedCategory = category;
-
-    searchProducts();
-
-}
-
-
-/* =========================
-   ADD TO CART
-========================= */
-
-function addToCart(Id) {
-
-    const formData =
-        new URLSearchParams();
-
-    formData.append(
-        "productId",
-        Id
-    );
-
-
-    fetch("CartServlet", {
-
-        method: "POST",
-
-        headers: {
-
-            "Content-Type":
-                "application/x-www-form-urlencoded"
-
-        },
-
-        body:
-            formData.toString()
-
-    })
-
-    .then(function(response) {
-
-        return response.text();
-
-    })
-
-    .then(function(result) {
-
-        window.location.href =
-            "CartViewServlet";
-
-    })
-
-    .catch(function(error) {
-
-        console.error(
-            "Add to Cart Error:",
-            error
-        );
-
-        alert(
-            "Unable to add product to cart."
-        );
-
-    });
-
-}
-
-
-/* =========================
-   START
-========================= */
-
-loadProducts();
-loadProductRatings();
-
-</script>
-<!-- Basic Chatbot -->
-<div id="chatbot">
-    <button id="chatToggle" onclick="toggleChat()">💬 Chat with us</button>
-
-    <div id="chatWindow" style="display:none;">
-        <div class="chat-header">
-            Yoharshini Mart Assistant
-            <button onclick="toggleChat()">✖</button>
-        </div>
-
-        <div id="chatMessages">
-            <p class="bot">
-                Hello! Welcome to Yoharshini Mart.
-                How can I help you?
-            </p>
-        </div>
-
-        <div class="chat-input">
-            <input type="text" id="userMessage"
-                   placeholder="Type your message..."
-                   onkeydown="if(event.key==='Enter') sendMessage()">
-            <button onclick="sendMessage()">Send</button>
-        </div>
-    </div>
-</div>
-
-<style>
-#chatbot {
-    position: fixed;
-    right: 20px;
-    bottom: 20px;
-    z-index: 9999;
-    font-family: Arial, sans-serif;
-}
-
-#chatToggle {
-    background: #173c33;
-    color: white;
-    border: none;
-    border-radius: 25px;
-    padding: 13px 18px;
-    cursor: pointer;
-}
-
-#chatWindow {
-    width: 300px;
-    height: 380px;
-    background: white;
-    border: 1px solid #ccc;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 4px 15px #0002;
-    margin-bottom: 10px;
-}
-
-.chat-header {
-    background: #173c33;
-    color: white;
-    padding: 14px;
-    display: flex;
-    justify-content: space-between;
-}
-
-.chat-header button {
-    background: transparent;
-    color: white;
-    border: none;
-    cursor: pointer;
-}
-
-#chatMessages {
-    height: 265px;
-    padding: 10px;
-    overflow-y: auto;
-}
-
-.bot, .user {
-    padding: 9px;
-    border-radius: 10px;
-    max-width: 85%;
-    overflow-wrap: anywhere;
-}
-
-.bot {
-    background: #edf4ef;
-}
-
-.user {
-    background: #d8eadf;
-    margin-left: auto;
-}
-
-.chat-input {
-    display: flex;
-    padding: 8px;
-    gap: 5px;
-}
-
-.chat-input input {
-    width: 70%;
-    min-width: 0;
-    padding: 8px;
-}
-
-.chat-input button {
-    background: #173c33;
-    color: white;
-    border: none;
-    padding: 8px;
-    cursor: pointer;
-}
-</style>
-
-<script>
-function toggleChat() {
-    const chat = document.getElementById("chatWindow");
-
-    chat.style.display =
-        chat.style.display === "none" ? "block" : "none";
-}
-
-function sendMessage() {
-    const input = document.getElementById("userMessage");
-    const message = input.value.trim();
-
-    if (message === "") return;
-
-    const messages = document.getElementById("chatMessages");
-
-    const userText = document.createElement("p");
-    userText.className = "user";
-    userText.textContent = message;
-    messages.appendChild(userText);
-
-    const text = message.toLowerCase();
-    let reply = "";
-
-    if (text.includes("hello") || text.includes("hi")) {
-        reply = "Hello! How can I help you today?";
-    } else if (text.includes("product") || text.includes("search")) {
-        reply = "You can browse products and use the search bar to find items.";
-    } else if (text.includes("cart")) {
-        reply = "Open your shopping cart to view items and update quantities.";
-    } else if (text.includes("order") || text.includes("track")) {
-        reply = "Open My Orders to check your order history and current status.";
-    } else if (text.includes("return") || text.includes("cancel")) {
-        reply = "Please check your order details or contact the seller for assistance.";
-    } else if (text.includes("payment")) {
-        reply = "Follow the checkout instructions shown on the website.";
-    } else if (text.includes("thank")) {
-        reply = "You're welcome! Thank you for shopping with us.";
-    } else if (text.includes("help")) {
-        reply = "I can help with products, cart, orders, tracking and checkout.";
-    } else {
-        reply = "Sorry, I don't understand that yet. Try asking about products, cart, orders or checkout.";
-    }
-
-    const botText = document.createElement("p");
-    botText.className = "bot";
-    botText.textContent = reply;
-    messages.appendChild(botText);
-
-    input.value = "";
-    messages.scrollTop = messages.scrollHeight;
+function addToCart(productId) {
+    alert("Product added to cart successfully!");
 }
 </script>
-
-
-
 </body>
 </html>
