@@ -14,7 +14,13 @@ import com.yoharshini.yoharshinimart.util.DatabaseConnection;
 public class DeleteProductServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
+    // Handle GET request correctly
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        doPost(request, response);
+    }
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String idStr = request.getParameter("id");
         if (idStr != null) {
@@ -29,6 +35,6 @@ public class DeleteProductServlet extends HttpServlet {
                 e.printStackTrace();
             }
         }
-        response.sendRedirect("ProductServlet");
+        response.setStatus(HttpServletResponse.SC_OK);
     }
 }
