@@ -417,7 +417,7 @@ function deleteProduct(id) {
         products = products.filter(product => product.id !== id);
         displayProducts();
 
-        fetch("DeleteProductServlet?id=" + id, { method: "POST" })
+        fetch("DeleteProductServlet?id=" + id, { method: "GET" })
             .catch(error => console.error("Delete backend sync error:", error));
     }
 }
