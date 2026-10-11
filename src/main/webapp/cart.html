@@ -3,33 +3,63 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Yoharshini Mart - Shopping Cart</title>
+<title>Yoharshini Mart - Cart & My Orders</title>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, sans-serif; }
 body { background: #f7f8f5; color: #173c33; font-size: 18px; padding: 30px; }
-.header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+.header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
 .header h2 { font-size: 28px; }
-.btn { padding: 10px 20px; background: #173c33; color: white; text-decoration: none; border-radius: 8px; font-weight: bold; }
-.cart-container { background: white; padding: 30px; border-radius: 14px; box-shadow: 0 4px 15px rgba(0,0,0,0.06); max-width: 800px; margin: 0 auto; }
+.btn { padding: 10px 20px; background: #173c33; color: white; text-decoration: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
+.tabs { display: flex; gap: 15px; margin-bottom: 25px; }
+.tab-btn { padding: 12px 25px; background: #eef2ef; border: none; border-radius: 10px; font-weight: bold; font-size: 18px; cursor: pointer; color: #173c33; }
+.tab-btn.active { background: #28584c; color: white; }
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+.card-container { background: white; padding: 30px; border-radius: 14px; box-shadow: 0 4px 15px rgba(0,0,0,0.06); max-width: 850px; margin: 0 auto; }
 .cart-item { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding: 15px 0; }
 .cart-item img { width: 80px; height: 80px; object-fit: cover; border-radius: 8px; }
 .summary { margin-top: 20px; font-size: 20px; font-weight: bold; text-align: right; }
 .checkout-btn { width: 100%; padding: 15px; background: #28584c; color: white; border: none; border-radius: 8px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 20px; }
 .checkout-btn:hover { background: #173c33; }
+.order-card { background: white; padding: 25px; border-radius: 14px; box-shadow: 0 4px 15px rgba(0,0,0,0.06); margin-bottom: 25px; }
+.order-header { display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding-bottom: 12px; margin-bottom: 15px; font-weight: bold; }
+.tracking-bar { display: flex; justify-content: space-between; position: relative; margin: 25px 0 15px 0; }
+.tracking-bar::before { content: ''; position: absolute; top: 15px; left: 0; right: 0; height: 4px; background: #ddd; z-index: 1; }
+.track-step { position: relative; z-index: 2; background: white; padding: 0 10px; text-align: center; }
+.step-icon { width: 34px; height: 34px; background: #28584c; color: white; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 0 auto 5px auto; font-weight: bold; font-size: 14px; }
+.step-title { font-size: 14px; color: #333; font-weight: bold; }
 </style>
 </head>
 <body>
 
 <div class="header">
-    <h2>🛒 Your Shopping Cart</h2>
-    <a href="buyer.html" class="btn">Continue Shopping</a>
+    <h2>🛍️ Yoharshini Mart</h2>
+    <a href="buyer.html" class="btn">← Continue Shopping</a>
 </div>
 
-<div class="cart-container" id="cartContainer">
-    <!-- Cart items will load dynamically -->
+<div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('cartTab', this)">🛒 Shopping Cart</button>
+    <button class="tab-btn" onclick="switchTab('ordersTab', this)">📦 My Orders & Tracking</button>
+</div>
+
+<!-- CART SECTION -->
+<div id="cartTab" class="tab-content active">
+    <div class="card-container" id="cartContainer"></div>
+</div>
+
+<!-- ORDERS & TRACKING SECTION -->
+<div id="ordersTab" class="tab-content">
+    <div style="max-width: 850px; margin: 0 auto;" id="ordersContainer"></div>
 </div>
 
 <script>
+function switchTab(tabId, btn) {
+    document.querySelectorAll(".tab-content").forEach(el => el.classList.remove("active"));
+    document.querySelectorAll(".tab-btn").forEach(el => el.classList.remove("active"));
+    document.getElementById(tabId).classList.add("active");
+    btn.classList.add("active");
+}
+
 function loadCart() {
     let cartContainer = document.getElementById("cartContainer");
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -56,7 +86,7 @@ function loadCart() {
                 <img src="${item.image}" alt="${item.name}">
                 <div>
                     <h3>${item.name}</h3>
-                    <p>Price: ₹${item.price} x ${item.quantity || 1}</p>
+                    <p style="color:#555; font-size:16px;">Price: ₹${item.price} x ${item.quantity || 1}</p>
                 </div>
                 <p><b>₹${itemTotal}</b></p>
                 <button onclick="removeItem(${index})" style="background: #d9534f; color: white; border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer;">Remove</button>
@@ -66,7 +96,7 @@ function loadCart() {
 
     html += `
         <div class="summary">Total Amount: ₹${total}</div>
-        <button class="checkout-btn" onclick="confirmOrder()">Confirm Order</button>
+        <button class="checkout-btn" onclick="confirmOrder()">Confirm Order & Pay</button>
     `;
 
     cartContainer.innerHTML = html;
@@ -88,7 +118,68 @@ function confirmOrder() {
     window.location.href = "payment.html";
 }
 
-window.onload = loadCart;
+function loadOrders() {
+    let container = document.getElementById("ordersContainer");
+    let orders = JSON.parse(localStorage.getItem("orders")) || [];
+
+    if (orders.length === 0) {
+        container.innerHTML = `
+            <div class="card-container" style="text-align: center; padding: 50px;">
+                <h3>No Order History Found 📦</h3>
+                <p style="color: #666; margin: 10px 0;">You have not placed any orders yet.</p>
+                <a href="buyer.html" class="btn" style="display:inline-block; margin-top:15px;">Start Shopping</a>
+            </div>
+        `;
+        return;
+    }
+
+    let html = "";
+    orders.forEach(order => {
+        html += `
+            <div class="order-card">
+                <div class="order-header">
+                    <span>🆔 Order ID: ${order.orderId}</span>
+                    <span>📅 Date: ${order.date}</span>
+                </div>
+                
+                <!-- Live Tracking -->
+                <div class="tracking-bar">
+                    <div class="track-step"><div class="step-icon">✓</div><div class="step-title">Order Placed</div></div>
+                    <div class="track-step"><div class="step-icon">✓</div><div class="step-title">Shipped</div></div>
+                    <div class="track-step"><div class="step-icon">🚚</div><div class="step-title">Out for Delivery</div></div>
+                    <div class="track-step"><div class="step-icon" style="background:#ccc;">📦</div><div class="step-title">Delivered</div></div>
+                </div>
+                <hr style="border:none; border-top:1px solid #eee; margin:15px 0;">
+        `;
+        
+        order.items.forEach(item => {
+            html += `
+                <div style="display:flex; align-items:center; gap:15px; margin-bottom:12px;">
+                    <img src="${item.image}" style="width:60px; height:60px; object-fit:cover; border-radius:6px;">
+                    <div style="flex-grow:1;">
+                        <h4 style="font-size:18px;">${item.name}</h4>
+                        <p style="color:#555; font-size:15px;">₹${item.price} x ${item.quantity || 1}</p>
+                    </div>
+                    <b>₹${item.price * (item.quantity || 1)}</b>
+                </div>
+            `;
+        });
+
+        html += `
+                <div style="text-align: right; margin-top: 15px; font-size: 19px; font-weight: bold; border-top: 1px solid #eee; padding-top: 10px;">
+                    Total Paid: ₹${order.totalAmount}
+                </div>
+            </div>
+        `;
+    });
+
+    container.innerHTML = html;
+}
+
+window.onload = function() {
+    loadCart();
+    loadOrders();
+};
 </script>
 
 </body>
