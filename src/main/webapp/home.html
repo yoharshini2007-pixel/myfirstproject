@@ -42,11 +42,11 @@ body { background: #f7f8f5; color: #173c33; font-size: 18px; }
 #products h1 { font-size: 38px !important; margin-bottom: 20px; }
 #products .product-grid { display: grid !important; grid-template-columns: repeat(3, minmax(280px, 1fr)) !important; gap: 30px !important; width: 100% !important; }
 #products .product-card { background: white; border-radius: 18px; overflow: hidden; box-shadow: 0 5px 18px rgba(0,0,0,0.08); }
-#products .product-card img { width: 100% !important; height: 240px !important; object-fit: contain !important; background: #f5f5f5; }
+#products .product-card img { width: 100% !important; height: 260px !important; object-fit: cover !important; background: #f5f5f5; }
 #products .product-info { padding: 25px; }
-#products .product-info h3 { font-size: 27px !important; margin-bottom: 15px; }
-#products .product-info p { font-size: 21px !important; margin: 11px 0; color: #555; }
-.delete-btn { font-size: 20px !important; padding: 14px; background: #d9534f; color: white; border: none; width: 100%; border-radius: 8px; cursor: pointer; margin-top: 10px; }
+#products .product-info h3 { font-size: 25px !important; margin-bottom: 12px; }
+#products .product-info p { font-size: 19px !important; margin: 8px 0; color: #555; }
+.delete-btn { font-size: 18px !important; padding: 12px; background: #d9534f; color: white; border: none; width: 100%; border-radius: 8px; cursor: pointer; margin-top: 10px; }
 .delete-btn:hover { background: #c9302c; }
 .category-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px; width: 100%; margin-top: 20px; }
 .category-card { background: white; min-height: 180px; padding: 30px 20px; border-radius: 18px; text-align: center; box-shadow: 0 5px 18px rgba(0,0,0,0.08); cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: 0.3s; }
@@ -173,7 +173,6 @@ body { background: #f7f8f5; color: #173c33; font-size: 18px; }
 <script>
 let products = [];
 
-// Sub-categories with Emojis & preloaded 3 sample products per sub-category
 const subCategories = {
     Men: [
         { name: "Shirts", emoji: "👔", products: [
@@ -214,14 +213,14 @@ const subCategories = {
             { id: 203, name: "Designer Georgette Saree", price: 1799, stock: 14, image: "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1" }
         ]},
         { name: "Dresses", emoji: "👗", products: [
-            { id: 204, name: "Floral Summer Dress", price: 1199, stock: 18, image: "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446" },
-            { id: 205, name: "Party Wear Gown", price: 2299, stock: 9, image: "https://images.unsplash.com/photo-1566174053879-31528523f8ae" },
-            { id: 206, name: "Casual Midi Dress", price: 999, stock: 20, image: "https://images.unsplash.com/photo-1496747611176-843222e1e57c" }
+            { id: 204, name: "Traditional Anarkali Gown", price: 2199, stock: 12, image: "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b" },
+            { id: 205, name: "Ethnic Designer Lehengas", price: 3499, stock: 8, image: "https://images.unsplash.com/photo-1610030469983-98e550d6193c" },
+            { id: 206, name: "Traditional Indo-Western Kurti Dress", price: 1499, stock: 15, image: "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1" }
         ]},
         { name: "Tops", emoji: "👚", products: [
-            { id: 207, name: "Casual Cotton Top", price: 599, stock: 35, image: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c" },
-            { id: 208, name: "Designer Party Top", price: 799, stock: 22, image: "https://images.unsplash.com/photo-1485968579580-b6d095142e6e" },
-            { id: 209, name: "Office Wear Shirt Top", price: 699, stock: 28, image: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b" }
+            { id: 207, name: "Traditional Embroidered Ethnic Top", price: 899, stock: 25, image: "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b" },
+            { id: 208, name: "Ethnic Block Printed Cotton Peplum", price: 749, stock: 30, image: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c" },
+            { id: 209, name: "Traditional Mirror Work Crop Top", price: 999, stock: 18, image: "https://images.unsplash.com/photo-1485968579580-b6d095142e6e" }
         ]},
         { name: "Jeans", emoji: "👖", products: [
             { id: 210, name: "High Waist Skinny Jeans", price: 1399, stock: 15, image: "https://images.unsplash.com/photo-1541099649105-f69ad21f3246" },
@@ -229,14 +228,46 @@ const subCategories = {
             { id: 212, name: "Ripped Denim Jeans", price: 1599, stock: 10, image: "https://images.unsplash.com/photo-1541099649105-f69ad21f3246" }
         ]},
         { name: "Kurtis", emoji: "👘", products: [
-            { id: 213, name: "Anarkali Kurti", price: 1299, stock: 20, image: "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b" },
-            { id: 214, name: "Cotton Printed Kurti", price: 699, stock: 40, image: "https://images.unsplash.com/photo-1610030469983-98e550d6193c" },
-            { id: 215, name: "Short Rayon Kurti", price: 599, stock: 30, image: "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1" }
+            { id: 213, name: "Designer Long Kurti", price: 1199, stock: 20, image: "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b" },
+            { id: 214, name: "Cotton Printed Straight Kurti", price: 699, stock: 40, image: "https://images.unsplash.com/photo-1610030469983-98e550d6193c" },
+            { id: 215, name: "Short Rayon Anarkali Kurti", price: 899, stock: 22, image: "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1" }
         ]},
         { name: "Handbags", emoji: "👜", products: [
-            { id: 216, name: "Leather Tote Bag", price: 1899, stock: 12, image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3" },
-            { id: 217, name: "Stylish Sling Bag", price: 999, stock: 25, image: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7" },
-            { id: 218, name: "Party Clutch", price: 799, stock: 18, image: "https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d" }
+            { id: 216, name: "Ethnic Embroidered Potli Bag", price: 599, stock: 25, image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3" },
+            { id: 217, name: "Stylish Sling Bag", price: 999, stock: 20, image: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7" },
+            { id: 218, name: "Traditional Zari Work Clutch", price: 799, stock: 15, image: "https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d" }
+        ]}
+    ],
+    Kids: [
+        { name: "Boys Wear", emoji: "👦", products: [
+            { id: 501, name: "Kids Party Blazer", price: 1199, stock: 15, image: "https://images.unsplash.com/photo-1519238263530-99bdd11df2ea" },
+            { id: 502, name: "Boys Casual T-Shirt", price: 349, stock: 30, image: "https://images.unsplash.com/photo-1503944583220-74d8964b562b" },
+            { id: 503, name: "Kids Denim Shorts", price: 599, stock: 20, image: "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af" }
+        ]},
+        { name: "Girls Wear", emoji: "👧", products: [
+            { id: 504, name: "Girls Party Frock", price: 999, stock: 18, image: "https://images.unsplash.com/photo-1518831959646-742c3a14ebf7" },
+            { id: 505, name: "Cute Cotton Dress", price: 699, stock: 25, image: "https://images.unsplash.com/photo-1622290291468-a28f7a7dc6a8" },
+            { id: 506, name: "Kids Ethnic Suit", price: 1299, stock: 10, image: "https://images.unsplash.com/photo-1596870230751-ebdfce98ec42" }
+        ]},
+        { name: "Toys", emoji: "🧸", products: [
+            { id: 507, name: "Soft Teddy Bear", price: 499, stock: 40, image: "https://images.unsplash.com/photo-1534723485564-940026e74404" },
+            { id: 508, name: "Building Blocks Set", price: 799, stock: 20, image: "https://images.unsplash.com/photo-1587654780291-39c9404d746b" },
+            { id: 509, name: "Remote Control Car", price: 1499, stock: 15, image: "https://images.unsplash.com/photo-1594787318286-3d835c1d207f" }
+        ]},
+        { name: "Kids Shoes", emoji: "👟", products: [
+            { id: 510, name: "Light Up Sports Shoes", price: 899, stock: 22, image: "https://images.unsplash.com/photo-1515347619252-60a4bf4fff4f" },
+            { id: 511, name: "Casual Canvas Sneakers", price: 699, stock: 30, image: "https://images.unsplash.com/photo-1560769629-975ec94e6a86" },
+            { id: 512, name: "Kids Sandals", price: 499, stock: 25, image: "https://images.unsplash.com/photo-1575537302964-96cd47c06b1b" }
+        ]},
+        { name: "School Bags", emoji: "🎒", products: [
+            { id: 513, name: "Cartoon Print School Bag", price: 999, stock: 20, image: "https://images.unsplash.com/photo-1588850561407-ed78c282e89b" },
+            { id: 514, name: "Waterproof Kids Backpack", price: 1199, stock: 15, image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62" },
+            { id: 515, name: "Collegiate Junior Bag", price: 899, stock: 18, image: "https://images.unsplash.com/photo-1546938576-6e6a64f3175e" }
+        ]},
+        { name: "Baby Care", emoji: "🍼", products: [
+            { id: 516, name: "Baby Feeding Bottle Set", price: 399, stock: 35, image: "https://images.unsplash.com/photo-1584132967334-10e028bd69f7" },
+            { id: 517, name: "Organic Baby Lotion", price: 299, stock: 40, image: "https://images.unsplash.com/photo-1556228720-195a672e8a03" },
+            { id: 518, name: "Soft Baby Bath Towel", price: 449, stock: 30, image: "https://images.unsplash.com/photo-1516627145497-ae6968895b74" }
         ]}
     ],
     Electronics: [
@@ -305,6 +336,28 @@ const subCategories = {
     ]
 };
 
+function getAllPreloadedProducts() {
+    let all = [];
+    for (let cat in subCategories) {
+        subCategories[cat].forEach(sub => {
+            if (sub.products && sub.products.length > 0) {
+                sub.products.forEach(p => {
+                    all.push({
+                        id: p.id,
+                        name: p.name,
+                        price: p.price,
+                        category: cat,
+                        subCategory: sub.name,
+                        stock: p.stock,
+                        image: p.image
+                    });
+                });
+            }
+        });
+    }
+    return all;
+}
+
 function showPage(pageName, clickedMenu = null) {
     document.querySelectorAll(".page").forEach(page => page.classList.remove("active-page"));
     const page = document.getElementById(pageName);
@@ -316,16 +369,22 @@ function showPage(pageName, clickedMenu = null) {
 }
 
 function loadProductsFromDatabase() {
+    let preloaded = getAllPreloadedProducts();
     fetch("ProductDataServlet")
         .then(response => response.json())
         .then(data => {
-            products = data.map(product => ({
+            let dbProducts = data.map(product => ({
                 id: product.id, name: product.name, price: product.price,
                 category: product.category, subCategory: product.subCategory, stock: product.stock, image: product.imageUrl
             }));
+            products = [...preloaded, ...dbProducts];
             displayProducts();
         })
-        .catch(error => console.error("Product loading error:", error));
+        .catch(error => {
+            console.error("Product loading error:", error);
+            products = preloaded;
+            displayProducts();
+        });
 }
 
 function displayProducts() {
@@ -391,16 +450,21 @@ function filterBySubCategory(categoryName, subCategoryName) {
     const catData = subCategories[categoryName];
     if (catData) {
         const subObj = catData.find(s => s.name.toLowerCase() === subCategoryName.toLowerCase());
-        if (subObj && subObj.products) {
+        if (subObj && subObj.products && subObj.products.length > 0) {
             products = subObj.products.map(p => ({
-                id: p.id, name: p.name, price: p.price,
-                category: categoryName, subCategory: subCategoryName, stock: p.stock, image: p.image
+                id: p.id, 
+                name: p.name, 
+                price: p.price,
+                category: categoryName, 
+                subCategory: subCategoryName, 
+                stock: p.stock, 
+                image: p.image
             }));
             displayProducts();
             return;
         }
     }
-    // Fallback to database fetch if static items are not defined for that specific category
+    
     fetch("ProductDataServlet")
         .then(response => response.json())
         .then(data => {
